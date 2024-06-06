@@ -16,9 +16,6 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-interface AppAppBarProps {
-}
-
 function AppAppBar() {
   const [open, setOpen] = React.useState(false);
 
@@ -46,19 +43,13 @@ function AppAppBar() {
               justifyContent: 'space-between',
               flexShrink: 0,
               borderRadius: '999px',
-              bgcolor:
-                theme.palette.mode === 'light'
-                  ? 'rgba(255, 255, 255, 0.4)'
-                  : 'rgba(0, 0, 0, 0.4)',
+              bgcolor: 'rgba(255, 255, 255, 0.4)',
               backdropFilter: 'blur(24px)',
               maxHeight: 40,
               border: '1px solid',
               borderColor: 'divider',
-              boxShadow:
-                theme.palette.mode === 'light'
-                  ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
-                  : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
-            })}
+              boxShadow:`0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
+             })}
           >
             <Box
               sx={{
@@ -69,6 +60,7 @@ function AppAppBar() {
                 px: 0,
               }}
             >
+              <a href='/'>
               <img
                 src={
                   'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
@@ -76,6 +68,7 @@ function AppAppBar() {
                 style={logoStyle}
                 alt="logo of sitemark"
               />
+              </a>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
                   onClick={() => {}}
@@ -107,9 +100,7 @@ function AppAppBar() {
               color="primary"
               variant="text"
               size="small"
-              component="a"
               href="/authenticate/signin"
-              target="_blank"
             >
               Sign in
             </Button>
@@ -117,9 +108,7 @@ function AppAppBar() {
                 color="primary"
                 variant="contained"
                 size="small"
-                component="a"
                 href="/authenticate/signup"
-                target="_blank"
               >
                 Sign up
               </Button>
@@ -165,7 +154,6 @@ function AppAppBar() {
                       variant="contained"
                       component="a"
                       href="/authenticate/signup"
-                      target="_blank"
                       sx={{ width: '100%' }}
                     >
                       Sign up
@@ -177,7 +165,6 @@ function AppAppBar() {
                       variant="outlined"
                       component="a"
                       href="/authenticate/signin"
-                      target="_blank"
                       sx={{ width: '100%' }}
                     >
                       Sign in
