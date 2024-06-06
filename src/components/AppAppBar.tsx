@@ -32,12 +32,11 @@ function AppAppBar() {
           bgcolor: 'transparent',
           backgroundImage: 'none',
           mt: 2,
-        }}
-      >
+        }}>
         <Container maxWidth="lg">
           <Toolbar
             variant="regular"
-            sx={(theme) => ({
+            sx={theme => ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -48,9 +47,8 @@ function AppAppBar() {
               maxHeight: 40,
               border: '1px solid',
               borderColor: 'divider',
-              boxShadow:`0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
-             })}
-          >
+              boxShadow: `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`,
+            })}>
             <Box
               sx={{
                 flexGrow: 1,
@@ -58,34 +56,34 @@ function AppAppBar() {
                 alignItems: 'center',
                 ml: '-18px',
                 px: 0,
-              }}
-            >
-              <a href='/'>
-              <img
-                src={
-                  'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
-                }
-                style={logoStyle}
-                alt="logo of sitemark"
-              />
+              }}>
+              <a href="/">
+                <img
+                  src={
+                    'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
+                  }
+                  style={logoStyle}
+                  alt="logo of sitemark"
+                />
               </a>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
-                  onClick={() => {}}
-                  sx={{ py: '6px', px: '12px' }}
-                >
+                  onClick={() => {
+                    console.log('toto');
+                  }}
+                  sx={{ py: '6px', px: '12px' }}>
                   <Typography variant="body2" color="text.primary">
                     MURDER PARTY
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => {}}
-                  sx={{ py: '6px', px: '12px' }}
-                >
+                  onClick={() => {
+                    console.log('toto');
+                  }}
+                  sx={{ py: '6px', px: '12px' }}>
                   <Typography variant="body2" color="text.primary">
                     CONTACT
                   </Typography>
-                  
                 </MenuItem>
               </Box>
             </Box>
@@ -94,22 +92,11 @@ function AppAppBar() {
                 display: { xs: 'none', md: 'flex' },
                 gap: 0.5,
                 alignItems: 'center',
-              }}
-            >
-            <Button
-              color="primary"
-              variant="text"
-              size="small"
-              href="/authenticate/signin"
-            >
-              Sign in
-            </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                size="small"
-                href="/authenticate/signup"
-              >
+              }}>
+              <Button color="primary" variant="text" size="small" href="/authenticate/signin">
+                Sign in
+              </Button>
+              <Button color="primary" variant="contained" size="small" href="/authenticate/signup">
                 Sign up
               </Button>
             </Box>
@@ -119,8 +106,7 @@ function AppAppBar() {
                 color="primary"
                 aria-label="menu"
                 onClick={toggleDrawer(true)}
-                sx={{ minWidth: '30px', p: '4px' }}
-              >
+                sx={{ minWidth: '30px', p: '4px' }}>
                 <MenuIcon />
               </Button>
               <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
@@ -130,21 +116,24 @@ function AppAppBar() {
                     p: 2,
                     backgroundColor: 'background.paper',
                     flexGrow: 1,
-                  }}
-                >
+                  }}>
                   <Box
                     sx={{
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'end',
                       flexGrow: 1,
-                    }}
-                  >
-                  </Box>
-                  <MenuItem                   onClick={() => {}}>
+                    }}></Box>
+                  <MenuItem
+                    onClick={() => {
+                      console.log('toto');
+                    }}>
                     MURDER PARTY
                   </MenuItem>
-                  <MenuItem                   onClick={() => {}}>
+                  <MenuItem
+                    onClick={() => {
+                      console.log('toto');
+                    }}>
                     CONTACT
                   </MenuItem>
                   <Divider />
@@ -154,8 +143,7 @@ function AppAppBar() {
                       variant="contained"
                       component="a"
                       href="/authenticate/signup"
-                      sx={{ width: '100%' }}
-                    >
+                      sx={{ width: '100%' }}>
                       Sign up
                     </Button>
                   </MenuItem>
@@ -165,8 +153,7 @@ function AppAppBar() {
                       variant="outlined"
                       component="a"
                       href="/authenticate/signin"
-                      sx={{ width: '100%' }}
-                    >
+                      sx={{ width: '100%' }}>
                       Sign in
                     </Button>
                   </MenuItem>

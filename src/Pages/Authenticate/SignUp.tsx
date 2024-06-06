@@ -12,8 +12,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Checkbox, FormControlLabel } from '@mui/material';
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -36,8 +34,7 @@ export default function SignUp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -47,14 +44,7 @@ export default function SignUp() {
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+                <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -68,18 +58,13 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+              />
+            </Grid>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">

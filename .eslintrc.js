@@ -18,7 +18,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     'prettier',
-    'plugin:cypress/recommended',
     'plugin:react-hooks/recommended',
   ],
   rules: {
@@ -36,11 +35,6 @@ module.exports = {
     'react/display-name': 'off',
     '@typescript-eslint/explicit-function-return-type': 'warn',
     '@typescript-eslint/ban-ts-comment': 'warn',
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    'prettier/prettier': 'warn',
   },
 };

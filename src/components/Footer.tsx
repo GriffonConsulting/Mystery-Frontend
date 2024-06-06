@@ -8,8 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {'Copyright © '}
-        Griffon Consulting{' '}
-      {new Date().getFullYear()}
+      Griffon Consulting {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
@@ -25,16 +24,14 @@ export default function Footer() {
         gap: { xs: 4, sm: 8 },
         py: { xs: 8, sm: 10 },
         textAlign: { sm: 'center', md: 'left' },
-      }}
-    >
+      }}>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
           pt: { xs: 4, sm: 8 },
           width: '100%',
-        }}
-      >
+        }}>
         <div>
           <Link color="text.secondary" href="#">
             Privacy Policy
