@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PaletteMode } from '@mui/material';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -25,20 +24,6 @@ function AppAppBar() {
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
-    if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: 'smooth' });
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth',
-      });
-      setOpen(false);
-    }
   };
 
   return (
@@ -93,7 +78,7 @@ function AppAppBar() {
               />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
-                  onClick={() => scrollToSection('features')}
+                  onClick={() => {}}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
@@ -101,12 +86,13 @@ function AppAppBar() {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => scrollToSection('features')}
+                  onClick={() => {}}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
                     CONTACT
                   </Typography>
+                  
                 </MenuItem>
               </Box>
             </Box>
@@ -117,12 +103,22 @@ function AppAppBar() {
                 alignItems: 'center',
               }}
             >
+            <Button
+              color="primary"
+              variant="text"
+              size="small"
+              component="a"
+              href="/authenticate/signin"
+              target="_blank"
+            >
+              Sign in
+            </Button>
               <Button
                 color="primary"
                 variant="contained"
                 size="small"
                 component="a"
-                href="/material-ui/getting-started/templates/sign-up/"
+                href="/authenticate/signup"
                 target="_blank"
               >
                 Sign up
@@ -156,10 +152,10 @@ function AppAppBar() {
                     }}
                   >
                   </Box>
-                  <MenuItem onClick={() => scrollToSection('features')}>
+                  <MenuItem                   onClick={() => {}}>
                     MURDER PARTY
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('features')}>
+                  <MenuItem                   onClick={() => {}}>
                     CONTACT
                   </MenuItem>
                   <Divider />
@@ -168,11 +164,23 @@ function AppAppBar() {
                       color="primary"
                       variant="contained"
                       component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
+                      href="/authenticate/signup"
                       target="_blank"
                       sx={{ width: '100%' }}
                     >
                       Sign up
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      component="a"
+                      href="/authenticate/signin"
+                      target="_blank"
+                      sx={{ width: '100%' }}
+                    >
+                      Sign in
                     </Button>
                   </MenuItem>
                 </Box>

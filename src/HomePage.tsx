@@ -13,24 +13,8 @@ import AppAppBar from './components/AppAppBar';
 import Footer from './components/Footer';
 
 export default function LandingPage() {
-  const defaultTheme = createTheme();
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppAppBar  />
-       <Box>
-        {/* <Features />
-        <Divider />
-        <Testimonials />
-        <Divider />
-        <Highlights />
-        <Divider />
-        <Pricing />
-        <Divider />
-        <FAQ /> */}
-        <Footer />
-      </Box> 
-    </ThemeProvider>
+    <></>
   );
 }
