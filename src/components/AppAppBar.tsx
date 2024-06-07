@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const logoStyle = {
   width: '140px',
@@ -57,7 +58,7 @@ function AppAppBar(): JSX.Element {
                 ml: '-18px',
                 px: 0,
               }}>
-              <a href="/">
+              <Link to="/">
                 <img
                   src={
                     'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
@@ -65,7 +66,7 @@ function AppAppBar(): JSX.Element {
                   style={logoStyle}
                   alt="logo of sitemark"
                 />
-              </a>
+              </Link>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
                   onClick={() => {
@@ -93,12 +94,16 @@ function AppAppBar(): JSX.Element {
                 gap: 0.5,
                 alignItems: 'center',
               }}>
-              <Button color="primary" variant="text" size="small" href="/authenticate/signin">
-                Sign in
-              </Button>
-              <Button color="primary" variant="contained" size="small" href="/authenticate/signup">
-                Sign up
-              </Button>
+              <Link to="/authenticate/signin">
+                <Button color="primary" variant="text" size="small">
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/authenticate/signup">
+                <Button color="primary" variant="contained" size="small">
+                  Sign up
+                </Button>
+              </Link>
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
@@ -138,24 +143,18 @@ function AppAppBar(): JSX.Element {
                   </MenuItem>
                   <Divider />
                   <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      component="a"
-                      href="/authenticate/signup"
-                      sx={{ width: '100%' }}>
-                      Sign up
-                    </Button>
+                    <Link to="/authenticate/signup">
+                      <Button color="primary" variant="contained" sx={{ width: '100%' }}>
+                        Sign up
+                      </Button>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      component="a"
-                      href="/authenticate/signin"
-                      sx={{ width: '100%' }}>
-                      Sign in
-                    </Button>
+                    <Link to="/authenticate/signin">
+                      <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
+                        Sign in
+                      </Button>
+                    </Link>
                   </MenuItem>
                 </Box>
               </Drawer>

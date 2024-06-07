@@ -13,16 +13,16 @@ export const App = (): JSX.Element => {
 
   return (
     <UserContext.Provider value={currentUser}>
-      <Layout>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="/authenticate/signin" element={<SignIn />} />
             <Route path="/authenticate/signup" element={<SignUp />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
-        </BrowserRouter>
-      </Layout>
+        </Layout>
+      </BrowserRouter>
     </UserContext.Provider>
   );
 };
