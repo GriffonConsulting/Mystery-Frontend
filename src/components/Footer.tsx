@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
-function Copyright() {
+function Copyright(): JSX.Element {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {'Copyright © '}
@@ -14,7 +14,7 @@ function Copyright() {
   );
 }
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   return (
     <Container
       sx={{

@@ -16,10 +16,10 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-function AppAppBar() {
+function AppAppBar(): JSX.Element {
   const [open, setOpen] = React.useState(false);
 
-  const toggleDrawer = (newOpen: boolean) => () => {
+  const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
   };
 
@@ -36,7 +36,7 @@ function AppAppBar() {
         <Container maxWidth="lg">
           <Toolbar
             variant="regular"
-            sx={theme => ({
+            sx={() => ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -105,11 +105,11 @@ function AppAppBar() {
                 variant="text"
                 color="primary"
                 aria-label="menu"
-                onClick={toggleDrawer(true)}
+                onClick={() => toggleDrawer(true)}
                 sx={{ minWidth: '30px', p: '4px' }}>
                 <MenuIcon />
               </Button>
-              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+              <Drawer anchor="right" open={open} onClose={() => toggleDrawer(false)}>
                 <Box
                   sx={{
                     minWidth: '60dvw',

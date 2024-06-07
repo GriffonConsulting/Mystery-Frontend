@@ -33,7 +33,7 @@ module.exports = {
       },
     ],
     'react/display-name': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/ban-ts-comment': 'warn',
     'prettier/prettier': 'warn',
   },

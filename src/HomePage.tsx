@@ -1,5 +1,7 @@
 import * as React from 'react';
 
-export default function LandingPage() {
+export const HomePage = (): JSX.Element => {
   return <></>;
-}
+};
+
+export default HomePage;

@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
-import { Box, PaletteMode, createTheme } from '@mui/material';
+import { Box, createTheme } from '@mui/material';
 import * as React from 'react';
 import AppAppBar from './components/AppAppBar';
 import Footer from './components/Footer';
@@ -8,7 +8,7 @@ export interface LandingPageProps {
   children?: Array<React.ReactNode> | React.ReactNode;
 }
 
-const LandingPage = (props: LandingPageProps) => {
+const LandingPage = (props: LandingPageProps): JSX.Element => {
   const defaultTheme = createTheme({
     palette: {
       mode: 'light',
