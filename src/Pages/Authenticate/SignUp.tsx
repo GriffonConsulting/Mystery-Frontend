@@ -10,19 +10,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useCurrentUser } from '../../UserContext';
+import { useState } from 'react';
+import api from '../../__generated__/api';
 
 const SignUp = (): JSX.Element => {
-  const currentUser = useCurrentUser();
-
-  console.log(currentUser);
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    api.authenticate.signUp({ email, password }).catch(() => {
+      console.log('test');
     });
   };
 

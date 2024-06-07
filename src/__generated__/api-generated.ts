@@ -14,25 +14,6 @@ export interface ConfirmEmailCommand {
   token?: string | null;
 }
 
-export interface LoginModel {
-  /** @minLength 1 */
-  username: string;
-  /** @minLength 1 */
-  password: string;
-}
-
-export interface RegisterModel {
-  /** @minLength 1 */
-  username: string;
-  /**
-   * @format email
-   * @minLength 1
-   */
-  email: string;
-  /** @minLength 1 */
-  password: string;
-}
-
 export interface SignInCommand {
   email?: string | null;
   password?: string | null;
@@ -43,12 +24,12 @@ export interface SignUpCommand {
   password?: string | null;
 }
 
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
-import axios from "axios";
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
+import axios from 'axios';
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
+export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -63,9 +44,9 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
+export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, 'data' | 'cancelToken'> {
   securityWorker?: (
     securityData: SecurityDataType | null,
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
@@ -74,21 +55,21 @@ export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequest
 }
 
 export enum ContentType {
-  Json = "application/json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
-  Text = "text/plain",
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
+  Text = 'text/plain',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
   public instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
+  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private secure?: boolean;
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "" });
+    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -114,7 +95,7 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected stringifyFormItem(formItem: unknown) {
-    if (typeof formItem === "object" && formItem !== null) {
+    if (typeof formItem === 'object' && formItem !== null) {
       return JSON.stringify(formItem);
     } else {
       return `${formItem}`;
@@ -145,18 +126,18 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<AxiosResponse<T>> => {
     const secureParams =
-      ((typeof secure === "boolean" ? secure : this.secure) &&
+      ((typeof secure === 'boolean' ? secure : this.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || undefined;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
+    if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
       body = this.createFormData(body as Record<string, unknown>);
     }
 
-    if (type === ContentType.Text && body && body !== null && typeof body !== "string") {
+    if (type === ContentType.Text && body && body !== null && typeof body !== 'string') {
       body = JSON.stringify(body);
     }
 
@@ -164,7 +145,7 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       },
       params: query,
       responseType: responseFormat,
@@ -184,109 +165,62 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Authenticate
-     * @name AuthenticateLoginCreate
-     * @request POST:/api/Authenticate/login
-     */
-    authenticateLoginCreate: (data: LoginModel, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/login`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name AuthenticateRegisterCreate
-     * @request POST:/api/Authenticate/register
-     */
-    authenticateRegisterCreate: (data: RegisterModel, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/register`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name AuthenticateRegisterAdminCreate
-     * @request POST:/api/Authenticate/register-admin
-     */
-    authenticateRegisterAdminCreate: (data: RegisterModel, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/register-admin`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name SignUp
-     * @request POST:/api/Authenticate/SignUp
-     */
-    signUp: (data: SignUpCommand, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/SignUp`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name AuthenticateConfirmEmailCreate
-     * @request POST:/api/Authenticate/ConfirmEmail
-     */
-    authenticateConfirmEmailCreate: (data: ConfirmEmailCommand, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/ConfirmEmail`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name AuthenticateSignInCreate
-     * @request POST:/api/Authenticate/SignIn
-     */
-    authenticateSignInCreate: (data: SignInCommand, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/SignIn`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Authenticate
      * @name AuthenticateTestCreate
      * @request POST:/api/Authenticate/Test
      */
     authenticateTestCreate: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Authenticate/Test`,
-        method: "POST",
+        method: 'POST',
+        ...params,
+      }),
+  };
+  authenticate = {
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name SignUp
+     * @request POST:/Authenticate/SignUp
+     */
+    signUp: (data: SignUpCommand, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Authenticate/SignUp`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name ConfirmEmail
+     * @request POST:/Authenticate/ConfirmEmail
+     */
+    confirmEmail: (data: ConfirmEmailCommand, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Authenticate/ConfirmEmail`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name SignIn
+     * @request POST:/Authenticate/SignIn
+     */
+    signIn: (data: SignInCommand, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Authenticate/SignIn`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
         ...params,
       }),
   };

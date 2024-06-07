@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
-import HomePage from './HomePage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './Layout';
-import SignIn from './Pages/Authenticate/SignIn';
-import SignUp from './Pages/Authenticate/SignUp';
+import React, { useEffect, useState } from 'react';
 import { UserContext, UserContextType } from './UserContext';
+import axios from 'axios';
+import AppRoutes from './Routes';
+import { Api, HttpClient } from './__generated__/api-generated';
 
 export const App = (): JSX.Element => {
   const [currentUser, setCurrentUser] = useState<UserContextType>({
     token: 'filiptammergard',
   });
 
+  //todo conf
+
+  useEffect(() => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`;
+  }, [currentUser]);
+
   return (
     <UserContext.Provider value={currentUser}>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path="/authenticate/signin" element={<SignIn />} />
-            <Route path="/authenticate/signup" element={<SignUp />} />
-            {/* <Route path="*" element={<NoPage />} /> */}
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+      <AppRoutes />
     </UserContext.Provider>
   );
 };
