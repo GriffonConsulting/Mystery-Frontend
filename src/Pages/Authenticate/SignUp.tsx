@@ -20,7 +20,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState<SignUpCommand>({});
+  const [signUp, setSignUp] = useState<SignUpCommand>({ marketingEmail: false });
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
@@ -45,14 +45,13 @@ const SignUp = (): JSX.Element => {
       .then(() => navigate('/authenticate/signin'))
       .catch(error => {
         console.error(error.response.data.message.split(';'));
-        if (error.response) {
+        if (error.response.data) {
           setErrors(error.response.data.message.split(';'));
         }
       })
       .finally(() => setIsFetching(false));
   };
-  console.log(errors);
-  console.log(errors.some(e => e == 'emailError' || e == 'DuplicateEmail'));
+
   return (
     <Container maxWidth="xs">
       <CssBaseline />
@@ -125,8 +124,18 @@ const SignUp = (): JSX.Element => {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label={<Typography sx={{ fontSize: 14 }}>Souhaitez-vous recevoir nos e-mails promotionnels ?</Typography>}
+              control={
+                <Checkbox
+                  color="primary"
+                  onChange={() =>
+                    setSignUp(params => ({
+                      ...params,
+                      marketingEmail: !signUp.marketingEmail,
+                    }))
+                  }
+                />
+              }
+              label={<Typography sx={{ fontSize: 14 }}>{i18n.t('marketingEmail')}</Typography>}
             />
           </Grid>
           <Button

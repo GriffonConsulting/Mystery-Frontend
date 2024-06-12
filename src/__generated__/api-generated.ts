@@ -28,6 +28,7 @@ export interface SignInCommand {
 export interface SignUpCommand {
   email?: string | null;
   password?: string | null;
+  marketingEmail?: boolean;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
