@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HomePage from './HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './Layout';
+import Layout from './Pages/Layout/Layout';
 import SignIn from './Pages/Authenticate/SignIn';
 import SignUp from './Pages/Authenticate/SignUp';
 import { UserContext, UserContextType } from './UserContext';

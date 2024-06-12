@@ -14,6 +14,12 @@ export interface ConfirmEmailCommand {
   token?: string | null;
 }
 
+export interface RequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string | null;
+}
+
 export interface SignInCommand {
   email?: string | null;
   password?: string | null;
@@ -184,11 +190,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Authenticate/SignUp
      */
     signUp: (data: SignUpCommand, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<RequestResult, RequestResult>({
         path: `/Authenticate/SignUp`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 

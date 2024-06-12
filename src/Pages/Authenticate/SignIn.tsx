@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
 import api from '../../__generated__/api';
+import i18n from '../../i18n';
 
 const SignIn = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
@@ -35,7 +36,7 @@ const SignIn = (): JSX.Element => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {i18n.t('signIn')}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -43,7 +44,7 @@ const SignIn = (): JSX.Element => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={i18n.t('email')}
             name="email"
             autoComplete="email"
             autoFocus
@@ -54,25 +55,24 @@ const SignIn = (): JSX.Element => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={i18n.t('password')}
             type="password"
             id="password"
             autoComplete="current-password"
             onChange={e => setPassword(e.target.value)}
           />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Sign In
+            {i18n.t('signIn')}
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                {i18n.t('forgotPassword')}
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {i18n.t('signUp')}
               </Link>
             </Grid>
           </Grid>
