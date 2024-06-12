@@ -3,43 +3,56 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel, FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
+import { useNavigate } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const SignUp = (): JSX.Element => {
+  const navigate = useNavigate();
   const [signUp, setSignUp] = useState<SignUpCommand>({});
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [errors, setErrors] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
 
   const signUpSchema = object({
-    email: string().required('emailRequired').email(),
-    password: string().required('passwordRequired'),
+    email: string().required('emailError').email('emailError'),
+    password: string()
+      .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
+      .required('passwordError'),
   });
 
   const handleSubmit = async () => {
-    setIsSubmitted(true);
-    signUpSchema.validate(signUp, { abortEarly: false }).catch(error => console.log(error.errors));
-    if (!signUp?.email || !signUp.password) return;
-
+    setErrors([]);
+    if (!(await signUpSchema.isValid(signUp))) {
+      await signUpSchema.validate(signUp, { abortEarly: false }).catch(error => setErrors(error.errors));
+      return;
+    }
     setIsFetching(true);
     api.authenticate
       .signUp(signUp)
-      .catch(() => setErrors(true))
+      .then(() => navigate('/authenticate/signin'))
+      .catch(error => {
+        console.error(error.response.data.message.split(';'));
+        if (error.response) {
+          setErrors(error.response.data.message.split(';'));
+        }
+      })
       .finally(() => setIsFetching(false));
   };
-  console.log(signUp);
-
+  console.log(errors);
+  console.log(errors.some(e => e == 'emailError' || e == 'DuplicateEmail'));
   return (
     <Container maxWidth="xs">
       <CssBaseline />
@@ -62,26 +75,30 @@ const SignUp = (): JSX.Element => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={i18n.t('email')}
                 name="email"
                 autoComplete="email"
-                error={isSubmitted && !signUp.email}
-                helperText={isSubmitted && !signUp.email && 'errorMessage'}
-                onChange={event =>
+                error={errors.some(e => e == 'emailError' || e == 'DuplicateEmail')}
+                helperText={errors.some(e => e == 'emailError') && i18n.t('emailError')}
+                onChange={event => {
+                  setErrors(errors.filter(err => !err.includes('email')));
                   setSignUp(params => ({
                     ...params,
                     email: event.target.value,
-                  }))
-                }
+                  }));
+                }}
               />
+              {errors.some(e => e == 'DuplicateEmail') && (
+                <FormHelperText error={true}>{i18n.t('DuplicateEmail')}</FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
                 name="password"
-                label="Password"
-                type="password"
+                label={i18n.t('password')}
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 autoComplete="new-password"
                 onChange={event =>
@@ -90,14 +107,26 @@ const SignUp = (): JSX.Element => {
                     password: event.target.value,
                   }))
                 }
-                inputProps={{ pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$' }}
+                error={errors.some(e => e == 'passwordError')}
+                helperText={errors.some(e => e == 'passwordError') && i18n.t('passwordError')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive inspiration, marketing promotions and updates via email."
+              label={<Typography sx={{ fontSize: 14 }}>Souhaitez-vous recevoir nos e-mails promotionnels ?</Typography>}
             />
           </Grid>
           <Button
@@ -111,7 +140,7 @@ const SignUp = (): JSX.Element => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/authenticate/signin" style={{ color: theme.palette.primary.main }}>
                 {i18n.t('signIn')}
               </Link>
             </Grid>
