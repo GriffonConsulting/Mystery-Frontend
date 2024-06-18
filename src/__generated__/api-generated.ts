@@ -14,6 +14,20 @@ export interface ConfirmEmailCommand {
   token?: string | null;
 }
 
+export interface GetProductQuery {
+  /** @format uuid */
+  productId?: string;
+}
+
+export interface GetProductsQuery {
+  productType?: ProductType;
+}
+
+/** @format int32 */
+export enum ProductType {
+  Value0 = 0,
+}
+
 export interface RequestResult {
   /** @format int32 */
   statusCodes?: number;
@@ -227,6 +241,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/Authenticate/SignIn`,
         method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+  };
+  product = {
+    /**
+     * No description
+     *
+     * @tags Product
+     * @name GetProduct
+     * @request GET:/Product
+     */
+    getProduct: (data: GetProductQuery, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Product`,
+        method: 'GET',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Product
+     * @name GetProducts
+     * @request GET:/Product/All/ByProductType
+     */
+    getProducts: (data: GetProductsQuery, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Product/All/ByProductType`,
+        method: 'GET',
         body: data,
         type: ContentType.Json,
         ...params,

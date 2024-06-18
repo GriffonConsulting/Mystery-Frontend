@@ -18,7 +18,7 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-function AppAppBar(): JSX.Element {
+function Header(): JSX.Element {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean): void => {
@@ -28,6 +28,7 @@ function AppAppBar(): JSX.Element {
   return (
     <AppBar
       position="fixed"
+      elevation={0}
       sx={{
         boxShadow: 0,
         bgcolor: 'transparent',
@@ -64,7 +65,7 @@ function AppAppBar(): JSX.Element {
                   'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
                 }
                 style={logoStyle}
-                alt="logo of sitemark"
+                alt="logo"
               />
             </Link>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -165,4 +166,4 @@ function AppAppBar(): JSX.Element {
   );
 }
 
-export default AppAppBar;
+export default Header;

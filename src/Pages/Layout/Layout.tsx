@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
-import { Box, createTheme } from '@mui/material';
+import { createTheme } from '@mui/material';
 import * as React from 'react';
-import AppAppBar from './AppAppBar';
+import Header from './Header';
 import Footer from './Footer';
 
 export interface LandingPageProps {
@@ -18,7 +18,7 @@ const LandingPage = (props: LandingPageProps): JSX.Element => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <div style={{ backgroundImage: 'linear-gradient(180deg, #CEE5FD, #FFF)', paddingTop: 80 }}>
-        <AppAppBar />
+        <Header />
         <main>{props.children}</main>
         <footer>
           <Footer />
