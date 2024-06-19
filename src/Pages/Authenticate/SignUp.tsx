@@ -54,7 +54,6 @@ const SignUp = (): JSX.Element => {
 
   return (
     <Container maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           display: 'flex',

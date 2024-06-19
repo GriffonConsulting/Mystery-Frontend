@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import i18n from '../../i18n';
+import { ProductType } from '../../__generated__/api-generated';
 
 const logoStyle = {
   width: '140px',
@@ -20,6 +21,7 @@ const logoStyle = {
 
 function Header(): JSX.Element {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
@@ -69,15 +71,18 @@ function Header(): JSX.Element {
               />
             </Link>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <MenuItem
-                onClick={() => {
-                  console.log('toto');
-                }}
-                sx={{ py: '6px', px: '12px' }}>
-                <Typography variant="body2" color="text.primary">
-                  MURDER PARTY
-                </Typography>
-              </MenuItem>
+              {Object.keys(ProductType).map(pt => (
+                <MenuItem
+                  key={pt}
+                  onClick={() => {
+                    navigate(`/product/${pt}`);
+                  }}
+                  sx={{ py: '6px', px: '12px' }}>
+                  <Typography variant="body2" color="text.primary">
+                    {i18n.t(`${pt}.title`)}
+                  </Typography>
+                </MenuItem>
+              ))}
               <MenuItem
                 onClick={() => {
                   console.log('toto');

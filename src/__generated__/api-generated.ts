@@ -10,38 +10,70 @@
  */
 
 export interface ConfirmEmailCommand {
-  email?: string | null;
-  token?: string | null;
+  email?: string;
+  token?: string;
 }
 
-export interface GetProductQuery {
+/** @format string */
+export enum Difficulty {
+  VeryEasy = 'VeryEasy',
+  Easy = 'Easy',
+  Medium = 'Medium',
+  Hard = 'Hard',
+  VeryHard = 'VeryHard',
+}
+
+export interface GetProductResult {
   /** @format uuid */
-  productId?: string;
-}
-
-export interface GetProductsQuery {
+  id?: string;
+  productCode?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  /** @format int32 */
+  nbPlayerMin?: number;
+  /** @format int32 */
+  nbPlayerMax?: number;
+  /** @format double */
+  price?: number;
+  duration?: string;
+  difficulty?: Difficulty;
   productType?: ProductType;
 }
 
-/** @format int32 */
+export interface GetProductResultArrayRequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
+  result?: GetProductResult[];
+}
+
+export interface GetProductResultRequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
+  result?: GetProductResult;
+}
+
+/** @format string */
 export enum ProductType {
-  Value0 = 0,
+  MurderParty = 'MurderParty',
 }
 
 export interface RequestResult {
   /** @format int32 */
   statusCodes?: number;
-  message?: string | null;
+  message?: string;
 }
 
 export interface SignInCommand {
-  email?: string | null;
-  password?: string | null;
+  email?: string;
+  password?: string;
 }
 
 export interface SignUpCommand {
-  email?: string | null;
-  password?: string | null;
+  email?: string;
+  password?: string;
   marketingEmail?: boolean;
 }
 
@@ -252,14 +284,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Product
      * @name GetProduct
-     * @request GET:/Product
+     * @request GET:/Product/{productCode}
      */
-    getProduct: (data: GetProductQuery, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/Product`,
+    getProduct: (productCode: string, params: RequestParams = {}) =>
+      this.request<GetProductResultRequestResult, any>({
+        path: `/Product/${productCode}`,
         method: 'GET',
-        body: data,
-        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -268,14 +299,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Product
      * @name GetProducts
-     * @request GET:/Product/All/ByProductType
+     * @request GET:/Product/All/{productType}
      */
-    getProducts: (data: GetProductsQuery, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/Product/All/ByProductType`,
+    getProducts: (productType: ProductType, params: RequestParams = {}) =>
+      this.request<GetProductResultArrayRequestResult, any>({
+        path: `/Product/All/${productType}`,
         method: 'GET',
-        body: data,
-        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
   };
