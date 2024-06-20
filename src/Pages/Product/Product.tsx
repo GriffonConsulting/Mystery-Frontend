@@ -51,7 +51,7 @@ export const Product = (): JSX.Element => {
               ))}
             </Carousel>
             <Box display={'flex'} gap={3} marginTop={1}>
-              {product.images?.slice(0, 3).map((item, i) => (
+              {product.images?.slice(1, 3).map((item, i) => (
                 <Paper sx={{ width: 150, height: 100 }}>
                   <img
                     style={{ cursor: 'pointer' }}
