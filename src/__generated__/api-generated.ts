@@ -37,6 +37,7 @@ export interface GetProductResult {
   /** @format double */
   price?: number;
   duration?: string;
+  images?: string[];
   difficulty?: Difficulty;
   productType?: ProductType;
 }
