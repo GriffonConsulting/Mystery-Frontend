@@ -6,18 +6,26 @@ import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from
 import Carousel from 'react-material-ui-carousel';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import i18n from '../../i18n';
+import { useCookies } from 'react-cookie';
 
 export const Product = (): JSX.Element => {
   const theme = useTheme();
   const [product, setProduct] = useState<GetProductResult>();
   const { productType, productCode } = useParams();
   const [carouselIndex, setCarrouselIndex] = useState<number>(0);
+  const [cookies, setCookies] = useCookies(['basket']);
+
   useEffect(() => {
     if (productCode) {
       api.product.getProduct(productCode).then(result => setProduct(result.data.result));
     }
   }, [productCode]);
-  const goToBasket = () => {};
+  const goToBasket = () => {
+    const basket = cookies.basket ?? [];
+    basket.push(productCode);
+    setCookies('basket', basket);
+  };
+
   return (
     <Container>
       <Breadcrumbs separator="-" aria-label="breadcrumb">
