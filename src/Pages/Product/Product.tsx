@@ -20,7 +20,8 @@ export const Product = (): JSX.Element => {
       api.product.getProduct(productCode).then(result => setProduct(result.data.result));
     }
   }, [productCode]);
-  const goToBasket = () => {
+
+  const addToBasket = () => {
     const basket = cookies.basket ?? [];
     basket.push(productCode);
     setCookies('basket', basket);
@@ -32,7 +33,7 @@ export const Product = (): JSX.Element => {
         <Link to={`/`} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
         </Link>
-        <Link to={`/productx/${productType}`} style={{ color: theme.palette.primary.main }}>
+        <Link to={`/product/${productType}`} style={{ color: theme.palette.primary.main }}>
           {productType}
         </Link>
         <Typography color={theme.palette.primary.main}>{product?.title}</Typography>
@@ -54,7 +55,7 @@ export const Product = (): JSX.Element => {
                     height={333}
                     className="imageCarousel"
                     src={item}
-                    alt={`${productType} ${productType} ${i}`}
+                    alt={`${i18n.t(`${productType}.title`)} ${productType} ${i}`}
                   />
                 </Paper>
               ))}
@@ -79,7 +80,7 @@ export const Product = (): JSX.Element => {
             <Typography component="h1" variant="h5">
               {product.title}
             </Typography>
-            <Link to={`/order/basket`} onClick={goToBasket}>
+            <Link to={`/order/basket`} onClick={addToBasket}>
               <Button variant="contained">{i18n.t('addToBasket')}</Button>
             </Link>
           </Box>

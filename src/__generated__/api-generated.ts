@@ -26,20 +26,25 @@ export enum Difficulty {
 export interface GetProductResult {
   /** @format uuid */
   id?: string;
-  productCode?: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
+  /** @minLength 1 */
+  productCode: string;
+  /** @minLength 1 */
+  title: string;
+  /** @minLength 1 */
+  subtitle: string;
+  /** @minLength 1 */
+  description: string;
   /** @format int32 */
-  nbPlayerMin?: number;
+  nbPlayerMin: number;
   /** @format int32 */
-  nbPlayerMax?: number;
+  nbPlayerMax: number;
   /** @format double */
-  price?: number;
-  duration?: string;
-  images?: string[];
-  difficulty?: Difficulty;
-  productType?: ProductType;
+  price: number;
+  /** @minLength 1 */
+  duration: string;
+  images: string[];
+  difficulty: Difficulty;
+  productType: ProductType;
 }
 
 export interface GetProductResultArrayRequestResult {

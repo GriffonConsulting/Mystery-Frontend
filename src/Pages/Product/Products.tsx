@@ -2,17 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductResult, ProductType } from '../../__generated__/api-generated';
-import { Breadcrumbs, Button, Container, Typography, useTheme } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
+import { useCookies } from 'react-cookie';
 
 export const Products = (): JSX.Element => {
   const theme = useTheme();
   const [products, setProducts] = useState<GetProductResult[]>();
   const { productType } = useParams();
+  const [cookies, setCookies] = useCookies(['basket']);
 
   useEffect(() => {
     api.product.getProducts(ProductType.MurderParty).then(result => setProducts(result.data.result));
   }, [productType]);
+
+  const addToBasket = (productCode: string) => {
+    const basket = cookies.basket ?? [];
+    basket.push(productCode);
+    setCookies('basket', basket);
+  };
 
   return (
     <Container>
@@ -23,15 +31,36 @@ export const Products = (): JSX.Element => {
         <Typography color={theme.palette.primary.main}>{productType}</Typography>
       </Breadcrumbs>
       {i18n.t(`${productType}.title`)}
-      {products &&
-        products.length > 0 &&
-        products.map(p => (
-          <div key={p.id}>
-            <Link to={`/product/${productType}/${p.productCode}`}>
-              <Button>Voir la description</Button>
-            </Link>
-          </div>
-        ))}
+      <Box display={'flex'} flexDirection={'column'} gap={3} marginTop={3}>
+        {products &&
+          products.length > 0 &&
+          products.map(p => (
+            <Box
+              key={p.id}
+              style={{ backgroundColor: 'white' }}
+              height={333}
+              borderRadius={3}
+              display={'flex'}
+              flexDirection={'row'}>
+              {p.images && (
+                <img
+                  width={500}
+                  height={333}
+                  className="imageCarousel"
+                  src={p.images[0]}
+                  alt={`${i18n.t(`${productType}.title`)} ${productType}`}
+                />
+              )}
+              {p.title}
+              <Link to={`/product/${productType}/${p.productCode}`}>
+                <Button>Voir la description</Button>
+              </Link>
+              <Link to={`/order/basket`} onClick={() => addToBasket(p.productCode)}>
+                <Button variant="contained">{i18n.t('addToBasket')}</Button>
+              </Link>
+            </Box>
+          ))}
+      </Box>
     </Container>
   );
 };

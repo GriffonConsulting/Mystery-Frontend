@@ -12,6 +12,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import i18n from '../../i18n';
 import { ProductType } from '../../__generated__/api-generated';
+import { ShoppingBasket } from '@mui/icons-material';
+import { useTheme } from '@mui/material';
+import { useCookies } from 'react-cookie';
 
 const logoStyle = {
   width: '140px',
@@ -20,8 +23,10 @@ const logoStyle = {
 };
 
 function Header(): JSX.Element {
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  const [cookies] = useCookies(['basket']);
 
   const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
@@ -110,6 +115,32 @@ function Header(): JSX.Element {
                 {i18n.t('signIn')}
               </Button>
             </Link>
+            <Link to="/order/basket">
+              <div style={{ position: 'relative' }}>
+                <Button sx={{ m: 1 }} color="primary" variant="outlined">
+                  <ShoppingBasket />
+                  <span style={{ marginLeft: 8 }}>Panier</span>
+                </Button>
+                {cookies.basket && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      backgroundColor: theme.palette.primary.main,
+                      color: 'white',
+                      borderRadius: 12,
+                      width: 24,
+                      height: 24,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {cookies.basket.length}
+                  </span>
+                )}
+              </div>
+            </Link>
           </Box>
           <Box sx={{ display: { sm: '', md: 'none' } }}>
             <Button
@@ -150,15 +181,22 @@ function Header(): JSX.Element {
                 <Divider />
                 <MenuItem>
                   <Link to="/authenticate/signup">
-                    <Button color="primary" variant="contained" sx={{ width: '100%' }}>
+                    <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
                       {i18n.t('signUp')}
                     </Button>
                   </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link to="/authenticate/signin">
-                    <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
+                    <Button color="primary" variant="contained" sx={{ width: '100%' }}>
                       {i18n.t('signIn')}
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to="/order/basket">
+                    <Button color="primary" variant="contained" sx={{ width: '100%' }}>
+                      {i18n.t('goToBasket')}
                     </Button>
                   </Link>
                 </MenuItem>
