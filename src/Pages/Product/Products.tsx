@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductResult, ProductType } from '../../__generated__/api-generated';
-import { Button, Container } from '@mui/material';
+import { Breadcrumbs, Button, Container, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
 
 export const Products = (): JSX.Element => {
+  const theme = useTheme();
   const [products, setProducts] = useState<GetProductResult[]>();
   const { productType } = useParams();
 
@@ -15,6 +16,12 @@ export const Products = (): JSX.Element => {
 
   return (
     <Container>
+      <Breadcrumbs separator="-" aria-label="breadcrumb">
+        <Link to={`/`} style={{ color: theme.palette.primary.main }}>
+          {i18n.t('homepage')}
+        </Link>
+        <Typography color={theme.palette.primary.main}>{productType}</Typography>
+      </Breadcrumbs>
       {i18n.t(`${productType}.title`)}
       {products &&
         products.length > 0 &&

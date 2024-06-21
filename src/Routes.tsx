@@ -23,6 +23,7 @@ export const AppRoutes = (): JSX.Element => {
           <Route path="/authenticate/signup" element={<SignUp />} />
           <Route path="/product/:productType" element={<Products />} />
           <Route path="/product/:productType/:productCode" element={<Product />} />
+          <Route path="/order/basket" />
           {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
       </Layout>

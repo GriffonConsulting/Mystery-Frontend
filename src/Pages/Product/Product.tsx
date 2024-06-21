@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductResult } from '../../__generated__/api-generated';
-import { Box, Breadcrumbs, Container, Link, Paper, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
+import i18n from '../../i18n';
 
 export const Product = (): JSX.Element => {
+  const theme = useTheme();
   const [product, setProduct] = useState<GetProductResult>();
   const { productType, productCode } = useParams();
   const [carouselIndex, setCarrouselIndex] = useState<number>(0);
-  console.log(productCode);
   useEffect(() => {
     if (productCode) {
       api.product.getProduct(productCode).then(result => setProduct(result.data.result));
     }
   }, [productCode]);
-
+  const goToBasket = () => {};
   return (
     <Container>
       <Breadcrumbs separator="-" aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href={`/`}>
-          HOMEPAGE
+        <Link to={`/`} style={{ color: theme.palette.primary.main }}>
+          {i18n.t('homepage')}
         </Link>
-        <Link underline="hover" color="inherit" href={`/products/${productType}`}>
+        <Link to={`/productx/${productType}`} style={{ color: theme.palette.primary.main }}>
           {productType}
         </Link>
-        <Typography color="text.primary">{product?.title}</Typography>
+        <Typography color={theme.palette.primary.main}>{product?.title}</Typography>
       </Breadcrumbs>
 
       {product && (
@@ -70,6 +71,9 @@ export const Product = (): JSX.Element => {
             <Typography component="h1" variant="h5">
               {product.title}
             </Typography>
+            <Link to={`/order/basket`} onClick={goToBasket}>
+              <Button variant="contained">{i18n.t('addToBasket')}</Button>
+            </Link>
           </Box>
         </Box>
       )}
