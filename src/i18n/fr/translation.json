@@ -14,5 +14,9 @@
     "title": "MURDER PARTY"
   },
   "addToBasket": "Ajouter au panier",
-  "goToBasket": "Aller au panier"
+  "goToBasket": "Aller au panier",
+  "contact": "Contact",
+  "message": "Message",
+  "messageError": "Le message est obligatoire.",
+  "submit": "Envoyer"
 }

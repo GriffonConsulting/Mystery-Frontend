@@ -8,6 +8,8 @@ import { UserContext, UserContextType } from './UserContext';
 import axios from 'axios';
 import Products from './Pages/Product/Products';
 import Product from './Pages/Product/Product';
+import Contact from './Pages/Contact/Contact';
+import NotFound from './Pages/NotFound/NotFound';
 
 export const AppRoutes = (): JSX.Element => {
   const [currentUser, setCurrentUser] = useState<UserContextType>({
@@ -24,7 +26,8 @@ export const AppRoutes = (): JSX.Element => {
           <Route path="/product/:productType" element={<Products />} />
           <Route path="/product/:productType/:productCode" element={<Product />} />
           <Route path="/order/basket" />
-          {/* <Route path="*" element={<NoPage />} /> */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
