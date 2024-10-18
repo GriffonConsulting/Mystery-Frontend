@@ -23,7 +23,7 @@ export const Product = (): JSX.Element => {
 
   const addToBasket = () => {
     const basket = cookies.basket ?? [];
-    basket.push(productCode);
+    basket.push(product);
     setCookies('basket', basket);
   };
 

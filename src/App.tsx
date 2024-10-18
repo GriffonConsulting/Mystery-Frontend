@@ -9,6 +9,7 @@ export const App = (): JSX.Element => {
     token: 'filiptammergard',
   });
 
+  //use useMemo instead
   useEffect(() => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`;
   }, [currentUser]);
