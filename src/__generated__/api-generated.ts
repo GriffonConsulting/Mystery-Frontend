@@ -14,6 +14,11 @@ export interface ConfirmEmailCommand {
   token?: string;
 }
 
+export interface ContactCommand {
+  email?: string;
+  message?: string;
+}
+
 /** @format string */
 export enum Difficulty {
   VeryEasy = 'VeryEasy',
@@ -64,6 +69,12 @@ export interface GetProductResultRequestResult {
 /** @format string */
 export enum ProductType {
   MurderParty = 'MurderParty',
+}
+
+export interface RequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
 }
 
 export interface SignInCommand {
@@ -285,6 +296,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     signIn: (data: SignInCommand, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignIn`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+  };
+  contact = {
+    /**
+     * No description
+     *
+     * @tags Contact
+     * @name Contact
+     * @request POST:/Contact/Contact
+     */
+    contact: (data: ContactCommand, params: RequestParams = {}) =>
+      this.request<RequestResult, RequestResult>({
+        path: `/Contact/Contact`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
