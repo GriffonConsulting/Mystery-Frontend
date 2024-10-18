@@ -19,7 +19,7 @@ export const Products = (): JSX.Element => {
   const addToBasket = (product: GetProductResult) => {
     const basket = cookies.basket ?? [];
     basket.push(product);
-    setCookies('basket', basket);
+    setCookies('basket', basket, { sameSite: true, secure: true, path: '/' });
   };
 
   return (

@@ -10,36 +10,36 @@ import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { ContactSupport } from '@mui/icons-material';
 import { object, string } from 'yup';
-import { ContactCommand } from '../../__generated__/api-generated';
+// import { ContactCommand } from '../../__generated__/api-generated';
 
 const Contact = (): JSX.Element => {
-  const [errors, setErrors] = useState<string[]>([]);
-  const [signUp, setSignUp] = useState<ContactCommand>({ });
-  const [email, setEmail] = useState<string>();
-  const [message, setMessage] = useState<string>();
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  // const [errors, setErrors] = useState<string[]>([]);
+  // const [signUp, setSignUp] = useState<ContactCommand>({ });
+  // const [email, setEmail] = useState<string>();
+  // const [message, setMessage] = useState<string>();
+  // const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const contactSchema = object({
-    email: string().required('emailError').email('emailError'),
-    password: string()
-      .required('messageError'),
-  });
+  // const contactSchema = object({
+  //   email: string().required('emailError').email('emailError'),
+  //   password: string()
+  //     .required('messageError'),
+  // });
 
-  const handleSubmit = async () => {
-    setErrors([]);
-    if (!(await contactSchema.isValid(signUp))) {
-      await contactSchema.validate(signUp, { abortEarly: false }).catch(error => setErrors(error.errors));
-      return;
-    }
-    setIsFetching(true);
-    api.contact
-    .contact({ email, message })
-    .finally(() => setIsFetching(false));
-  };
+  // const handleSubmit = async () => {
+  //   setErrors([]);
+  //   if (!(await contactSchema.isValid(signUp))) {
+  //     await contactSchema.validate(signUp, { abortEarly: false }).catch(error => setErrors(error.errors));
+  //     return;
+  //   }
+  //   setIsFetching(true);
+  //   api.contact
+  //   .contact({ email, message })
+  //   .finally(() => setIsFetching(false));
+  // };
 
   return (
     <Container maxWidth="xs">
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -83,7 +83,7 @@ const Contact = (): JSX.Element => {
             {i18n.t('submit')}
           </Button>
         </Box>
-      </Box>
+      </Box> */}
     </Container>
   );
 };

@@ -1,6 +1,7 @@
 {
   "signIn": "Se connecter",
   "signUp": "S'inscrire",
+  "account": "Mon compte",
   "DuplicateEmail": "Cette adresse e-mail existe déjà.",
   "forgotPassword": "Mot de passe oublié",
   "email": "E-mail",

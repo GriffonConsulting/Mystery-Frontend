@@ -14,11 +14,6 @@ export interface ConfirmEmailCommand {
   token?: string;
 }
 
-export interface ContactCommand {
-  email?: string;
-  message?: string;
-}
-
 /** @format string */
 export enum Difficulty {
   VeryEasy = 'VeryEasy',
@@ -40,16 +35,16 @@ export interface GetProductResult {
   /** @minLength 1 */
   description: string;
   /** @format int32 */
-  nbPlayerMin?: number;
+  nbPlayerMin: number;
   /** @format int32 */
-  nbPlayerMax?: number;
+  nbPlayerMax: number;
   /** @format double */
-  price?: number;
+  price: number;
   /** @minLength 1 */
   duration: string;
   images: string[];
-  difficulty?: Difficulty;
-  productType?: ProductType;
+  difficulty: Difficulty;
+  productType: ProductType;
 }
 
 export interface GetProductResultArrayRequestResult {
@@ -71,15 +66,22 @@ export enum ProductType {
   MurderParty = 'MurderParty',
 }
 
-export interface RequestResult {
-  /** @format int32 */
-  statusCodes?: number;
-  message?: string;
-}
-
 export interface SignInCommand {
   email?: string;
   password?: string;
+}
+
+export interface SignInDto {
+  token?: string;
+  /** @format date-time */
+  expirationDate?: string;
+}
+
+export interface SignInDtoRequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
+  result?: SignInDto;
 }
 
 export interface SignUpCommand {
@@ -248,7 +250,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Authenticate/SignUp
      */
     signUp: (data: SignUpCommand, params: RequestParams = {}) =>
-      this.request<RequestResult, RequestResult>({
+      this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignUp`,
         method: 'POST',
         body: data,
@@ -281,25 +283,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Authenticate/SignIn
      */
     signIn: (data: SignInCommand, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignIn`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-  };
-  contact = {
-    /**
-     * No description
-     *
-     * @tags Contact
-     * @name Contact
-     * @request POST:/Contact/Contact
-     */
-    contact: (data: ContactCommand, params: RequestParams = {}) =>
-      this.request<RequestResult, RequestResult>({
-        path: `/Contact/Contact`,
         method: 'POST',
         body: data,
         type: ContentType.Json,

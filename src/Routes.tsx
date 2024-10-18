@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HomePage from './HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Layout/Layout';
 import SignIn from './Pages/Authenticate/SignIn';
 import SignUp from './Pages/Authenticate/SignUp';
-import { UserContextType } from './UserContext';
 import Products from './Pages/Product/Products';
 import Product from './Pages/Product/Product';
 import Contact from './Pages/Contact/Contact';
 import NotFound from './Pages/NotFound/NotFound';
 import Basket from './Pages/Order/Basket';
+import Account from './Pages/Account/Account';
+import { useCookies } from 'react-cookie';
+import RequiredAuth from './RequireAuth';
 
 export const AppRoutes = (): JSX.Element => {
-  const [currentUser, setCurrentUser] = useState<UserContextType>({
-    token: 'filiptammergard',
-  });
+  const [cookies] = useCookies(['token']);
 
   return (
     <BrowserRouter>
@@ -27,6 +27,14 @@ export const AppRoutes = (): JSX.Element => {
           <Route path="/product/:productType/:productCode" element={<Product />} />
           <Route path="/order/basket" element={<Basket />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path={'/account'}
+            element={
+              <RequiredAuth>
+                <Account />
+              </RequiredAuth>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

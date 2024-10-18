@@ -24,7 +24,7 @@ export const Product = (): JSX.Element => {
   const addToBasket = () => {
     const basket = cookies.basket ?? [];
     basket.push(product);
-    setCookies('basket', basket);
+    setCookies('basket', basket, { sameSite: true, secure: true, path: '/' });
   };
 
   return (

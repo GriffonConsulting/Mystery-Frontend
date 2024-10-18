@@ -12,7 +12,7 @@ export const Basket = (): JSX.Element => {
   const removeFromBasket = (productId: string): void => {
     const index = basket.findIndex(product => product.id === productId);
     basket.splice(index, 1);
-    setCookies('basket', basket);
+    setCookies('basket', basket, { sameSite: true, secure: true, path: '/' });
   };
 
   const frEuro = new Intl.NumberFormat('fr-FR', {

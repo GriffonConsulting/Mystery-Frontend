@@ -2,20 +2,29 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Checkbox, FormControlLabel, FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
+import {
+  Alert,
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
+  Snackbar,
+  useTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
-import { useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useCookies } from 'react-cookie';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
@@ -24,6 +33,7 @@ const SignUp = (): JSX.Element => {
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
+  const [, setCookies] = useCookies(['token']);
 
   const signUpSchema = object({
     email: string().required('emailError').email('emailError'),
@@ -41,7 +51,10 @@ const SignUp = (): JSX.Element => {
     setIsFetching(true);
     api.authenticate
       .signUp(signUp)
-      .then(() => navigate('/authenticate/signin'))
+      .then(result => {
+        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
+        navigate('/');
+      })
       .catch(error => {
         console.error(error.response.data.message.split(';'));
         if (error.response.data) {

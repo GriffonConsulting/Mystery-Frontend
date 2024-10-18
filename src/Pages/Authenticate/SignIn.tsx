@@ -2,8 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,15 +11,22 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
+import { useCookies } from 'react-cookie';
 
 const SignIn = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [, setCookies] = useCookies(['token']);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    setIsFetching(true);
 
-    api.authenticate.signIn({ email, password });
+    api.authenticate
+      .signIn({ email, password })
+      .then(result => setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' }))
+      .catch(error => console.error(error))
+      .finally(() => setIsFetching(false));
   };
 
   return (
@@ -38,7 +43,7 @@ const SignIn = (): JSX.Element => {
         <Typography component="h1" variant="h5">
           {i18n.t('signIn')}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -61,7 +66,13 @@ const SignIn = (): JSX.Element => {
             autoComplete="current-password"
             onChange={e => setPassword(e.target.value)}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button
+            type="button"
+            fullWidth
+            disabled={isFetching}
+            onClick={handleSubmit}
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}>
             {i18n.t('signIn')}
           </Button>
           <Grid container>

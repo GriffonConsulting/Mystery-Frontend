@@ -26,12 +26,11 @@ function Header(): JSX.Element {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const [cookies] = useCookies(['basket']);
+  const [cookies] = useCookies(['basket', 'token']);
 
   const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
   };
-
   return (
     <AppBar
       position="fixed"
@@ -94,7 +93,7 @@ function Header(): JSX.Element {
                 }}
                 sx={{ py: '6px', px: '12px' }}>
                 <Typography variant="body2" color="text.primary">
-                  CONTACT
+                  {i18n.t('contact')}
                 </Typography>
               </MenuItem>
             </Box>
@@ -105,16 +104,27 @@ function Header(): JSX.Element {
               gap: 0.5,
               alignItems: 'center',
             }}>
-            <Link to="/authenticate/signup">
-              <Button color="primary" variant="text" size="small">
-                {i18n.t('signUp')}
-              </Button>
-            </Link>
-            <Link to="/authenticate/signin">
-              <Button color="primary" variant="contained" size="small">
-                {i18n.t('signIn')}
-              </Button>
-            </Link>
+            {!cookies.token && (
+              <>
+                <Link to="/authenticate/signup">
+                  <Button color="primary" variant="text" size="small">
+                    {i18n.t('signUp')}
+                  </Button>
+                </Link>
+                <Link to="/authenticate/signin">
+                  <Button color="primary" variant="contained" size="small">
+                    {i18n.t('signIn')}
+                  </Button>
+                </Link>
+              </>
+            )}
+            {cookies.token && (
+              <Link to="/account">
+                <Button color="primary" variant="contained" size="small">
+                  {i18n.t('account')}
+                </Button>
+              </Link>
+            )}
             {cookies.basket && (
               <Link to="/order/basket">
                 <div style={{ position: 'relative' }}>
@@ -166,33 +176,50 @@ function Header(): JSX.Element {
                     alignItems: 'end',
                     flexGrow: 1,
                   }}></Box>
-                <MenuItem
-                  onClick={() => {
-                    console.log('toto');
-                  }}>
-                  MURDER PARTY
-                </MenuItem>
+                {Object.keys(ProductType).map(pt => (
+                  <MenuItem
+                    key={pt}
+                    onClick={() => {
+                      navigate(`/product/${pt}`);
+                    }}
+                    sx={{ py: '6px', px: '12px' }}>
+                    <Typography variant="body2" color="text.primary">
+                      {i18n.t(`${pt}.title`)}
+                    </Typography>
+                  </MenuItem>
+                ))}
                 <MenuItem
                   onClick={() => {
                     navigate(`/contact`);
                   }}>
-                  CONTACT
+                  {i18n.t('contact')}
                 </MenuItem>
                 <Divider />
-                <MenuItem>
-                  <Link to="/authenticate/signup">
-                    <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
-                      {i18n.t('signUp')}
+                {!cookies.token && (
+                  <>
+                    <MenuItem>
+                      <Link to="/authenticate/signup">
+                        <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
+                          {i18n.t('signUp')}
+                        </Button>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link to="/authenticate/signin">
+                        <Button color="primary" variant="contained" sx={{ width: '100%' }}>
+                          {i18n.t('signIn')}
+                        </Button>
+                      </Link>
+                    </MenuItem>
+                  </>
+                )}
+                {cookies.token && (
+                  <Link to="/account">
+                    <Button color="primary" variant="contained" size="small">
+                      {i18n.t('account')}
                     </Button>
                   </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to="/authenticate/signin">
-                    <Button color="primary" variant="contained" sx={{ width: '100%' }}>
-                      {i18n.t('signIn')}
-                    </Button>
-                  </Link>
-                </MenuItem>
+                )}
                 <MenuItem>
                   <Link to="/order/basket">
                     <Button color="primary" variant="contained" sx={{ width: '100%' }}>
