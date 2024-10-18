@@ -16,9 +16,9 @@ export const Products = (): JSX.Element => {
     api.product.getProducts(ProductType.MurderParty).then(result => setProducts(result.data.result));
   }, [productType]);
 
-  const addToBasket = (productCode: string) => {
+  const addToBasket = (product: GetProductResult) => {
     const basket = cookies.basket ?? [];
-    basket.push(productCode);
+    basket.push(product);
     setCookies('basket', basket);
   };
 
@@ -55,7 +55,7 @@ export const Products = (): JSX.Element => {
               <Link to={`/product/${productType}/${p.productCode}`}>
                 <Button>Voir la description</Button>
               </Link>
-              <Link to={`/order/basket`} onClick={() => addToBasket(p.productCode)}>
+              <Link to={`/order/basket`} onClick={() => addToBasket(p)}>
                 <Button variant="contained">{i18n.t('addToBasket')}</Button>
               </Link>
             </Box>

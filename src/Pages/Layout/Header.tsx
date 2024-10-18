@@ -115,13 +115,13 @@ function Header(): JSX.Element {
                 {i18n.t('signIn')}
               </Button>
             </Link>
-            <Link to="/order/basket">
-              <div style={{ position: 'relative' }}>
-                <Button sx={{ m: 1 }} color="primary" variant="outlined">
-                  <ShoppingBasket />
-                  <span style={{ marginLeft: 8 }}>Panier</span>
-                </Button>
-                {cookies.basket && (
+            {cookies.basket && (
+              <Link to="/order/basket">
+                <div style={{ position: 'relative' }}>
+                  <Button sx={{ m: 1 }} color="primary" variant="outlined">
+                    <ShoppingBasket />
+                    <span style={{ marginLeft: 8 }}>Panier</span>
+                  </Button>
                   <span
                     style={{
                       position: 'absolute',
@@ -138,9 +138,9 @@ function Header(): JSX.Element {
                     }}>
                     {cookies.basket.length}
                   </span>
-                )}
-              </div>
-            </Link>
+                </div>
+              </Link>
+            )}
           </Box>
           <Box sx={{ display: { sm: '', md: 'none' } }}>
             <Button

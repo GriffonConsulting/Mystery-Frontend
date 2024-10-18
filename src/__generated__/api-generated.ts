@@ -25,7 +25,7 @@ export enum Difficulty {
 
 export interface GetProductResult {
   /** @format uuid */
-  id?: string;
+  id: string;
   /** @minLength 1 */
   productCode: string;
   /** @minLength 1 */
