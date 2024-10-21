@@ -9,6 +9,19 @@
  * ---------------------------------------------------------------
  */
 
+export type CheckoutCommand = object;
+
+export interface CheckoutOutDto {
+  clientSecret?: string;
+}
+
+export interface CheckoutOutDtoRequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
+  result?: CheckoutOutDto;
+}
+
 export interface ConfirmEmailCommand {
   email?: string;
   token?: string;
@@ -296,6 +309,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     signIn: (data: SignInCommand, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignIn`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+  };
+  checkout = {
+    /**
+     * No description
+     *
+     * @tags Checkout
+     * @name Create
+     * @request POST:/Checkout/Create
+     */
+    create: (data: CheckoutCommand, params: RequestParams = {}) =>
+      this.request<CheckoutOutDtoRequestResult, any>({
+        path: `/Checkout/Create`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
