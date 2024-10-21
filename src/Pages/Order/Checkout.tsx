@@ -15,11 +15,9 @@ const Checkout = () => {
     return api.checkout
       .create({})
       .then(res => {
-        console.log('res.data', res.data.result?.clientSecret);
         return res.data.result?.clientSecret;
       })
       .catch(error => {
-        console.error('error', error);
         return error;
       });
   }, []);
