@@ -12,8 +12,8 @@ const Checkout = () => {
   const fetchClientSecret = useCallback((): Promise<string> => {
     console.log('fetchClientSecret');
     // Create a Checkout Session
-    return api.checkout
-      .create({})
+    return api.stripe
+      .checkout({})
       .then(res => {
         return res.data.result?.clientSecret;
       })

@@ -316,24 +316,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
-  checkout = {
-    /**
-     * No description
-     *
-     * @tags Checkout
-     * @name Create
-     * @request POST:/Checkout/Create
-     */
-    create: (data: CheckoutCommand, params: RequestParams = {}) =>
-      this.request<CheckoutOutDtoRequestResult, any>({
-        path: `/Checkout/Create`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        format: 'json',
-        ...params,
-      }),
-  };
   contact = {
     /**
      * No description
@@ -380,6 +362,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/Product/All/${productType}`,
         method: 'GET',
         format: 'json',
+        ...params,
+      }),
+  };
+  stripe = {
+    /**
+     * No description
+     *
+     * @tags Stripe
+     * @name Checkout
+     * @request POST:/Stripe/Checkout
+     */
+    checkout: (data: CheckoutCommand, params: RequestParams = {}) =>
+      this.request<CheckoutOutDtoRequestResult, any>({
+        path: `/Stripe/Checkout`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Stripe
+     * @name WebhookCreate
+     * @request POST:/Stripe/Webhook
+     */
+    webhookCreate: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Stripe/Webhook`,
+        method: 'POST',
         ...params,
       }),
   };
