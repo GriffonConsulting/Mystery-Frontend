@@ -1,10 +1,8 @@
 import { Api } from './api-generated';
 
-//todo conf
-const need_url_here = 'https://localhost:7172';
-
+console.log(process.env);
 const api = new Api({
-  baseURL: need_url_here,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export default api;
