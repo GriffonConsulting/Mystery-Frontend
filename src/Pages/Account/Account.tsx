@@ -8,7 +8,7 @@ const Account = (): JSX.Element => {
   const [, setCookies, removeCookies] = useCookies(['token']);
 
   const disconnect = async () => {
-    removeCookies('token');
+    removeCookies('token', { sameSite: true, secure: true, path: '/' });
   };
 
   return (

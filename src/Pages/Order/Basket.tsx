@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { GetProductResult } from '../../__generated__/api-generated';
-import { Container, useTheme } from '@mui/material';
+import { Button, Container, useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import DeleteIcon from '@mui/icons-material/RemoveShoppingCart';
+import i18n from '../../i18n';
+import { useNavigate } from 'react-router-dom';
 
 export const Basket = (): JSX.Element => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(['basket']);
   const [basket] = useState<GetProductResult[]>(cookies.basket);
 
@@ -44,6 +47,9 @@ export const Basket = (): JSX.Element => {
         </tbody>
       </table>
       Total {frEuro.format(cookies.basket?.reduce((i: number, { price }: GetProductResult) => i + price, 0))}
+      <Button variant="contained" onClick={() => navigate('/order/checkout')}>
+        Commander
+      </Button>
     </Container>
   );
 };

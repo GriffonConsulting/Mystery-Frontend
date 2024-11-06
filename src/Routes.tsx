@@ -37,7 +37,7 @@ export const AppRoutes = (): JSX.Element => {
             }
           />
           <Route
-            path={'/checkout'}
+            path={'/order/checkout'}
             element={
               <RequiredAuth>
                 <Checkout />

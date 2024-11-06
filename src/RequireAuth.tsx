@@ -11,7 +11,7 @@ export const RequireAuth = (props: PrivateRouteProps): JSX.Element => {
   const location = useLocation();
 
   if (!cookies.token) {
-    return <Navigate to="/" state={{ from: location }} />;
+    return <Navigate to="/authenticate/signin" state={{ from: location }} />;
   }
 
   return <>{props.children}</>;

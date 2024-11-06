@@ -12,19 +12,26 @@ import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignIn = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [, setCookies] = useCookies(['token']);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   const handleSubmit = async () => {
     setIsFetching(true);
 
     api.authenticate
       .signIn({ email, password })
-      .then(result => setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' }))
+      .then(result => {
+        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
+        navigate(location?.state?.from ? location?.state?.from : '/account');
+      })
       .catch(error => console.error(error))
       .finally(() => setIsFetching(false));
   };

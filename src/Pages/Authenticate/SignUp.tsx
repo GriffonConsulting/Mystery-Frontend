@@ -2,7 +2,7 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -34,6 +34,8 @@ const SignUp = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
   const [, setCookies] = useCookies(['token']);
+  const location = useLocation();
+  console.log(location);
 
   const signUpSchema = object({
     email: string().required('emailError').email('emailError'),
