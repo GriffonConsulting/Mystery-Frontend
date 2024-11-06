@@ -1,17 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import api from '../../__generated__/api';
+import { useCookies } from 'react-cookie';
+import { GetProductResult } from '../../__generated__/api-generated';
 
 const Checkout = () => {
   //todo conf
   const stripePromise = loadStripe(
     'pk_test_51PQ9oBP2H3oUToPCp2v3xgEGtrQC2X4D7FncAh0J5jpd7pi2PgQ2CTgEQvIMlEHkMGqmEzcTFtacC60qq1oObPCS00n9q79Bxz',
   );
+  const [cookies] = useCookies(['basket']);
+  const [basket] = useState<GetProductResult[]>(cookies.basket);
 
   const fetchClientSecret = useCallback((): Promise<string> => {
     return api.stripe
-      .checkout({})
+      .checkout({ productIds: basket.map(b => b.id) })
       .then(res => {
         return res.data.result?.clientSecret;
       })

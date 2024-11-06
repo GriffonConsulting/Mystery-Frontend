@@ -9,8 +9,6 @@
  * ---------------------------------------------------------------
  */
 
-export type CheckoutCommand = object;
-
 export interface CheckoutOutDto {
   clientSecret?: string;
 }
@@ -20,6 +18,10 @@ export interface CheckoutOutDtoRequestResult {
   statusCodes?: number;
   message?: string;
   result?: CheckoutOutDto;
+}
+
+export interface CheckoutProductsCommand {
+  productIds?: string[];
 }
 
 export interface ConfirmEmailCommand {
@@ -38,7 +40,7 @@ export enum Difficulty {
   Easy = 'Easy',
   Medium = 'Medium',
   Hard = 'Hard',
-  VeryHard = 'VeryHard'
+  VeryHard = 'VeryHard',
 }
 
 export interface GetProductResult {
@@ -81,7 +83,7 @@ export interface GetProductResultRequestResult {
 
 /** @format string */
 export enum ProductType {
-  MurderParty = 'MurderParty'
+  MurderParty = 'MurderParty',
 }
 
 export interface RequestResult {
@@ -138,7 +140,7 @@ export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' 
 
 export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, 'data' | 'cancelToken'> {
   securityWorker?: (
-    securityData: SecurityDataType | null
+    securityData: SecurityDataType | null,
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
@@ -148,7 +150,7 @@ export enum ContentType {
   Json = 'application/json',
   FormData = 'multipart/form-data',
   UrlEncoded = 'application/x-www-form-urlencoded',
-  Text = 'text/plain'
+  Text = 'text/plain',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
@@ -167,7 +169,6 @@ export class HttpClient<SecurityDataType = unknown> {
 
   public setSecurityData = (data: SecurityDataType | null) => {
     this.securityData = data;
-    console.log(this.securityData);
   };
 
   protected mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
@@ -180,8 +181,8 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...((method && this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
+        ...((params2 && params2.headers) || {}),
+      },
     };
   }
 
@@ -236,12 +237,12 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       },
       params: query,
       responseType: responseFormat,
       data: body,
-      url: path
+      url: path,
     });
   };
 }
@@ -263,8 +264,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/Authenticate/Test`,
         method: 'POST',
-        ...params
-      })
+        ...params,
+      }),
   };
   authenticate = {
     /**
@@ -281,7 +282,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.Json,
         format: 'json',
-        ...params
+        ...params,
       }),
 
     /**
@@ -297,7 +298,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: 'POST',
         body: data,
         type: ContentType.Json,
-        ...params
+        ...params,
       }),
 
     /**
@@ -314,8 +315,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.Json,
         format: 'json',
-        ...params
-      })
+        ...params,
+      }),
   };
   contact = {
     /**
@@ -332,8 +333,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.Json,
         format: 'json',
-        ...params
-      })
+        ...params,
+      }),
   };
   product = {
     /**
@@ -348,7 +349,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/Product/${productCode}`,
         method: 'GET',
         format: 'json',
-        ...params
+        ...params,
       }),
 
     /**
@@ -363,8 +364,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/Product/All/${productType}`,
         method: 'GET',
         format: 'json',
-        ...params
-      })
+        ...params,
+      }),
   };
   stripe = {
     /**
@@ -375,7 +376,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Stripe/Checkout
      * @secure
      */
-    checkout: (data: CheckoutCommand, params: RequestParams = {}) =>
+    checkout: (data: CheckoutProductsCommand, params: RequestParams = {}) =>
       this.request<CheckoutOutDtoRequestResult, any>({
         path: `/Stripe/Checkout`,
         method: 'POST',
@@ -383,7 +384,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         secure: true,
         type: ContentType.Json,
         format: 'json',
-        ...params
-      })
+        ...params,
+      }),
   };
 }
