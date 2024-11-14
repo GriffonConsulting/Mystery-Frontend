@@ -89,7 +89,7 @@ const SignIn = (): JSX.Element => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="#" rel="nofollow" variant="body2">
                 {i18n.t('signUp')}
               </Link>
             </Grid>

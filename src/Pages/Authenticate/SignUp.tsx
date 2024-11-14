@@ -162,7 +162,7 @@ const SignUp = (): JSX.Element => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/authenticate/signin" style={{ color: theme.palette.primary.main }}>
+              <Link to="/authenticate/signin" rel="nofollow" style={{ color: theme.palette.primary.main }}>
                 {i18n.t('signIn')}
               </Link>
             </Grid>

@@ -19,7 +19,6 @@
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-react-swc": "^3.7.1",
     "axios": "^1.7.2",
-    "env-cmd": "^10.1.0",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
