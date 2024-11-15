@@ -13,6 +13,8 @@ import Account from './Pages/Account/Account';
 import { useCookies } from 'react-cookie';
 import RequiredAuth from './RequireAuth';
 import Checkout from './Pages/Order/Checkout';
+import AccountInformations from './Pages/Account/AccountInformations';
+import ForgotPassword from './Pages/Authenticate/ForgotPassword';
 
 export const AppRoutes = (): JSX.Element => {
   const [cookies] = useCookies(['token']);
@@ -24,6 +26,7 @@ export const AppRoutes = (): JSX.Element => {
           <Route index element={<HomePage />} />
           <Route path="/authenticate/signin" element={<SignIn />} />
           <Route path="/authenticate/signup" element={<SignUp />} />
+          <Route path="/authenticate/forgotpassword" element={<ForgotPassword />} />
           <Route path="/product/:productType" element={<Products />} />
           <Route path="/product/:productType/:productCode" element={<Product />} />
           <Route path="/order/basket" element={<Basket />} />
@@ -36,6 +39,15 @@ export const AppRoutes = (): JSX.Element => {
               </RequiredAuth>
             }
           />
+          <Route
+            path={'/account/informations'}
+            element={
+              <RequiredAuth>
+                <AccountInformations />
+              </RequiredAuth>
+            }
+          />
+
           <Route
             path={'/order/checkout'}
             element={

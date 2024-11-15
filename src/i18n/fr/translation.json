@@ -19,5 +19,8 @@
   "contact": "Contact",
   "message": "Message",
   "messageError": "Le message est obligatoire.",
-  "submit": "Envoyer"
+  "submit": "Envoyer",
+  "modify": "Modifier",
+  "forgotPasswordTitle": "Réinitialiser votre mot de passe",
+  "send": "Envoyer"
 }

@@ -17,8 +17,8 @@ import { useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 
 const logoStyle = {
-  width: '140px',
-  height: 'auto',
+  width: 'auto',
+  height: '50px',
   cursor: 'pointer',
 };
 
@@ -62,17 +62,10 @@ function Header(): JSX.Element {
               flexGrow: 1,
               display: 'flex',
               alignItems: 'center',
-              ml: '-18px',
               px: 0,
             }}>
             <Link to="/">
-              <img
-                // src={
-                //   'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
-                // }
-                style={logoStyle}
-                alt="logo"
-              />
+              <img src={'/assets/mea logo.png'} style={logoStyle} alt="logo" />
             </Link>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {Object.keys(ProductType).map(pt => (

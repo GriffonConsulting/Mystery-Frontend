@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 
-const SignIn = (): JSX.Element => {
+const ForgotPassword = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -45,10 +45,10 @@ const SignIn = (): JSX.Element => {
           alignItems: 'center',
         }}>
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LockOutlinedIcon />
+          <LockResetIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {i18n.t('signIn')}
+          {i18n.t('forgotPasswordTitle')}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
@@ -62,17 +62,6 @@ const SignIn = (): JSX.Element => {
             autoFocus
             onChange={e => setEmail(e.target.value)}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label={i18n.t('password')}
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={e => setPassword(e.target.value)}
-          />
           <Button
             type="button"
             fullWidth
@@ -80,17 +69,17 @@ const SignIn = (): JSX.Element => {
             onClick={handleSubmit}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}>
-            {i18n.t('signIn')}
+            {i18n.t('send')}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/authenticate/forgotpassword" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('forgotPassword')}
+              <Link to="/authenticate/signUp" style={{ color: theme.palette.primary.main }}>
+                {i18n.t('signUp')}
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/authenticate/signup" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('signUp')}
+              <Link to="/authenticate/signIn" style={{ color: theme.palette.primary.main }}>
+                {i18n.t('signIn')}
               </Link>
             </Grid>
           </Grid>
@@ -100,4 +89,4 @@ const SignIn = (): JSX.Element => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;

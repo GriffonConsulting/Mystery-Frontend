@@ -8,16 +8,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {
-  Alert,
-  Checkbox,
-  FormControlLabel,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  Snackbar,
-  useTheme,
-} from '@mui/material';
+import { Checkbox, FormControlLabel, FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
