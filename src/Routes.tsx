@@ -10,20 +10,17 @@ import Contact from './Pages/Contact/Contact';
 import NotFound from './Pages/NotFound/NotFound';
 import Basket from './Pages/Order/Basket';
 import Account from './Pages/Account/Account';
-import { useCookies } from 'react-cookie';
 import RequiredAuth from './RequireAuth';
 import Checkout from './Pages/Order/Checkout';
 import AccountInformations from './Pages/Account/AccountInformations';
 import ForgotPassword from './Pages/Authenticate/ForgotPassword';
 
 export const AppRoutes = (): JSX.Element => {
-  const [cookies] = useCookies(['token']);
-
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route index element={<HomePage />} />
+          <Route index element={<Products />} />
           <Route path="/authenticate/signin" element={<SignIn />} />
           <Route path="/authenticate/signup" element={<SignUp />} />
           <Route path="/authenticate/forgotpassword" element={<ForgotPassword />} />

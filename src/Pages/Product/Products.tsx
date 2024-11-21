@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductResult, ProductType } from '../../__generated__/api-generated';
 import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
@@ -8,29 +8,38 @@ import { useCookies } from 'react-cookie';
 
 export const Products = (): JSX.Element => {
   const theme = useTheme();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [products, setProducts] = useState<GetProductResult[]>();
-  const { productType } = useParams();
-  const [cookies, setCookies] = useCookies(['basket']);
+  let { productType } = useParams();
+  if (!productType) productType = ProductType.MurderParty;
+  // const [cookies, setCookie, removeCookies] = useCookies(['basket', 'test']);
+  // console.log(cookies);
+  const frEuro = new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  });
 
   useEffect(() => {
-    api.product.getProducts(ProductType.MurderParty).then(result => setProducts(result.data.result));
+    api.product.getProducts(productType as ProductType).then(result => setProducts(result.data.result));
   }, [productType]);
 
   const addToBasket = (product: GetProductResult) => {
-    const basket = cookies.basket ?? [];
+    setIsFetching(true);
+    const localStorageBasket = localStorage.getItem('basket');
+    const basket = localStorageBasket ? JSON.parse(localStorageBasket) : [];
     basket.push(product);
-    setCookies('basket', basket, { sameSite: true, secure: true, path: '/' });
+    localStorage.setItem('basket', JSON.stringify(basket));
   };
 
   return (
     <Container>
-      <Breadcrumbs separator="-" aria-label="breadcrumb">
+      <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
         <Link to={`/`} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
         </Link>
-        <Typography color={theme.palette.primary.main}>{productType}</Typography>
+        {productType && <Typography color={theme.palette.primary.main}>{productType}</Typography>}
       </Breadcrumbs>
-      {i18n.t(`${productType}.title`)}
+      {productType && i18n.t(`${productType}.title`)}
       <Box display={'flex'} flexDirection={'column'} gap={3} marginTop={3}>
         {products &&
           products.length > 0 &&
@@ -42,22 +51,51 @@ export const Products = (): JSX.Element => {
               borderRadius={3}
               display={'flex'}
               flexDirection={'row'}>
-              {p.images && (
-                <img
-                  width={500}
-                  height={333}
-                  className="imageCarousel"
-                  src={p.images[0]}
-                  alt={`${i18n.t(`${productType}.title`)} ${productType}`}
-                />
-              )}
-              {p.title}
-              <Link to={`/product/${productType}/${p.productCode}`}>
-                <Button>Voir la description</Button>
-              </Link>
-              <Link to={`/order/basket`} onClick={() => addToBasket(p)}>
-                <Button variant="contained">{i18n.t('addToBasket')}</Button>
-              </Link>
+              <Box p={2}>
+                {p.images && (
+                  <Link to={`/product/${productType}/${p.productCode}`}>
+                    <img
+                      style={{ borderRadius: 3 }}
+                      width={448}
+                      height={301}
+                      className="imageCarousel"
+                      src={p.images[0]}
+                      alt={`${i18n.t(`${productType}.title`)} ${productType}`}
+                    />
+                  </Link>
+                )}
+              </Box>
+              <Box p={2} justifyContent={'space-between'} flexDirection={'column'} display={'flex'}>
+                <div>
+                  <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
+                    <Typography component="h1" variant="h5" margin={0}>
+                      {p.title}
+                    </Typography>
+                    <div>
+                      <b>
+                        {p.nbPlayerMin} à {p.nbPlayerMax} joueurs
+                      </b>
+                    </div>
+                  </Box>
+                  <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
+                    <Typography component="h2" variant="h6" margin={0} color={'grey'}>
+                      {p.subtitle}
+                    </Typography>
+                    <div>{frEuro.format(p.price)}</div>
+                  </Box>
+                  <span style={{ fontSize: 14 }}>{p.description}</span>
+                </div>
+                <Box justifyContent={'flex-end'} flexDirection={'row'} display={'flex'}>
+                  <Link to={`/product/${productType}/${p.productCode}`}>
+                    <Button>Voir la description</Button>
+                  </Link>
+                  <Link to={`/order/basket`}>
+                    <Button disabled={isFetching} variant="contained" onClick={() => addToBasket(p)}>
+                      {i18n.t('addToBasket')}
+                    </Button>
+                  </Link>
+                </Box>
+              </Box>
             </Box>
           ))}
       </Box>

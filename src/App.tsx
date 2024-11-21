@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import axios from 'axios';
 import AppRoutes from './Routes';
 import { useCookies } from 'react-cookie';
 import { SignInDto } from './__generated__/api-generated';

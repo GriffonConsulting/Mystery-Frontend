@@ -10,10 +10,14 @@ import { useCookies } from 'react-cookie';
 
 export const Product = (): JSX.Element => {
   const theme = useTheme();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [product, setProduct] = useState<GetProductResult>();
   const { productType, productCode } = useParams();
   const [carouselIndex, setCarrouselIndex] = useState<number>(0);
-  const [cookies, setCookies] = useCookies(['basket']);
+  const frEuro = new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  });
 
   useEffect(() => {
     if (productCode) {
@@ -22,14 +26,16 @@ export const Product = (): JSX.Element => {
   }, [productCode]);
 
   const addToBasket = () => {
-    const basket = cookies.basket ?? [];
+    setIsFetching(true);
+    const localStorageBasket = localStorage.getItem('basket');
+    const basket = localStorageBasket ? JSON.parse(localStorageBasket) : [];
     basket.push(product);
-    setCookies('basket', basket, { sameSite: true, secure: true, path: '/' });
+    localStorage.setItem('basket', JSON.stringify(basket));
   };
 
   return (
     <Container>
-      <Breadcrumbs separator="-" aria-label="breadcrumb">
+      <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
         <Link to={`/`} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
         </Link>
@@ -40,7 +46,7 @@ export const Product = (): JSX.Element => {
       </Breadcrumbs>
 
       {product && (
-        <Box display={'flex'} gap={2}>
+        <Box display={'flex'} gap={2} borderRadius={3} p={2} style={{ backgroundColor: 'white' }}>
           <Box>
             <Carousel
               sx={{ width: 500, height: 333 }}
@@ -51,6 +57,7 @@ export const Product = (): JSX.Element => {
               {product.images?.map((item, i) => (
                 <Paper>
                   <img
+                    style={{ borderRadius: 3 }}
                     width={500}
                     height={333}
                     className="imageCarousel"
@@ -61,7 +68,7 @@ export const Product = (): JSX.Element => {
               ))}
             </Carousel>
             <Box display={'flex'} gap={3} marginTop={1}>
-              {product.images?.slice(1, 3).map((item, i) => (
+              {product.images?.slice(0, 3).map((item, i) => (
                 <Paper sx={{ width: 150, height: 100 }}>
                   <img
                     style={{ cursor: 'pointer' }}
@@ -77,12 +84,30 @@ export const Product = (): JSX.Element => {
             </Box>
           </Box>
           <Box>
-            <Typography component="h1" variant="h5">
-              {product.title}
-            </Typography>
-            <Link to={`/order/basket`} onClick={addToBasket}>
-              <Button variant="contained">{i18n.t('addToBasket')}</Button>
-            </Link>
+            <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
+              <Typography component="h1" variant="h5" margin={0}>
+                {product.title}
+              </Typography>
+              <div>
+                <b>
+                  {product.nbPlayerMin} à {product.nbPlayerMax} joueurs
+                </b>
+              </div>
+            </Box>
+            <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
+              <Typography component="h2" variant="h6" margin={0} color={'grey'}>
+                {product.subtitle}
+              </Typography>
+              <div>{frEuro.format(product.price)}</div>
+            </Box>
+            {product.description}
+            <Box justifyContent={'flex-end'} flexDirection={'row'} display={'flex'}>
+              <Link to={`/order/basket`} onClick={addToBasket}>
+                <Button disabled={isFetching} variant="contained">
+                  {i18n.t('addToBasket')}
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Box>
       )}
