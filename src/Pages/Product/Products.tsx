@@ -12,8 +12,7 @@ export const Products = (): JSX.Element => {
   const [products, setProducts] = useState<GetProductResult[]>();
   let { productType } = useParams();
   if (!productType) productType = ProductType.MurderParty;
-  // const [cookies, setCookie, removeCookies] = useCookies(['basket', 'test']);
-  // console.log(cookies);
+  const [cookies, setCookie] = useCookies(['basket']);
   const frEuro = new Intl.NumberFormat('fr-FR', {
     style: 'currency',
     currency: 'EUR',
@@ -25,10 +24,12 @@ export const Products = (): JSX.Element => {
 
   const addToBasket = (product: GetProductResult) => {
     setIsFetching(true);
-    const localStorageBasket = localStorage.getItem('basket');
-    const basket = localStorageBasket ? JSON.parse(localStorageBasket) : [];
-    basket.push(product);
-    localStorage.setItem('basket', JSON.stringify(basket));
+    const basket: string[] = cookies.basket ?? [];
+    const index = basket.findIndex(id => id === product?.id);
+    if (index === -1 && product) {
+      basket.push(product.id);
+      setCookie('basket', basket, { sameSite: true, secure: true, path: '/' });
+    }
   };
 
   return (

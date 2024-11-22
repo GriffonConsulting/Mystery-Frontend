@@ -5,10 +5,10 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Account = (): JSX.Element => {
-  const [, setCookies, removeCookies] = useCookies(['token']);
+  const [, , removeCookies] = useCookies(['token']);
 
   const disconnect = async () => {
-    removeCookies('token', { sameSite: true, secure: true });
+    removeCookies('token', { sameSite: true, secure: true, path: '/' });
   };
 
   return (

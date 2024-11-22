@@ -252,21 +252,6 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-  api = {
-    /**
-     * No description
-     *
-     * @tags Authenticate
-     * @name AuthenticateTestCreate
-     * @request POST:/api/Authenticate/Test
-     */
-    authenticateTestCreate: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/Authenticate/Test`,
-        method: 'POST',
-        ...params,
-      }),
-  };
   authenticate = {
     /**
      * No description
@@ -363,6 +348,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<GetProductResultArrayRequestResult, any>({
         path: `/Product/All/${productType}`,
         method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Product
+     * @name GetProductsByIds
+     * @request POST:/Product/ByIds
+     */
+    getProductsByIds: (data: string[], params: RequestParams = {}) =>
+      this.request<GetProductResultArrayRequestResult, any>({
+        path: `/Product/ByIds`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),

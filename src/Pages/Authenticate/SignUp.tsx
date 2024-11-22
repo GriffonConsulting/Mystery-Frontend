@@ -26,7 +26,6 @@ const SignUp = (): JSX.Element => {
   const theme = useTheme();
   const [, setCookies] = useCookies(['token']);
   const location = useLocation();
-  console.log(location);
 
   const signUpSchema = object({
     email: string().required('emailError').email('emailError'),
@@ -46,7 +45,7 @@ const SignUp = (): JSX.Element => {
       .signUp(signUp)
       .then(result => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
-        navigate('/');
+        navigate(location?.state?.from ? location?.state?.from : '/account');
       })
       .catch(error => {
         console.error(error.response.data.message.split(';'));

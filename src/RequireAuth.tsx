@@ -9,8 +9,9 @@ export interface PrivateRouteProps {
 export const RequireAuth = (props: PrivateRouteProps): JSX.Element => {
   const [cookies] = useCookies(['token']);
   const location = useLocation();
-
-  if (!cookies.token) {
+  if (!cookies.token && location.pathname === '/order/checkout') {
+    return <Navigate to="/authenticate/signup" state={{ from: location }} />;
+  } else if (!cookies.token) {
     return <Navigate to="/authenticate/signin" state={{ from: location }} />;
   }
 

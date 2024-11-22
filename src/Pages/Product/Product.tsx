@@ -14,6 +14,7 @@ export const Product = (): JSX.Element => {
   const [product, setProduct] = useState<GetProductResult>();
   const { productType, productCode } = useParams();
   const [carouselIndex, setCarrouselIndex] = useState<number>(0);
+  const [cookies, setCookie] = useCookies(['basket']);
   const frEuro = new Intl.NumberFormat('fr-FR', {
     style: 'currency',
     currency: 'EUR',
@@ -27,10 +28,12 @@ export const Product = (): JSX.Element => {
 
   const addToBasket = () => {
     setIsFetching(true);
-    const localStorageBasket = localStorage.getItem('basket');
-    const basket = localStorageBasket ? JSON.parse(localStorageBasket) : [];
-    basket.push(product);
-    localStorage.setItem('basket', JSON.stringify(basket));
+    const basket: string[] = cookies.basket ?? [];
+    const index = basket.findIndex(id => id === product?.id);
+    if (index === -1 && product) {
+      basket.push(product?.id);
+      setCookie('basket', basket, { sameSite: true, secure: true, path: '/' });
+    }
   };
 
   return (
@@ -55,7 +58,7 @@ export const Product = (): JSX.Element => {
               NextIcon={<NavigateNext />}
               PrevIcon={<NavigateBefore />}>
               {product.images?.map((item, i) => (
-                <Paper>
+                <Paper key={item}>
                   <img
                     style={{ borderRadius: 3 }}
                     width={500}
@@ -69,7 +72,7 @@ export const Product = (): JSX.Element => {
             </Carousel>
             <Box display={'flex'} gap={3} marginTop={1}>
               {product.images?.slice(0, 3).map((item, i) => (
-                <Paper sx={{ width: 150, height: 100 }}>
+                <Paper key={item} sx={{ width: 150, height: 100 }}>
                   <img
                     style={{ cursor: 'pointer' }}
                     width={150}

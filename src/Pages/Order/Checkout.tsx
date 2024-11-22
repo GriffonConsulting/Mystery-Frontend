@@ -11,11 +11,11 @@ const Checkout = () => {
     'pk_test_51PQ9oBP2H3oUToPCp2v3xgEGtrQC2X4D7FncAh0J5jpd7pi2PgQ2CTgEQvIMlEHkMGqmEzcTFtacC60qq1oObPCS00n9q79Bxz',
   );
   const [cookies] = useCookies(['basket']);
-  const [basket] = useState<GetProductResult[]>(cookies.basket);
+  const [basket] = useState<string[]>(cookies.basket);
 
   const fetchClientSecret = useCallback((): Promise<string> => {
     return api.stripe
-      .checkout({ productIds: basket.map(b => b.id) })
+      .checkout({ productIds: basket })
       .then(res => {
         return res.data.result?.clientSecret;
       })

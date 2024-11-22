@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetProductResult } from '../../__generated__/api-generated';
 import { Box, Button, Container, Typography, useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import DeleteIcon from '@mui/icons-material/RemoveShoppingCart';
 import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
+import api from '../../__generated__/api';
 
 export const Basket = (): JSX.Element => {
-  const theme = useTheme();
   const navigate = useNavigate();
-  const [basket] = useState<GetProductResult[]>(JSON.parse(localStorage.getItem('basket') ?? ''));
+  const [cookies, setCookie] = useCookies(['basket']);
+  const [basket] = useState<string[]>(cookies.basket);
+  const [products, setProducts] = useState<GetProductResult[]>([]);
 
   const removeFromBasket = (productId: string): void => {
-    const index = basket.findIndex(product => product.id === productId);
+    const index = basket.findIndex(id => id === productId);
     basket.splice(index, 1);
-    localStorage.setItem('basket', JSON.stringify(basket));
-    console.log(localStorage.getItem('basket'));
+    setCookie('basket', basket, { sameSite: true, secure: true, path: '/' });
   };
+
+  useEffect(() => {
+    if (basket) {
+      api.product.getProductsByIds(basket).then(result => setProducts(result.data.result as GetProductResult[]));
+    }
+  }, [basket]);
 
   const frEuro = new Intl.NumberFormat('fr-FR', {
     style: 'currency',
@@ -26,46 +33,62 @@ export const Basket = (): JSX.Element => {
   return (
     <Container>
       <h1>Panier</h1>
-      {basket?.map((product, i) => (
-        <Box
-          key={i + product.id}
-          display={'flex'}
-          flexDirection={'row'}
-          marginBottom={5}
-          borderRadius={3}
-          p={2}
-          style={{ backgroundColor: 'white' }}>
-          <img
-            width={300}
-            height={200}
-            style={{ borderRadius: 3 }}
-            className="imageCarousel"
-            src={product.images[0]}
-            alt={`${i18n.t(`${product.productType}.title`)} ${product.productType} ${i}`}
-          />
-          <Box ml={3}>
-            <Typography component="h5" variant="h5" margin={0}>
-              {product.title}
-            </Typography>
-            <Typography component="h6" variant="h6" margin={0}>
-              {product.subtitle}
-            </Typography>
-            <div>
+      {products && (
+        <Box display={'flex'} flexDirection={'row'} gap={5}>
+          <div>
+            {products?.map((product, i) => (
+              <Box
+                key={i + product.id}
+                display={'flex'}
+                flexDirection={'row'}
+                marginBottom={2}
+                borderRadius={3}
+                p={2}
+                style={{ backgroundColor: 'white' }}>
+                <img
+                  width={150}
+                  height={100}
+                  style={{ borderRadius: 3 }}
+                  className="imageCarousel"
+                  src={product.images[0]}
+                  alt={`${i18n.t(`${product.productType}.title`)} ${product.productType} ${i}`}
+                />
+                <Box ml={3} width={'100%'}>
+                  <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+                    <div>
+                      <Typography component="h5" variant="h6" margin={0}>
+                        {product.title}
+                      </Typography>
+                    </div>
+                    <div style={{ cursor: 'pointer', fontSize: '16px' }} onClick={() => removeFromBasket(product.id)}>
+                      <DeleteIcon fontSize="inherit" /> Supprimer
+                    </div>
+                  </Box>
+                  <Typography component="h6" variant="subtitle1" margin={0} color={'gray'}>
+                    {product.subtitle}
+                  </Typography>
+                  <div>
+                    <b>
+                      {product.nbPlayerMin} à {product.nbPlayerMax} joueurs
+                    </b>
+                  </div>
+                  <div>{frEuro.format(product.price)}</div>
+                </Box>
+              </Box>
+            ))}
+          </div>
+          <Box height={'fit-content'} p={4} borderRadius={3} style={{ backgroundColor: 'white' }} minWidth={300}>
+            <div style={{ marginBottom: 16 }}>
               <b>
-                {product.nbPlayerMin} à {product.nbPlayerMax} joueurs
+                Total {frEuro.format(products?.reduce((i: number, { price }: GetProductResult) => i + price, 0) ?? 0)}
               </b>
             </div>
-            <div style={{ cursor: 'pointer' }} onClick={() => removeFromBasket(product.id)}>
-              <DeleteIcon fontSize="small" /> Supprimer
-            </div>
-            <div>{frEuro.format(product.price)}</div>
+            <Button variant="contained" fullWidth={true} onClick={() => navigate('/order/checkout')}>
+              Commander
+            </Button>
           </Box>
         </Box>
-      ))}
-      Total {frEuro.format(basket?.reduce((i: number, { price }: GetProductResult) => i + price, 0))}
-      <Button variant="contained" onClick={() => navigate('/order/checkout')}>
-        Commander
-      </Button>
+      )}
     </Container>
   );
 };

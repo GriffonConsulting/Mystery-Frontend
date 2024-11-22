@@ -26,8 +26,8 @@ function Header(): JSX.Element {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const [cookies] = useCookies(['token']);
-  const basket = JSON.parse(localStorage.getItem('basket') ?? '');
+  const [cookies] = useCookies(['basket', 'token']);
+
   const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
   };
@@ -118,7 +118,7 @@ function Header(): JSX.Element {
                 </Button>
               </Link>
             )}
-            {basket && (
+            {cookies.basket && (
               <Link to="/order/basket">
                 <div style={{ position: 'relative' }}>
                   <Button sx={{ m: 1 }} color="primary" variant="outlined">
@@ -139,7 +139,7 @@ function Header(): JSX.Element {
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
-                    {basket?.length}
+                    {cookies.basket.length}
                   </span>
                 </div>
               </Link>

@@ -29,7 +29,7 @@ const ForgotPassword = (): JSX.Element => {
     api.authenticate
       .signIn({ email, password })
       .then(result => {
-        setCookies('token', result.data.result, { sameSite: true, secure: true });
+        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
       .catch(error => console.error(error))
