@@ -21,7 +21,7 @@ export interface CheckoutOutDtoRequestResult {
 }
 
 export interface CheckoutProductsCommand {
-  productIds?: string[];
+  productsIds?: string[];
 }
 
 export interface ConfirmEmailCommand {

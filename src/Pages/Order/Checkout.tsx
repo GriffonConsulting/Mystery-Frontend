@@ -3,7 +3,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import api from '../../__generated__/api';
 import { useCookies } from 'react-cookie';
-import { GetProductResult } from '../../__generated__/api-generated';
 
 const Checkout = () => {
   //todo conf
@@ -15,7 +14,7 @@ const Checkout = () => {
 
   const fetchClientSecret = useCallback((): Promise<string> => {
     return api.stripe
-      .checkout({ productIds: basket })
+      .checkout({ productsIds: basket })
       .then(res => {
         return res.data.result?.clientSecret;
       })
