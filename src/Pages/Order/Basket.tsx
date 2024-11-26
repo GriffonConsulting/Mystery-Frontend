@@ -10,7 +10,7 @@ import api from '../../__generated__/api';
 export const Basket = (): JSX.Element => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['basket']);
-  const [basket] = useState<string[]>(cookies.basket);
+  const basket: string[] = cookies.basket;
   const [products, setProducts] = useState<GetProductResult[]>([]);
 
   const removeFromBasket = (productId: string): void => {
@@ -33,7 +33,7 @@ export const Basket = (): JSX.Element => {
   return (
     <Container>
       <h1>Panier</h1>
-      {products && (
+      {products.length !== 0 && (
         <Box display={'flex'} flexDirection={'row'} gap={5}>
           <div>
             {products?.map((product, i) => (

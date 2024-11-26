@@ -43,6 +43,21 @@ export enum Difficulty {
   VeryHard = 'VeryHard',
 }
 
+export interface GetInvoicesResult {
+  /** @format double */
+  amount?: number;
+  /** @format date-time */
+  createdOn?: string;
+  receiptUrl?: string;
+}
+
+export interface GetInvoicesResultArrayRequestResult {
+  /** @format int32 */
+  statusCodes?: number;
+  message?: string;
+  result?: GetInvoicesResult[];
+}
+
 export interface GetProductResult {
   /** @format uuid */
   id: string;
@@ -321,6 +336,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  invoice = {
+    /**
+     * No description
+     *
+     * @tags Invoice
+     * @name GetInvoices
+     * @request GET:/Invoice/ByUserId
+     * @secure
+     */
+    getInvoices: (params: RequestParams = {}) =>
+      this.request<GetInvoicesResultArrayRequestResult, any>({
+        path: `/Invoice/ByUserId`,
+        method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+  };
   product = {
     /**
      * No description
@@ -386,6 +419,20 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         secure: true,
         type: ContentType.Json,
         format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Stripe
+     * @name WebhookPaymentIntentSucceededCreate
+     * @request POST:/Stripe/Webhook/PaymentIntent/Succeeded
+     */
+    webhookPaymentIntentSucceededCreate: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Stripe/Webhook/PaymentIntent/Succeeded`,
+        method: 'POST',
         ...params,
       }),
   };
