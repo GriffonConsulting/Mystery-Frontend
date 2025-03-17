@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
-import { GetProductDto, GetProductDtoArrayRequestResult, ProductType } from '../../__generated__/api-generated';
+import { GetProductDto, ProductType } from '../../__generated__/api-generated';
 import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
@@ -47,8 +47,9 @@ export const Products = (): JSX.Element => {
       <Box display={'flex'} flexDirection={'column'} gap={3} marginTop={3}>
         {products &&
           products.length > 0 &&
-          products.map(p => (
+          products.map((p, i) => (
             <Box
+              data-testid={`product${i}`}
               key={p.id}
               style={{ backgroundColor: 'white' }}
               height={333}
