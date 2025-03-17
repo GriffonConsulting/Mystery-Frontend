@@ -13,6 +13,8 @@ import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
+import { SignInCommand } from '../../__generated__/api-generated';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const ForgotPassword = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
@@ -27,12 +29,12 @@ const ForgotPassword = (): JSX.Element => {
     setIsFetching(true);
 
     api.authenticate
-      .signIn({ email, password })
-      .then(result => {
+      .signIn({ email, password } as SignInCommand)
+      .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      .catch(error => console.error(error))
+      .catch((error: AxiosError) => console.error(error))
       .finally(() => setIsFetching(false));
   };
 

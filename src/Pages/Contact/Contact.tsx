@@ -14,7 +14,7 @@ import { ContactCommand } from '../../__generated__/api-generated';
 
 const Contact = (): JSX.Element => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [signUp, setSignUp] = useState<ContactCommand>({});
+  const [signUp, setSignUp] = useState<ContactCommand>({} as ContactCommand);
   const [email, setEmail] = useState<string>();
   const [message, setMessage] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const Contact = (): JSX.Element => {
       return;
     }
     setIsFetching(true);
-    api.contact.contact({ email, message }).finally(() => setIsFetching(false));
+    api.contact.contact({ email, message } as ContactCommand).finally(() => setIsFetching(false));
   };
 
   return (

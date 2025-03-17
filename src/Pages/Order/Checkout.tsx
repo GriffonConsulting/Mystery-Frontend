@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import api from '../../__generated__/api';
 import { useCookies } from 'react-cookie';
+import { AxiosResponse } from 'axios';
 
 const Checkout = () => {
   //todo conf
@@ -12,13 +13,13 @@ const Checkout = () => {
   const [cookies] = useCookies(['basket']);
   const [basket] = useState<string[]>(cookies.basket);
 
-  const fetchClientSecret = useCallback((): Promise<string> => {
+  const fetchClientSecret = useCallback(() => {
     return api.stripe
       .checkout({ productsIds: basket })
-      .then(res => {
+      .then((res: AxiosResponse) => {
         return res.data.result?.clientSecret;
       })
-      .catch(error => {
+      .catch((error: AxiosResponse) => {
         return error;
       });
   }, []);

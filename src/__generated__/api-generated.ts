@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 /* tslint:disable */
 /*
@@ -15,7 +16,7 @@ export interface CheckoutOutDto {
 
 export interface CheckoutOutDtoRequestResult {
   message?: string;
-  result?: CheckoutOutDto;
+  result: CheckoutOutDto;
 }
 
 export interface CheckoutProductsCommand {
@@ -51,7 +52,7 @@ export interface GetInvoicesResult {
 
 export interface GetInvoicesResultArrayRequestResult {
   message?: string;
-  result?: GetInvoicesResult[] | null;
+  result: GetInvoicesResult[];
 }
 
 export interface GetProductDto {
@@ -80,12 +81,12 @@ export interface GetProductDto {
 
 export interface GetProductDtoArrayRequestResult {
   message?: string;
-  result?: GetProductDto[] | null;
+  result: GetProductDto[];
 }
 
 export interface GetProductDtoRequestResult {
   message?: string;
-  result?: GetProductDto;
+  result: GetProductDto;
 }
 
 /** @format string */
@@ -110,7 +111,7 @@ export interface SignInDto {
 
 export interface SignInDtoRequestResult {
   message?: string;
-  result?: SignInDto;
+  result: SignInDto;
 }
 
 export interface SignUpCommand {
@@ -122,9 +123,9 @@ export interface SignUpCommand {
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
 import axios from 'axios';
 
-export type QueryParamsType = Record<string | number, any>;
+export type QueryParamsType = Record;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+export interface FullRequestParams extends Omit {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -139,12 +140,10 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
+export type RequestParams = Omit;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, 'data' | 'cancelToken'> {
-  securityWorker?: (
-    securityData: SecurityDataType | null,
-  ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
+export interface ApiConfig<SecurityDataType = unknown> extends Omit {
+  securityWorker?: (securityData: SecurityDataType | null) => Promise | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
 }
@@ -159,11 +158,11 @@ export enum ContentType {
 export class HttpClient<SecurityDataType = unknown> {
   public instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
+  private securityWorker?: ApiConfig['securityWorker'];
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
+  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig = {}) {
     this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' });
     this.secure = secure;
     this.format = format;
@@ -197,7 +196,7 @@ export class HttpClient<SecurityDataType = unknown> {
     }
   }
 
-  protected createFormData(input: Record<string, unknown>): FormData {
+  protected createFormData(input: Record): FormData {
     if (input instanceof FormData) {
       return input;
     }
@@ -222,7 +221,7 @@ export class HttpClient<SecurityDataType = unknown> {
     format,
     body,
     ...params
-  }: FullRequestParams): Promise<AxiosResponse<T>> => {
+  }: FullRequestParams): Promise => {
     const secureParams =
       ((typeof secure === 'boolean' ? secure : this.secure) &&
         this.securityWorker &&
@@ -232,7 +231,7 @@ export class HttpClient<SecurityDataType = unknown> {
     const responseFormat = format || this.format || undefined;
 
     if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
-      body = this.createFormData(body as Record<string, unknown>);
+      body = this.createFormData(body as Record);
     }
 
     if (type === ContentType.Text && body && body !== null && typeof body !== 'string') {
@@ -257,7 +256,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title MurderParty.Api
  * @version 1.0
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient {
   authenticate = {
     /**
      * No description

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
-import { GetProductResult, ProductType } from '../../__generated__/api-generated';
+import { GetProductDto, GetProductDtoArrayRequestResult, ProductType } from '../../__generated__/api-generated';
 import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
+import { AxiosResponse } from 'axios';
 
 export const Products = (): JSX.Element => {
   const theme = useTheme();
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [products, setProducts] = useState<GetProductResult[]>();
+  const [products, setProducts] = useState<GetProductDto[]>();
   let { productType } = useParams();
   if (!productType) productType = ProductType.MurderParty;
   const [cookies, setCookie] = useCookies(['basket']);
@@ -19,10 +20,12 @@ export const Products = (): JSX.Element => {
   });
 
   useEffect(() => {
-    api.product.getProducts(productType as ProductType).then(result => setProducts(result.data.result));
+    api.product
+      .getProducts(productType as ProductType)
+      .then((result: AxiosResponse) => setProducts(result.data.result));
   }, [productType]);
 
-  const addToBasket = (product: GetProductResult) => {
+  const addToBasket = (product: GetProductDto) => {
     setIsFetching(true);
     const basket: string[] = cookies.basket ?? [];
     const index = basket.findIndex(id => id === product?.id);

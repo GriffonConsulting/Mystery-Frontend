@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
-import { GetProductResult } from '../../__generated__/api-generated';
+import { GetProductDto } from '../../__generated__/api-generated';
 import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
+import { AxiosResponse } from 'axios';
 
 export const Product = (): JSX.Element => {
   const theme = useTheme();
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [product, setProduct] = useState<GetProductResult>();
+  const [product, setProduct] = useState<GetProductDto>();
   const { productType, productCode } = useParams();
   const [carouselIndex, setCarrouselIndex] = useState<number>(0);
   const [cookies, setCookie] = useCookies(['basket']);
@@ -22,7 +23,7 @@ export const Product = (): JSX.Element => {
 
   useEffect(() => {
     if (productCode) {
-      api.product.getProduct(productCode).then(result => setProduct(result.data.result));
+      api.product.getProduct(productCode).then((result: AxiosResponse) => setProduct(result.data.result));
     }
   }, [productCode]);
 

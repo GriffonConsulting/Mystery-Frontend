@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { GetProductResult } from '../../__generated__/api-generated';
+import { GetProductDto } from '../../__generated__/api-generated';
 import { Box, Button, Container, Typography, useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import DeleteIcon from '@mui/icons-material/RemoveShoppingCart';
 import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
 import api from '../../__generated__/api';
+import { AxiosResponse } from 'axios';
 
 export const Basket = (): JSX.Element => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['basket']);
   const basket: string[] = cookies.basket;
-  const [products, setProducts] = useState<GetProductResult[]>([]);
+  const [products, setProducts] = useState<GetProductDto[]>([]);
 
   const removeFromBasket = (productId: string): void => {
     const index = basket.findIndex(id => id === productId);
@@ -21,7 +22,9 @@ export const Basket = (): JSX.Element => {
 
   useEffect(() => {
     if (basket) {
-      api.product.getProductsByIds(basket).then(result => setProducts(result.data.result as GetProductResult[]));
+      api.product
+        .getProductsByIds(basket)
+        .then((result: AxiosResponse) => setProducts(result.data.result as GetProductDto[]));
     }
   }, [basket]);
 
@@ -79,9 +82,7 @@ export const Basket = (): JSX.Element => {
           </div>
           <Box height={'fit-content'} p={4} borderRadius={3} style={{ backgroundColor: 'white' }} minWidth={300}>
             <div style={{ marginBottom: 16 }}>
-              <b>
-                Total {frEuro.format(products?.reduce((i: number, { price }: GetProductResult) => i + price, 0) ?? 0)}
-              </b>
+              <b>Total {frEuro.format(products?.reduce((i: number, { price }: GetProductDto) => i + price, 0) ?? 0)}</b>
             </div>
             <Button variant="contained" fullWidth={true} onClick={() => navigate('/order/checkout')}>
               Commander

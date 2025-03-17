@@ -16,10 +16,11 @@ import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState<SignUpCommand>({ marketingEmail: false });
+  const [signUp, setSignUp] = useState<SignUpCommand>({ marketingEmail: false } as SignUpCommand);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
@@ -43,14 +44,14 @@ const SignUp = (): JSX.Element => {
     setIsFetching(true);
     api.authenticate
       .signUp(signUp)
-      .then(result => {
+      .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      .catch(error => {
-        console.error(error.response.data.message.split(';'));
-        if (error.response.data) {
-          setErrors(error.response.data.message.split(';'));
+      .catch((error: AxiosError) => {
+        if (error?.response?.data) {
+          //todo errors
+          // setErrors(error.response.data.message.split(';'));
         }
       })
       .finally(() => setIsFetching(false));

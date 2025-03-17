@@ -3,12 +3,15 @@ import Container from '@mui/material/Container';
 import { useEffect } from 'react';
 import api from '../../__generated__/api';
 import { GetInvoicesResult } from '../../__generated__/api-generated';
+import { AxiosResponse } from 'axios';
 
 const Invoices = (): JSX.Element => {
   const [invoices, setInvoices] = React.useState<GetInvoicesResult[]>([]);
 
   useEffect(() => {
-    api.invoice.getInvoices().then(result => setInvoices(result.data.result as GetInvoicesResult[]));
+    api.invoice
+      .getInvoicesByUserId()
+      .then((result: AxiosResponse) => setInvoices(result.data.result as GetInvoicesResult[]));
   }, []);
 
   return (
