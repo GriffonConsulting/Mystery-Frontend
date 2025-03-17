@@ -10,28 +10,26 @@
  */
 
 export interface CheckoutOutDto {
-  clientSecret?: string;
+  clientSecret: string;
 }
 
 export interface CheckoutOutDtoRequestResult {
-  /** @format int32 */
-  statusCodes?: number;
   message?: string;
   result?: CheckoutOutDto;
 }
 
 export interface CheckoutProductsCommand {
-  productsIds?: string[];
+  productsIds: string[];
 }
 
 export interface ConfirmEmailCommand {
-  email?: string;
-  token?: string;
+  email: string;
+  token: string;
 }
 
 export interface ContactCommand {
-  email?: string;
-  message?: string;
+  email: string;
+  message: string;
 }
 
 /** @format string */
@@ -45,20 +43,18 @@ export enum Difficulty {
 
 export interface GetInvoicesResult {
   /** @format double */
-  amount?: number;
+  amount: number;
   /** @format date-time */
-  createdOn?: string;
-  receiptUrl?: string;
+  createdOn: string;
+  receiptUrl: string;
 }
 
 export interface GetInvoicesResultArrayRequestResult {
-  /** @format int32 */
-  statusCodes?: number;
   message?: string;
-  result?: GetInvoicesResult[];
+  result?: GetInvoicesResult[] | null;
 }
 
-export interface GetProductResult {
+export interface GetProductDto {
   /** @format uuid */
   id: string;
   /** @minLength 1 */
@@ -82,18 +78,14 @@ export interface GetProductResult {
   productType: ProductType;
 }
 
-export interface GetProductResultArrayRequestResult {
-  /** @format int32 */
-  statusCodes?: number;
+export interface GetProductDtoArrayRequestResult {
   message?: string;
-  result?: GetProductResult[];
+  result?: GetProductDto[] | null;
 }
 
-export interface GetProductResultRequestResult {
-  /** @format int32 */
-  statusCodes?: number;
+export interface GetProductDtoRequestResult {
   message?: string;
-  result?: GetProductResult;
+  result?: GetProductDto;
 }
 
 /** @format string */
@@ -102,33 +94,29 @@ export enum ProductType {
 }
 
 export interface RequestResult {
-  /** @format int32 */
-  statusCodes?: number;
   message?: string;
 }
 
 export interface SignInCommand {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 export interface SignInDto {
-  token?: string;
+  token: string;
   /** @format date-time */
   expirationDate?: string;
 }
 
 export interface SignInDtoRequestResult {
-  /** @format int32 */
-  statusCodes?: number;
   message?: string;
   result?: SignInDto;
 }
 
 export interface SignUpCommand {
-  email?: string;
-  password?: string;
-  marketingEmail?: boolean;
+  email: string;
+  password: string;
+  marketingEmail: boolean;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
@@ -210,6 +198,9 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected createFormData(input: Record<string, unknown>): FormData {
+    if (input instanceof FormData) {
+      return input;
+    }
     return Object.keys(input || {}).reduce((formData, key) => {
       const property = input[key];
       const propertyContent: any[] = property instanceof Array ? property : [property];
@@ -252,7 +243,7 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+        ...(type ? { 'Content-Type': type } : {}),
       },
       params: query,
       responseType: responseFormat,
@@ -263,7 +254,7 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title MurderParty
+ * @title MurderParty.Api
  * @version 1.0
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
@@ -324,11 +315,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Contact
      * @name Contact
-     * @request POST:/Contact/Contact
+     * @request POST:/Contact
      */
     contact: (data: ContactCommand, params: RequestParams = {}) =>
       this.request<RequestResult, RequestResult>({
-        path: `/Contact/Contact`,
+        path: `/Contact`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
@@ -341,11 +332,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Invoice
-     * @name GetInvoices
+     * @name GetInvoicesByUserId
      * @request GET:/Invoice/ByUserId
      * @secure
      */
-    getInvoices: (params: RequestParams = {}) =>
+    getInvoicesByUserId: (params: RequestParams = {}) =>
       this.request<GetInvoicesResultArrayRequestResult, any>({
         path: `/Invoice/ByUserId`,
         method: 'GET',
@@ -363,7 +354,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/Product/{productCode}
      */
     getProduct: (productCode: string, params: RequestParams = {}) =>
-      this.request<GetProductResultRequestResult, any>({
+      this.request<GetProductDtoRequestResult, any>({
         path: `/Product/${productCode}`,
         method: 'GET',
         format: 'json',
@@ -375,11 +366,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Product
      * @name GetProducts
-     * @request GET:/Product/All/{productType}
+     * @request GET:/Product/{productType}/All
      */
     getProducts: (productType: ProductType, params: RequestParams = {}) =>
-      this.request<GetProductResultArrayRequestResult, any>({
-        path: `/Product/All/${productType}`,
+      this.request<GetProductDtoArrayRequestResult, any>({
+        path: `/Product/${productType}/All`,
         method: 'GET',
         format: 'json',
         ...params,
@@ -393,7 +384,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Product/ByIds
      */
     getProductsByIds: (data: string[], params: RequestParams = {}) =>
-      this.request<GetProductResultArrayRequestResult, any>({
+      this.request<GetProductDtoArrayRequestResult, any>({
         path: `/Product/ByIds`,
         method: 'POST',
         body: data,

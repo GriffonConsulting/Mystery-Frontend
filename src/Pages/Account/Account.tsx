@@ -2,7 +2,6 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import { useCookies } from 'react-cookie';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 const Account = (): JSX.Element => {
   const [, , removeCookies] = useCookies(['token']);
