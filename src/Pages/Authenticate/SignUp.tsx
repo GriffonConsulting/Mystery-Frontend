@@ -46,6 +46,7 @@ const SignUp = (): JSX.Element => {
       .signUp(signUp)
       .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
+        navigate(location?.state?.from ? location?.state?.from : '/account');
       })
       .catch((error: AxiosError) => {
         const errors = error?.response?.data as string;

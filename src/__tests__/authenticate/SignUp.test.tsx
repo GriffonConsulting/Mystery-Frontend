@@ -67,6 +67,7 @@ describe('SignUp Component', () => {
         password: 'Valid@1234',
         marketingEmail: false,
       });
+      expect(mockNavigate).toHaveBeenCalledWith('/account');
     });
   });
 
