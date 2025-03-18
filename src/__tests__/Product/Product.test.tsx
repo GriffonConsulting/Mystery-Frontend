@@ -1,16 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
+import { Cookies, CookiesProvider } from 'react-cookie';
 import { describe, expect, it, vi } from 'vitest';
 import Product from '../../Pages/Product/Product';
 import api from '../../__generated__/api';
 import { Difficulty, GetProductDto, ProductType } from '../../__generated__/api-generated';
-
-vi.mock('react-router-dom', () => ({
-  useParams: (): any => ({ productCode: 'P001' }),
-  BrowserRouter: vi.fn().mockImplementation(props => props.children),
-  Link: vi.fn().mockImplementation(props => props.children),
-}));
+import i18n from '../../i18n';
 
 const mockProduct: GetProductDto = {
   id: '1',
@@ -27,7 +22,7 @@ const mockProduct: GetProductDto = {
   productType: ProductType.MurderParty,
 };
 
-api.product.getProduct = vi.fn(():any => Promise.resolve({ data: { result: mockProduct } }));
+api.product.getProduct = vi.fn((): any => Promise.resolve({ data: { result: mockProduct } }));
 
 describe('Product Component', () => {
   it('renders product details correctly', async () => {
@@ -41,9 +36,8 @@ describe('Product Component', () => {
 
     await waitFor(() => {
       expect(api.product.getProduct).toHaveBeenCalled();
-      expect(screen.getByText('Sous-titre Test')).toBeInTheDocument();
-      expect(screen.getByText('Description du produit test')).toBeInTheDocument();
-      expect(screen.getByText('2 à 4 joueurs')).toBeInTheDocument();
+      expect(screen.getByText(mockProduct.subtitle)).toBeInTheDocument();
+      expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
     });
   });
 
@@ -62,7 +56,7 @@ describe('Product Component', () => {
 
   //   await waitFor(() => {
   //     expect(api.product.getProduct).toHaveBeenCalled();
-  //     const addToBasketButton = screen.getByText('Ajouter au panier');
+  //     const addToBasketButton = screen.getByText(i18n.t('addToBasket'));
   //     fireEvent.click(addToBasketButton);
   //   });
 

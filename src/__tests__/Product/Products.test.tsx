@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import api from '../../__generated__/api';
 import { Difficulty, GetProductDto, ProductType } from '../../__generated__/api-generated';
 import Products from '../../Pages/Product/Products';
+import i18n from '../../i18n';
 
 const mockProducts: GetProductDto[] = [
   {
@@ -37,7 +38,7 @@ const mockProducts: GetProductDto[] = [
   },
 ];
 
-api.product.getProducts = vi.fn(():any => Promise.resolve({ data: { result: mockProducts }, }));
+api.product.getProducts = vi.fn((): any => Promise.resolve({ data: { result: mockProducts } }));
 
 describe('Products Component', () => {
   it('renders products correctly', async () => {
@@ -51,8 +52,8 @@ describe('Products Component', () => {
 
     await waitFor(() => {
       expect(api.product.getProducts).toHaveBeenCalled();
-      expect(screen.getByText('Produit 1')).toBeInTheDocument();
-      expect(screen.getByText('Produit 2')).toBeInTheDocument();
+      expect(screen.getByText(mockProducts[0].title)).toBeInTheDocument();
+      expect(screen.getByText(mockProducts[1].title)).toBeInTheDocument();
     });
   });
 
@@ -71,7 +72,7 @@ describe('Products Component', () => {
 
     await waitFor(() => {
       expect(api.product.getProducts).toHaveBeenCalled();
-      const addToBasketButton = screen.getAllByText('Ajouter au panier')[0];
+      const addToBasketButton = screen.getAllByText(i18n.t('addToBasket'))[0];
       fireEvent.click(addToBasketButton);
     });
 
