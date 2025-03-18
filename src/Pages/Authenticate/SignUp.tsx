@@ -69,7 +69,7 @@ const SignUp = (): JSX.Element => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {i18n.t('signUp')}
+          {i18n.t('authenticate:signUp')}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -78,7 +78,7 @@ const SignUp = (): JSX.Element => {
                 required
                 fullWidth
                 id="email"
-                label={i18n.t('email')}
+                label={i18n.t('authenticate:email')}
                 name="email"
                 autoComplete="email"
                 error={errors.some(e => e == 'emailError' || e == 'DuplicateEmail')}
@@ -100,7 +100,7 @@ const SignUp = (): JSX.Element => {
                 required
                 fullWidth
                 name="password"
-                label={i18n.t('password')}
+                label={i18n.t('authenticate:password')}
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 autoComplete="new-password"
@@ -139,7 +139,7 @@ const SignUp = (): JSX.Element => {
                   }
                 />
               }
-              label={<Typography sx={{ fontSize: 14 }}>{i18n.t('marketingEmail')}</Typography>}
+              label={<Typography sx={{ fontSize: 14 }}>{i18n.t('authenticate:marketingEmail')}</Typography>}
             />
           </Grid>
           <Button
@@ -149,12 +149,12 @@ const SignUp = (): JSX.Element => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}>
-            {i18n.t('signUp')}
+            {i18n.t('authenticate:signUp')}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="/authenticate/signin" rel="nofollow" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('signIn')}
+                {i18n.t('authenticate:signIn')}
               </Link>
             </Grid>
           </Grid>

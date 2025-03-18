@@ -50,7 +50,7 @@ const SignIn = (): JSX.Element => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {i18n.t('signIn')}
+          {i18n.t('authenticate:signIn')}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
@@ -58,7 +58,7 @@ const SignIn = (): JSX.Element => {
             required
             fullWidth
             id="email"
-            label={i18n.t('email')}
+            label={i18n.t('authenticate:email')}
             name="email"
             autoComplete="email"
             autoFocus
@@ -69,7 +69,7 @@ const SignIn = (): JSX.Element => {
             required
             fullWidth
             name="password"
-            label={i18n.t('password')}
+            label={i18n.t('authenticate:password')}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -87,12 +87,12 @@ const SignIn = (): JSX.Element => {
           <Grid container>
             <Grid item xs>
               <Link to="/authenticate/forgotpassword" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('forgotPassword')}
+                {i18n.t('authenticate:forgotPassword')}
               </Link>
             </Grid>
             <Grid item>
               <Link to="/authenticate/signup" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('signUp')}
+                {i18n.t('authenticate:signUp')}
               </Link>
             </Grid>
           </Grid>

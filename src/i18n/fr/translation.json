@@ -3,6 +3,9 @@
   "MurderParty": {
     "title": "MURDER PARTY"
   },
+  "signIn": "Se connecter",
+  "signUp": "S'inscrire",
+  "account": "Mon compte",
   "addToBasket": "Ajouter au panier",
   "goToBasket": "Aller au panier",
   "contact": "Contact",

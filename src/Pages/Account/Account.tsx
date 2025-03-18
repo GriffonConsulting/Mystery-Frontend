@@ -13,7 +13,7 @@ const Account = (): JSX.Element => {
 
   return (
     <Container maxWidth="xs">
-      <Button onClick={disconnect}>{i18n.t('disconnect')}</Button>
+      <Button onClick={disconnect}>{i18n.t('account:disconnect')}</Button>
     </Container>
   );
 };
