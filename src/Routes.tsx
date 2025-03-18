@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Layout/Layout';
 import { AxiosInterceptor } from './__generated__/api';
 import RequiredAuth from './RequiredAuth';
+import Loader from './components/Loader';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
 const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
@@ -23,6 +24,7 @@ export const AppRoutes = (): JSX.Element => {
     <BrowserRouter>
       <AxiosInterceptor>
         <Layout>
+  <Suspense fallback={<Loader/>}>
           <Routes>
             <Route index element={<Products />} />
             <Route path="/authenticate/signin" element={<SignIn />} />
@@ -66,6 +68,7 @@ export const AppRoutes = (): JSX.Element => {
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </Layout>
       </AxiosInterceptor>
     </BrowserRouter>

@@ -27,7 +27,7 @@ const mockProduct: GetProductDto = {
   productType: ProductType.MurderParty,
 };
 
-api.product.getProduct = vi.fn(() => Promise.resolve({ data: { result: mockProduct } }));
+api.product.getProduct = vi.fn(():any => Promise.resolve({ data: { result: mockProduct } }));
 
 describe('Product Component', () => {
   it('renders product details correctly', async () => {

@@ -37,7 +37,7 @@ const mockProducts: GetProductDto[] = [
   },
 ];
 
-api.product.getProducts = vi.fn(() => Promise.resolve({ data: { result: mockProducts } }));
+api.product.getProducts = vi.fn(():any => Promise.resolve({ data: { result: mockProducts }, }));
 
 describe('Products Component', () => {
   it('renders products correctly', async () => {
