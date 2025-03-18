@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Layout/Layout';
 import { AxiosInterceptor } from './__generated__/api';
+import RequiredAuth from './RequiredAuth';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
 const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
@@ -11,7 +12,6 @@ const Contact = React.lazy(() => import('./Pages/Contact/Contact'));
 const NotFound = React.lazy(() => import('./Pages/NotFound/NotFound'));
 const Basket = React.lazy(() => import('./Pages/Order/Basket'));
 const Account = React.lazy(() => import('./Pages/Account/Account'));
-const RequiredAuth = React.lazy(() => import('./RequiredAuth'));
 const Checkout = React.lazy(() => import('./Pages/Order/Checkout'));
 const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInformations'));
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));

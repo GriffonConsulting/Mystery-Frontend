@@ -6,7 +6,7 @@ export interface PrivateRouteProps {
   children?: Array<React.ReactNode> | React.ReactNode;
 }
 
-export const RequireAuth = (props: PrivateRouteProps): JSX.Element => {
+export const RequiredAuth = (props: PrivateRouteProps): JSX.Element => {
   const [cookies] = useCookies(['token']);
   const location = useLocation();
 
@@ -19,4 +19,4 @@ export const RequireAuth = (props: PrivateRouteProps): JSX.Element => {
   return <>{props.children}</>;
 };
 
-export default RequireAuth;
+export default RequiredAuth;
