@@ -1,0 +1,1 @@
+import{r as s,e as o,j as t,C as r}from"./index-Bapmzi_e.js";const x=()=>{const[a,i]=s.useState([]);return s.useEffect(()=>{o.invoice.getInvoicesByUserId().then(e=>i(e.data.result))},[]),t.jsx(r,{maxWidth:"xs",children:a.map((e,n)=>t.jsx("div",{children:e.amount},n))})};export{x as default};

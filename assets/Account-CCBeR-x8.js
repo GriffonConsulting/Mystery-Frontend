@@ -1,0 +1,1 @@
+import{u as n,j as t,C as o,d as c,i as a}from"./index-Bapmzi_e.js";const r=()=>{const[,,e]=n(["token"]),s=async()=>{e("token",{sameSite:!0,secure:!0,path:"/"})};return t.jsx(o,{maxWidth:"xs",children:t.jsx(c,{onClick:s,children:a.t("account:disconnect")})})};export{r as default};
