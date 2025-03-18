@@ -66,7 +66,7 @@ export const Products = (): JSX.Element => {
                 {p.images && (
                   <Link to={`/product/${productType}/${p.productCode}`}>
                     <img
-                      style={{ borderRadius: 3 }}
+                      width={'100%'}
                       className="imageCarousel"
                       src={p.images[0]}
                       alt={`${i18n.t(`${productType}.title`)} ${productType}`}
