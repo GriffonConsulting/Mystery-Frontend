@@ -3,13 +3,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import i18n from '../../i18n';
 
 function Copyright(): JSX.Element {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
-      {'Copyright © '}
-      Griffon Consulting {new Date().getFullYear()}
-      {'.'}
+      {`Copyright © Griffon Consulting ${new Date().getFullYear()}.`}
     </Typography>
   );
 }
@@ -34,50 +33,16 @@ export default function Footer(): JSX.Element {
         }}>
         <div>
           <Link color="text.secondary" href="#">
-            Privacy Policy
+            {i18n.t('privacyPolicy')}
           </Link>
           <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
             &nbsp;•&nbsp;
           </Typography>
           <Link color="text.secondary" href="#">
-            Terms of Service
+            {i18n.t('tos')}
           </Link>
           <Copyright />
         </div>
-        {/* <Stack
-          direction="row"
-          justifyContent="left"
-          spacing={1}
-          useFlexGap
-          sx={{
-            color: 'text.secondary',
-          }}
-        >
-          <IconButton
-            color="inherit"
-            href="https://github.com/mui"
-            aria-label="GitHub"
-            sx={{ alignSelf: 'center' }}
-          >
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://twitter.com/MaterialUI"
-            aria-label="X"
-            sx={{ alignSelf: 'center' }}
-          >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://www.linkedin.com/company/mui/"
-            aria-label="LinkedIn"
-            sx={{ alignSelf: 'center' }}
-          >
-            <LinkedInIcon />
-          </IconButton>
-        </Stack> */}
       </Box>
     </Container>
   );

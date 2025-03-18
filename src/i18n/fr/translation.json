@@ -13,5 +13,7 @@
   "messageError": "Le message est obligatoire.",
   "submit": "Envoyer",
   "modify": "Modifier",
-  "send": "Envoyer"
+  "send": "Envoyer",
+  "privacyPolicy": "Politique de confidentialité",
+  "tos": "Conditions d'utilisation"
 }

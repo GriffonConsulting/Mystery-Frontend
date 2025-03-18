@@ -9,7 +9,7 @@ const resources = {
   fr: {
     translation,
     account,
-    authenticate
+    authenticate,
   },
 };
 
