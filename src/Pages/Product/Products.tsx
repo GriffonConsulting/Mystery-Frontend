@@ -52,22 +52,20 @@ export const Products = (): JSX.Element => {
               data-testid={`product${i}`}
               key={p.id}
               style={{ backgroundColor: 'white' }}
-              sx={(theme) => ({
-                [theme.breakpoints.down("md")]: {
-                   flexDirection:'column',
+              sx={theme => ({
+                [theme.breakpoints.down('md')]: {
+                  flexDirection: 'column',
                 },
-                [theme.breakpoints.up("md")]: {
-                   flexDirection:'row'
+                [theme.breakpoints.up('md')]: {
+                  flexDirection: 'row',
                 },
-                })}
+              })}
               borderRadius={3}
               display={'flex'}>
-              <Box p={2} minWidth={300}               
-                >
+              <Box p={2}>
                 {p.images && (
                   <Link to={`/product/${productType}/${p.productCode}`}>
                     <img
-                    width={'100%'}
                       style={{ borderRadius: 3 }}
                       className="imageCarousel"
                       src={p.images[0]}

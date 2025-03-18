@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductDto } from '../../__generated__/api-generated';
-import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, Typography, useTheme } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import i18n from '../../i18n';
@@ -50,31 +50,57 @@ export const Product = (): JSX.Element => {
       </Breadcrumbs>
 
       {product && (
-        <Box display={'flex'} gap={2} borderRadius={3} p={2} style={{ backgroundColor: 'white' }}>
+        <Box
+          display={'flex'}
+          gap={2}
+          borderRadius={3}
+          p={2}
+          style={{ backgroundColor: 'white' }}
+          sx={theme => ({
+            [theme.breakpoints.down('md')]: {
+              flexDirection: 'column',
+            },
+            [theme.breakpoints.up('md')]: {
+              flexDirection: 'row',
+            },
+          })}>
           <Box>
             <Carousel
-              sx={{ width: 500, height: 333 }}
+              sx={theme => ({
+                [theme.breakpoints.down('md')]: {
+                  display: 'none',
+                },
+              })}
               autoPlay={false}
               index={carouselIndex}
               NextIcon={<NavigateNext />}
               PrevIcon={<NavigateBefore />}>
               {product.images?.map((item, i) => (
-                <Paper key={item}>
-                  <img
-                    style={{ borderRadius: 3 }}
-                    width={500}
-                    height={333}
-                    className="imageCarousel"
-                    src={item}
-                    alt={`${i18n.t(`${productType}.title`)} ${productType} ${i}`}
-                  />
-                </Paper>
+                <img
+                  key={item}
+                  style={{ borderRadius: 3 }}
+                  width={'100%'}
+                  height={'100%'}
+                  className="imageCarousel"
+                  src={item}
+                  alt={`${i18n.t(`${productType}.title`)} ${productType} ${i}`}
+                />
               ))}
             </Carousel>
-            <Box display={'flex'} gap={3} marginTop={1}>
-              {product.images?.slice(0, 3).map((item, i) => (
-                <Paper key={item} sx={{ width: 150, height: 100 }}>
+            <Box
+              display={'flex'}
+              gap={3}
+              marginTop={1}
+              sx={theme => ({
+                [theme.breakpoints.down('md')]: {
+                  flexWrap: 'wrap',
+                },
+              })}>
+              {product.images
+                ?.slice(0, 3)
+                .map((item, i) => (
                   <img
+                    key={item}
                     style={{ cursor: 'pointer' }}
                     width={150}
                     height={100}
@@ -83,8 +109,7 @@ export const Product = (): JSX.Element => {
                     alt={`${productType} ${productType} ${i}`}
                     onClick={() => setCarrouselIndex(i)}
                   />
-                </Paper>
-              ))}
+                ))}
             </Box>
           </Box>
           <Box>
