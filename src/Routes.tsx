@@ -1,20 +1,22 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Layout/Layout';
-import SignIn from './Pages/Authenticate/SignIn';
-import SignUp from './Pages/Authenticate/SignUp';
-import Products from './Pages/Product/Products';
-import Product from './Pages/Product/Product';
-import Contact from './Pages/Contact/Contact';
-import NotFound from './Pages/NotFound/NotFound';
-import Basket from './Pages/Order/Basket';
-import Account from './Pages/Account/Account';
-import RequiredAuth from './RequireAuth';
-import Checkout from './Pages/Order/Checkout';
-import AccountInformations from './Pages/Account/AccountInformations';
-import ForgotPassword from './Pages/Authenticate/ForgotPassword';
-import Invoices from './Pages/Invoice/Invoices';
 import { AxiosInterceptor } from './__generated__/api';
+
+const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
+const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
+const Products = React.lazy(() => import('./Pages/Product/Products'));
+const Product = React.lazy(() => import('./Pages/Product/Product'));
+const Contact = React.lazy(() => import('./Pages/Contact/Contact'));
+const NotFound = React.lazy(() => import('./Pages/NotFound/NotFound'));
+const Basket = React.lazy(() => import('./Pages/Order/Basket'));
+const Account = React.lazy(() => import('./Pages/Account/Account'));
+const RequiredAuth = React.lazy(() => import('./RequiredAuth'));
+const Checkout = React.lazy(() => import('./Pages/Order/Checkout'));
+const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInformations'));
+const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
+const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
+
 
 export const AppRoutes = (): JSX.Element => {
   return (

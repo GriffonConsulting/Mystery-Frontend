@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter, Params } from 'react-router-dom';
-import { CookiesProvider, Cookies } from 'react-cookie';
+import { render, screen, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import { describe, expect, it, vi } from 'vitest';
 import Product from '../../Pages/Product/Product';
 import api from '../../__generated__/api';
@@ -47,26 +47,27 @@ describe('Product Component', () => {
     });
   });
 
-  //   it('add product to basket', async () => {
-  //     const cookies = new Cookies();
-  //     const setCookie = vi.fn();
-  //     cookies.set = setCookie;
+  // it('add product to basket', async () => {
+  //   const cookies = new Cookies();
+  //   const setCookie = vi.fn();
+  //   cookies.set = setCookie;
 
-  //     render(
-  //       <BrowserRouter>
-  //         <CookiesProvider cookies={cookies}>
-  //           <Product />
-  //         </CookiesProvider>
-  //       </BrowserRouter>,
-  //     );
+  //   render(
+  //     <BrowserRouter>
+  //       <CookiesProvider cookies={cookies}>
+  //         <Product />
+  //       </CookiesProvider>
+  //     </BrowserRouter>,
+  //   );
 
-  //     await waitFor(() => {
-  //       expect(api.product.getProduct).toHaveBeenCalled();
-  //       const addToBasketButton = screen.getByText('Ajouter au panier');
-  //       fireEvent.click(addToBasketButton);
-  //       console.warn(addToBasketButton);
-  //     });
-
-  //     await waitFor(() => expect(setCookie).toHaveBeenCalled());
+  //   await waitFor(() => {
+  //     expect(api.product.getProduct).toHaveBeenCalled();
+  //     const addToBasketButton = screen.getByText('Ajouter au panier');
+  //     fireEvent.click(addToBasketButton);
   //   });
+
+  //   await waitFor(() => {
+  //     expect(setCookie).toHaveBeenCalled();
+  //   });
+  // });
 });
