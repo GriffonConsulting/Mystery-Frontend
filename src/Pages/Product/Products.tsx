@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { GetProductDto, ProductType } from '../../__generated__/api-generated';
-import { Box, Breadcrumbs, Button, Container, Paper, Typography, useTheme } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
 import { AxiosResponse } from 'axios';
@@ -52,17 +52,23 @@ export const Products = (): JSX.Element => {
               data-testid={`product${i}`}
               key={p.id}
               style={{ backgroundColor: 'white' }}
-              height={333}
+              sx={(theme) => ({
+                [theme.breakpoints.down("md")]: {
+                   flexDirection:'column',
+                },
+                [theme.breakpoints.up("md")]: {
+                   flexDirection:'row'
+                },
+                })}
               borderRadius={3}
-              display={'flex'}
-              flexDirection={'row'}>
-              <Box p={2}>
+              display={'flex'}>
+              <Box p={2} minWidth={300}               
+                >
                 {p.images && (
                   <Link to={`/product/${productType}/${p.productCode}`}>
                     <img
+                    width={'100%'}
                       style={{ borderRadius: 3 }}
-                      width={448}
-                      height={301}
                       className="imageCarousel"
                       src={p.images[0]}
                       alt={`${i18n.t(`${productType}.title`)} ${productType}`}
