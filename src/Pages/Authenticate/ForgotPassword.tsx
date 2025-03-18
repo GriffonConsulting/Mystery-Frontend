@@ -50,7 +50,7 @@ const ForgotPassword = (): JSX.Element => {
           <LockResetIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {i18n.t('forgotPasswordTitle')}
+          {i18n.t('authenticate:forgotPasswordTitle')}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
@@ -58,7 +58,7 @@ const ForgotPassword = (): JSX.Element => {
             required
             fullWidth
             id="email"
-            label={i18n.t('email')}
+            label={i18n.t('authenticate:email')}
             name="email"
             autoComplete="email"
             autoFocus
@@ -71,17 +71,17 @@ const ForgotPassword = (): JSX.Element => {
             onClick={handleSubmit}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}>
-            {i18n.t('send')}
+            {i18n.t('authenticate:send')}
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="/authenticate/signUp" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('signUp')}
+                {i18n.t('authenticate:signUp')}
               </Link>
             </Grid>
             <Grid item>
               <Link to="/authenticate/signIn" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('signIn')}
+                {i18n.t('authenticate:signIn')}
               </Link>
             </Grid>
           </Grid>

@@ -1,11 +1,15 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translation from './fr/translation.json';
+import account from './fr/account.json';
+import authenticate from './fr/authenticate.json';
 import moment from 'moment';
 
 const resources = {
   fr: {
-    translation: translation,
+    translation,
+    account,
+    authenticate
   },
 };
 

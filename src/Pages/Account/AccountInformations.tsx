@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import { Box, Avatar, Typography, TextField, Button, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
 import i18n from '../../i18n';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -18,7 +17,7 @@ const AccountInformations = (): JSX.Element => {
           <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {i18n.t('account')}
+          {i18n.t('account:account')}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
@@ -26,7 +25,7 @@ const AccountInformations = (): JSX.Element => {
             required
             fullWidth
             id="email"
-            label={i18n.t('email')}
+            label={i18n.t('account:email')}
             name="email"
             autoComplete="email"
             autoFocus
@@ -37,7 +36,7 @@ const AccountInformations = (): JSX.Element => {
             required
             fullWidth
             name="password"
-            label={i18n.t('password')}
+            label={i18n.t('account:password')}
             type="password"
             id="password"
             autoComplete="current-password"
