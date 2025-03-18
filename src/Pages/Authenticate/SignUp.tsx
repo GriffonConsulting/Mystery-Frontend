@@ -49,9 +49,9 @@ const SignUp = (): JSX.Element => {
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
       .catch((error: AxiosError) => {
+        const errors = error?.response?.data as string;
         if (error?.response?.data) {
-          //todo errors
-          // setErrors(error.response.data.message.split(';'));
+          setErrors(errors.split(';'));
         }
       })
       .finally(() => setIsFetching(false));
@@ -82,7 +82,7 @@ const SignUp = (): JSX.Element => {
                 name="email"
                 autoComplete="email"
                 error={errors.some(e => e == 'emailError' || e == 'DuplicateEmail')}
-                helperText={errors.some(e => e == 'emailError') && i18n.t('emailError')}
+                helperText={errors.some(e => e == 'emailError') && i18n.t('account:emailError')}
                 onChange={event => {
                   setErrors(errors.filter(err => !err.includes('email')));
                   setSignUp(params => ({
@@ -92,7 +92,7 @@ const SignUp = (): JSX.Element => {
                 }}
               />
               {errors.some(e => e == 'DuplicateEmail') && (
-                <FormHelperText error={true}>{i18n.t('DuplicateEmail')}</FormHelperText>
+                <FormHelperText error={true}>{i18n.t('account:duplicateEmail')}</FormHelperText>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -111,7 +111,7 @@ const SignUp = (): JSX.Element => {
                   }))
                 }
                 error={errors.some(e => e == 'passwordError')}
-                helperText={errors.some(e => e == 'passwordError') && i18n.t('passwordError')}
+                helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
