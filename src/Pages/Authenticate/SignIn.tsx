@@ -15,27 +15,40 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 import { AxiosError, AxiosResponse } from 'axios';
 import { SignInCommand } from '../../__generated__/api-generated';
+import { object, string } from 'yup';
 
 const SignIn = (): JSX.Element => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [signIn, setSignIn] = useState<SignInCommand>({} as SignInCommand);
+  const [errors, setErrors] = useState<string[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [, setCookies] = useCookies(['token']);
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
 
+  const signInSchema = object({
+    email: string().required('emailError').email('emailError'),
+    password: string()
+      .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
+      .required('passwordError'),
+  });
+
   const handleSubmit = async () => {
+    setErrors([]);
+    if (!(await signInSchema.isValid(signIn))) {
+      await signInSchema.validate(signIn, { abortEarly: false }).catch(error => setErrors(error.errors));
+      return;
+    }
     setIsFetching(true);
 
     api.authenticate
-      .signIn({ email, password } as SignInCommand)
+      .signIn(signIn)
       .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      .catch((error: AxiosError) => console.error(error))
-      .finally(() => setIsFetching(false));
+      //todo errors
+      .catch((error: AxiosError) => setIsFetching(false));
   };
 
   return (
@@ -62,7 +75,15 @@ const SignIn = (): JSX.Element => {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={e => setEmail(e.target.value)}
+            error={errors.some(e => e == 'emailError')}
+            helperText={errors.some(e => e == 'emailError') && i18n.t('account:emailError')}
+            onChange={event => {
+              setErrors(errors.filter(err => !err.includes('email')));
+              setSignIn(params => ({
+                ...params,
+                email: event.target.value,
+              }));
+            }}
           />
           <TextField
             margin="normal"
@@ -73,7 +94,15 @@ const SignIn = (): JSX.Element => {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={e => setPassword(e.target.value)}
+            error={errors.some(e => e == 'passwordError')}
+            helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
+            onChange={event => {
+              setErrors(errors.filter(err => !err.includes('password')));
+              setSignIn(params => ({
+                ...params,
+                password: event.target.value,
+              }));
+            }}
           />
           <Button
             type="button"

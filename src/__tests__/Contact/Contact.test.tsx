@@ -15,7 +15,7 @@ describe('Contact Component', () => {
     vi.clearAllMocks();
   });
 
-  const renderSignUp = () =>
+  const renderContact = () =>
     render(
       <BrowserRouter>
         <CookiesProvider>
@@ -27,14 +27,14 @@ describe('Contact Component', () => {
     );
 
   it('renders Contact form correctly', () => {
-    renderSignUp();
+    renderContact();
     expect(screen.getByLabelText(`${i18n.t('email')} *`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${i18n.t('message')} *`)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: i18n.t('submit') })).toBeInTheDocument();
   });
 
   it('displays error when form is invalid', async () => {
-    renderSignUp();
+    renderContact();
     fireEvent.change(screen.getByLabelText(`${i18n.t('email')} *`), {
       target: { value: 'invalid-email' },
     });
@@ -45,7 +45,7 @@ describe('Contact Component', () => {
 
   it('calls API', async () => {
     api.contact.contact = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
-    renderSignUp();
+    renderContact();
 
     fireEvent.change(screen.getByLabelText(`${i18n.t('email')} *`), {
       target: { value: 'test@example.com' },
@@ -65,7 +65,7 @@ describe('Contact Component', () => {
 
   it('disable the button when fetching', async () => {
     api.authenticate.signUp = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
-    renderSignUp();
+    renderContact();
 
     fireEvent.change(screen.getByLabelText(`${i18n.t('email')} *`), {
       target: { value: 'test@example.com' },
