@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockResetIcon from '@mui/icons-material/LockReset';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
@@ -15,6 +14,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 import { SignInCommand } from '../../__generated__/api-generated';
 import { AxiosError, AxiosResponse } from 'axios';
+import DynamicIcon from '../../components/DynamicIcon';
 
 const ForgotPassword = (): JSX.Element => {
   const [email, setEmail] = useState<string>();
@@ -47,7 +47,7 @@ const ForgotPassword = (): JSX.Element => {
           alignItems: 'center',
         }}>
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LockResetIcon />
+          <DynamicIcon icon="LockResetIcon" />
         </Avatar>
         <Typography component="h1" variant="h5">
           {i18n.t('authenticate:forgotPasswordTitle')}

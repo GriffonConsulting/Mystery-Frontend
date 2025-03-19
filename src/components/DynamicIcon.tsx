@@ -5,6 +5,8 @@ const getIcon = (icon: string) => {
   switch (icon) {
     case 'RemoveShoppingCart':
       return lazy(() => import('@mui/icons-material/RemoveShoppingCart'));
+    case 'LockResetIcon':
+      return lazy(() => import('@mui/icons-material/LockReset'));
     default:
       return lazy(() => import('@mui/icons-material/RemoveShoppingCart'));
   }
