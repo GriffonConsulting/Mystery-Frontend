@@ -1,15 +1,17 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translation from './fr/translation.json';
+import common from './fr/common.json';
 import account from './fr/account.json';
 import authenticate from './fr/authenticate.json';
+import product from './fr/product.json';
 import moment from 'moment';
 
 const resources = {
   fr: {
-    translation,
+    common,
     account,
     authenticate,
+    product,
   },
 };
 
@@ -17,6 +19,7 @@ i18next
   .use(initReactI18next) // passes i18n down to react-i18next
   .init(
     {
+      defaultNS: 'common',
       interpolation: {
         format: function (value, format) {
           if (format === 'uppercase') return value.toUpperCase();

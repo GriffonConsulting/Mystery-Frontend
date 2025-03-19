@@ -76,7 +76,7 @@ function Header(): JSX.Element {
                   }}
                   sx={{ py: '6px', px: '12px' }}>
                   <Typography variant="body2" color="text.primary">
-                    {i18n.t(`${pt}.title`)}
+                    {i18n.t(`${pt}`)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -177,7 +177,7 @@ function Header(): JSX.Element {
                     }}
                     sx={{ py: '6px', px: '12px' }}>
                     <Typography variant="body2" color="text.primary">
-                      {i18n.t(`${pt}.title`)}
+                      {i18n.t(`${pt}`)}
                     </Typography>
                   </MenuItem>
                 ))}

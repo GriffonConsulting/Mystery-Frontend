@@ -43,7 +43,7 @@ export const Products = (): JSX.Element => {
         </Link>
         {productType && <Typography color={theme.palette.primary.main}>{productType}</Typography>}
       </Breadcrumbs>
-      {productType && i18n.t(`${productType}.title`)}
+      {productType && i18n.t(`${productType}`)}
       <Box display={'flex'} flexDirection={'column'} gap={3} marginTop={3}>
         {products &&
           products.length > 0 &&
@@ -62,19 +62,19 @@ export const Products = (): JSX.Element => {
               })}
               borderRadius={3}
               display={'flex'}>
-              <Box p={2}>
+              <Box p={2} flex={1} maxWidth={300}>
                 {p.images && (
                   <Link to={`/product/${productType}/${p.productCode}`}>
                     <img
                       width={'100%'}
                       className="imageCarousel"
                       src={p.images[0]}
-                      alt={`${i18n.t(`${productType}.title`)} ${productType}`}
+                      alt={`${i18n.t(`${productType}`)} ${productType}`}
                     />
                   </Link>
                 )}
               </Box>
-              <Box p={2} justifyContent={'space-between'} flexDirection={'column'} display={'flex'}>
+              <Box p={2} justifyContent={'space-between'} flexDirection={'column'} display={'flex'} flex={1}>
                 <div>
                   <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
                     <Typography component="h1" variant="h5" margin={0}>
@@ -82,7 +82,10 @@ export const Products = (): JSX.Element => {
                     </Typography>
                     <div>
                       <b>
-                        {p.nbPlayerMin} à {p.nbPlayerMax} joueurs
+                        {i18n.t('product:nbPLayers', {
+                          nbPlayerMin: p.nbPlayerMin,
+                          nbPlayerMax: p.nbPlayerMax,
+                        })}
                       </b>
                     </div>
                   </Box>
@@ -96,7 +99,7 @@ export const Products = (): JSX.Element => {
                 </div>
                 <Box justifyContent={'flex-end'} flexDirection={'row'} display={'flex'}>
                   <Link to={`/product/${productType}/${p.productCode}`}>
-                    <Button>Voir la description</Button>
+                    <Button>{i18n.t('product:seeDescription')}</Button>
                   </Link>
                   <Link to={`/order/basket`}>
                     <Button disabled={isFetching} variant="contained" onClick={() => addToBasket(p)}>

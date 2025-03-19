@@ -54,7 +54,7 @@ export const Basket = (): JSX.Element => {
                   style={{ borderRadius: 3 }}
                   className="imageCarousel"
                   src={product.images[0]}
-                  alt={`${i18n.t(`${product.productType}.title`)} ${product.productType} ${i}`}
+                  alt={`${i18n.t(`${product.productType}`)} ${product.productType} ${i}`}
                 />
                 <Box ml={3} width={'100%'}>
                   <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>

@@ -64,13 +64,39 @@ export const Product = (): JSX.Element => {
               flexDirection: 'row',
             },
           })}>
-          <Box>
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            gap={3}
+            marginTop={1}
+            sx={theme => ({
+              [theme.breakpoints.down('md')]: {
+                flexWrap: 'wrap',
+              },
+            })}>
+            {product.images
+              ?.slice(0, 3)
+              .map((item, i) => (
+                <img
+                  key={item}
+                  style={{ cursor: 'pointer' }}
+                  width={100}
+                  height={100}
+                  className="imageCarousel"
+                  src={item}
+                  alt={`${productType} ${productType} ${i}`}
+                  onClick={() => setCarrouselIndex(i)}
+                />
+              ))}
+          </Box>
+          <Box width={'100%'} maxWidth={300} alignContent={'center'}>
             <Carousel
               sx={theme => ({
                 [theme.breakpoints.down('md')]: {
                   display: 'none',
                 },
               })}
+              indicators={false}
               autoPlay={false}
               index={carouselIndex}
               NextIcon={<NavigateNext />}
@@ -83,43 +109,19 @@ export const Product = (): JSX.Element => {
                   height={'100%'}
                   className="imageCarousel"
                   src={item}
-                  alt={`${i18n.t(`${productType}.title`)} ${productType} ${i}`}
+                  alt={`${i18n.t(`${productType}`)} ${productType} ${i}`}
                 />
               ))}
             </Carousel>
-            <Box
-              display={'flex'}
-              gap={3}
-              marginTop={1}
-              sx={theme => ({
-                [theme.breakpoints.down('md')]: {
-                  flexWrap: 'wrap',
-                },
-              })}>
-              {product.images
-                ?.slice(0, 3)
-                .map((item, i) => (
-                  <img
-                    key={item}
-                    style={{ cursor: 'pointer' }}
-                    width={150}
-                    height={100}
-                    className="imageCarousel"
-                    src={item}
-                    alt={`${productType} ${productType} ${i}`}
-                    onClick={() => setCarrouselIndex(i)}
-                  />
-                ))}
-            </Box>
           </Box>
-          <Box>
+          <Box display={'flex'} flexDirection={'column'}>
             <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
               <Typography component="h1" variant="h5" margin={0}>
                 {product.title}
               </Typography>
               <div>
                 <b>
-                  {product.nbPlayerMin} à {product.nbPlayerMax} joueurs
+                  {i18n.t('product:nbPLayers', { nbPlayerMin: product.nbPlayerMin, nbPlayerMax: product.nbPlayerMax })}
                 </b>
               </div>
             </Box>
@@ -130,7 +132,7 @@ export const Product = (): JSX.Element => {
               <div>{frEuro.format(product.price)}</div>
             </Box>
             {product.description}
-            <Box justifyContent={'flex-end'} flexDirection={'row'} display={'flex'}>
+            <Box marginLeft={'auto'} marginTop={'auto'}>
               <Link to={`/order/basket`} onClick={addToBasket}>
                 <Button disabled={isFetching} variant="contained">
                   {i18n.t('addToBasket')}
