@@ -12,5 +12,6 @@
   "forgotPassword": "Mot de passe oublié",
   "rememberMe": "Se souvenir de moi",
   "marketingEmail": "Souhaitez-vous recevoir nos e-mails promotionnels ?",
-  "send": "Envoyer"
+  "send": "Envoyer",
+  "sendEmail": "Un email vient de vous être envoyé."
 }

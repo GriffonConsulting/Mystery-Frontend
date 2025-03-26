@@ -59,13 +59,18 @@ describe('SignUp Component', () => {
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:password')} *`), {
       target: { value: 'Valid@1234' },
     });
+
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).not.toBeChecked();
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
     fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
 
     await waitFor(() => {
       expect(api.authenticate.signUp).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'Valid@1234',
-        marketingEmail: false,
+        marketingEmail: true,
       });
       expect(mockNavigate).toHaveBeenCalledWith('/account');
     });

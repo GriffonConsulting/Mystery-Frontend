@@ -19,10 +19,10 @@ import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 const ForgotPassword = (): JSX.Element => {
   const params = new URLSearchParams(window.location.search);
   const emailParam = params.get('email');
-  console.log(emailParam);
   const [email, setEmail] = useState<string>(emailParam ?? '');
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [isEmailSend, setIsEmailSend] = useState<boolean>(false);
   const theme = useTheme();
 
   const handleSubmit = async () => {
@@ -30,7 +30,9 @@ const ForgotPassword = (): JSX.Element => {
 
     api.authenticate
       .forgotPassword({ email } as ForgotPasswordCommand)
-      .then((result: AxiosResponse) => {})
+      .then((result: AxiosResponse) => {
+        setIsEmailSend(true);
+      })
       .catch((error: AxiosError) => {
         const errors = error?.response?.data as AxiosErrorData;
         console.log(errors);
@@ -55,45 +57,52 @@ const ForgotPassword = (): JSX.Element => {
         <Typography component="h1" variant="h5">
           {i18n.t('authenticate:forgotPasswordTitle')}
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label={i18n.t('authenticate:email')}
-            name="email"
-            value={email}
-            autoComplete="email"
-            autoFocus
-            onChange={e => setEmail(e.target.value)}
-            error={errors.some(e => e == 'userNotFound')}
-          />
-          {errors.some(e => e == 'userNotFound') && (
-            <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
-          )}
-          <Button
-            type="button"
-            fullWidth
-            disabled={isFetching}
-            onClick={handleSubmit}
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}>
-            {i18n.t('authenticate:send')}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="/authenticate/signUp" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('authenticate:signUp')}
-              </Link>
+        {isEmailSend && (
+          <Typography component="p" variant="body1">
+            {i18n.t('authenticate:sendEmail')}
+          </Typography>
+        )}
+        {!isEmailSend && (
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label={i18n.t('authenticate:email')}
+              name="email"
+              value={email}
+              autoComplete="email"
+              autoFocus
+              onChange={e => setEmail(e.target.value)}
+              error={errors.some(e => e == 'userNotFound')}
+            />
+            {errors.some(e => e == 'userNotFound') && (
+              <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
+            )}
+            <Button
+              type="button"
+              fullWidth
+              disabled={isFetching}
+              onClick={handleSubmit}
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}>
+              {i18n.t('authenticate:send')}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link to="/authenticate/signUp" style={{ color: theme.palette.primary.main }}>
+                  {i18n.t('authenticate:signUp')}
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/authenticate/signIn" style={{ color: theme.palette.primary.main }}>
+                  {i18n.t('authenticate:signIn')}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link to="/authenticate/signIn" style={{ color: theme.palette.primary.main }}>
-                {i18n.t('authenticate:signIn')}
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        )}
       </Box>
     </Container>
   );
