@@ -12,10 +12,11 @@ import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material';
+import { FormHelperText, useTheme } from '@mui/material';
 import { AxiosError, AxiosResponse } from 'axios';
 import { SignInCommand } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
+import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 
 const SignIn = (): JSX.Element => {
   const [signIn, setSignIn] = useState<SignInCommand>({} as SignInCommand);
@@ -47,8 +48,13 @@ const SignIn = (): JSX.Element => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      //todo errors
-      .catch((error: AxiosError) => setIsFetching(false));
+      .catch((error: AxiosError) => {
+        const errors = error?.response?.data as AxiosErrorData;
+        if (errors) {
+          setErrors([errors.message]);
+        }
+        setIsFetching(false);
+      });
   };
 
   return (
@@ -94,7 +100,7 @@ const SignIn = (): JSX.Element => {
             type="password"
             id="password"
             autoComplete="current-password"
-            error={errors.some(e => e == 'passwordError')}
+            error={errors.some(e => e == 'passwordError') || errors.some(e => e == 'passwordValidationError')}
             helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
@@ -104,6 +110,12 @@ const SignIn = (): JSX.Element => {
               }));
             }}
           />
+          {errors.some(e => e == 'passwordValidationError') && (
+            <FormHelperText error>{i18n.t('account:passwordValidationError')}</FormHelperText>
+          )}
+          {errors.some(e => e == 'userNotFound') && (
+            <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
+          )}
           <Button
             type="button"
             fullWidth

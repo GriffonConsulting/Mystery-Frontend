@@ -9,7 +9,7 @@ const api = new Api({
   securityWorker: accessToken => (accessToken ? { headers: { Authorization: `Bearer ${accessToken}` } } : {}),
 });
 
-function AxiosInterceptor({ children }: { children: any }) {
+export function AxiosInterceptor({ children }: { children: any }) {
   const [cookies, , removeCookies] = useCookies(['token']);
   const navigate = useNavigate();
 
@@ -40,4 +40,3 @@ function AxiosInterceptor({ children }: { children: any }) {
 }
 
 export default api;
-export { AxiosInterceptor };
