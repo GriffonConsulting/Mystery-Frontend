@@ -9,6 +9,40 @@
  * ---------------------------------------------------------------
  */
 
+export interface Assembly {
+  definedTypes?: TypeInfo[];
+  exportedTypes?: Type[];
+  /** @deprecated */
+  codeBase?: string | null;
+  entryPoint?: MethodInfo;
+  fullName?: string | null;
+  imageRuntimeVersion?: string;
+  isDynamic?: boolean;
+  location?: string;
+  reflectionOnly?: boolean;
+  isCollectible?: boolean;
+  isFullyTrusted?: boolean;
+  customAttributes?: CustomAttributeData[];
+  /** @deprecated */
+  escapedCodeBase?: string;
+  manifestModule?: Module;
+  modules?: Module[];
+  /** @deprecated */
+  globalAssemblyCache?: boolean;
+  /** @format int64 */
+  hostContext?: number;
+  securityRuleSet?: SecurityRuleSet;
+}
+
+/** @format string */
+export enum CallingConventions {
+  Standard = 'Standard',
+  VarArgs = 'VarArgs',
+  Any = 'Any',
+  HasThis = 'HasThis',
+  ExplicitThis = 'ExplicitThis',
+}
+
 export interface CheckoutOutDto {
   clientSecret: string;
 }
@@ -27,9 +61,64 @@ export interface ConfirmEmailCommand {
   token: string;
 }
 
+export interface ConstructorInfo {
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  attributes?: MethodAttributes;
+  methodImplementationFlags?: MethodImplAttributes;
+  callingConvention?: CallingConventions;
+  isAbstract?: boolean;
+  isConstructor?: boolean;
+  isFinal?: boolean;
+  isHideBySig?: boolean;
+  isSpecialName?: boolean;
+  isStatic?: boolean;
+  isVirtual?: boolean;
+  isAssembly?: boolean;
+  isFamily?: boolean;
+  isFamilyAndAssembly?: boolean;
+  isFamilyOrAssembly?: boolean;
+  isPrivate?: boolean;
+  isPublic?: boolean;
+  isConstructedGenericMethod?: boolean;
+  isGenericMethod?: boolean;
+  isGenericMethodDefinition?: boolean;
+  containsGenericParameters?: boolean;
+  methodHandle?: RuntimeMethodHandle;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+  memberType?: MemberTypes;
+}
+
 export interface ContactCommand {
   email: string;
   message: string;
+}
+
+export interface CustomAttributeData {
+  attributeType?: Type;
+  constructor?: ConstructorInfo;
+  constructorArguments?: CustomAttributeTypedArgument[];
+  namedArguments?: CustomAttributeNamedArgument[];
+}
+
+export interface CustomAttributeNamedArgument {
+  memberInfo?: MemberInfo;
+  typedValue?: CustomAttributeTypedArgument;
+  memberName?: string;
+  isField?: boolean;
+}
+
+export interface CustomAttributeTypedArgument {
+  argumentType?: Type;
+  value?: any;
 }
 
 /** @format string */
@@ -39,6 +128,116 @@ export enum Difficulty {
   Medium = 'Medium',
   Hard = 'Hard',
   VeryHard = 'VeryHard',
+}
+
+/** @format string */
+export enum EventAttributes {
+  None = 'None',
+  SpecialName = 'SpecialName',
+  RTSpecialName = 'RTSpecialName',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface EventInfo {
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  memberType?: MemberTypes;
+  attributes?: EventAttributes;
+  isSpecialName?: boolean;
+  addMethod?: MethodInfo;
+  removeMethod?: MethodInfo;
+  raiseMethod?: MethodInfo;
+  isMulticast?: boolean;
+  eventHandlerType?: Type;
+}
+
+export interface Exception {
+  targetSite?: MethodBase;
+  message?: string;
+  data?: Record<string, any>;
+  innerException?: Exception;
+  helpLink?: string | null;
+  source?: string | null;
+  /** @format int32 */
+  hResult?: number;
+  stackTrace?: string | null;
+}
+
+/** @format string */
+export enum FieldAttributes {
+  FieldAccessMask = 'FieldAccessMask',
+  PrivateScope = 'PrivateScope',
+  Private = 'Private',
+  FamANDAssem = 'FamANDAssem',
+  Assembly = 'Assembly',
+  Family = 'Family',
+  FamORAssem = 'FamORAssem',
+  Public = 'Public',
+  Static = 'Static',
+  InitOnly = 'InitOnly',
+  Literal = 'Literal',
+  NotSerialized = 'NotSerialized',
+  SpecialName = 'SpecialName',
+  PinvokeImpl = 'PinvokeImpl',
+  RTSpecialName = 'RTSpecialName',
+  HasFieldMarshal = 'HasFieldMarshal',
+  HasDefault = 'HasDefault',
+  HasFieldRVA = 'HasFieldRVA',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface FieldInfo {
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  memberType?: MemberTypes;
+  attributes?: FieldAttributes;
+  fieldType?: Type;
+  isInitOnly?: boolean;
+  isLiteral?: boolean;
+  /** @deprecated */
+  isNotSerialized?: boolean;
+  isPinvokeImpl?: boolean;
+  isSpecialName?: boolean;
+  isStatic?: boolean;
+  isAssembly?: boolean;
+  isFamily?: boolean;
+  isFamilyAndAssembly?: boolean;
+  isFamilyOrAssembly?: boolean;
+  isPrivate?: boolean;
+  isPublic?: boolean;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+  fieldHandle?: RuntimeFieldHandle;
+}
+
+export interface ForgotPasswordCommand {
+  email: string;
+}
+
+/** @format string */
+export enum GenericParameterAttributes {
+  None = 'None',
+  VarianceMask = 'VarianceMask',
+  Covariant = 'Covariant',
+  Contravariant = 'Contravariant',
+  SpecialConstraintMask = 'SpecialConstraintMask',
+  ReferenceTypeConstraint = 'ReferenceTypeConstraint',
+  NotNullableValueTypeConstraint = 'NotNullableValueTypeConstraint',
+  DefaultConstructorConstraint = 'DefaultConstructorConstraint',
+  AllowByRefLike = 'AllowByRefLike',
 }
 
 export interface GetInvoicesResult {
@@ -88,13 +287,302 @@ export interface GetProductDtoRequestResult {
   result: GetProductDto;
 }
 
+export interface HealthReport {
+  entries?: Record<string, HealthReportEntry>;
+  status?: HealthStatus;
+  /** @format date-span */
+  totalDuration?: string;
+}
+
+export interface HealthReportEntry {
+  data?: Record<string, any>;
+  description?: string | null;
+  /** @format date-span */
+  duration?: string;
+  exception?: Exception;
+  status?: HealthStatus;
+  tags?: string[];
+}
+
+/** @format string */
+export enum HealthStatus {
+  Unhealthy = 'Unhealthy',
+  Degraded = 'Degraded',
+  Healthy = 'Healthy',
+}
+
+export type ICustomAttributeProvider = object;
+
+export type IntPtr = object;
+
+/** @format string */
+export enum LayoutKind {
+  Sequential = 'Sequential',
+  Explicit = 'Explicit',
+  Auto = 'Auto',
+}
+
+export interface MemberInfo {
+  memberType?: MemberTypes;
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+}
+
+/** @format string */
+export enum MemberTypes {
+  Constructor = 'Constructor',
+  Event = 'Event',
+  Field = 'Field',
+  Method = 'Method',
+  Property = 'Property',
+  TypeInfo = 'TypeInfo',
+  Custom = 'Custom',
+  NestedType = 'NestedType',
+  All = 'All',
+}
+
+/** @format string */
+export enum MethodAttributes {
+  MemberAccessMask = 'MemberAccessMask',
+  PrivateScope = 'PrivateScope',
+  Private = 'Private',
+  FamANDAssem = 'FamANDAssem',
+  Assembly = 'Assembly',
+  Family = 'Family',
+  FamORAssem = 'FamORAssem',
+  Public = 'Public',
+  Static = 'Static',
+  Final = 'Final',
+  Virtual = 'Virtual',
+  HideBySig = 'HideBySig',
+  CheckAccessOnOverride = 'CheckAccessOnOverride',
+  VtableLayoutMask = 'VtableLayoutMask',
+  ReuseSlot = 'ReuseSlot',
+  NewSlot = 'NewSlot',
+  Abstract = 'Abstract',
+  SpecialName = 'SpecialName',
+  PinvokeImpl = 'PinvokeImpl',
+  UnmanagedExport = 'UnmanagedExport',
+  RTSpecialName = 'RTSpecialName',
+  HasSecurity = 'HasSecurity',
+  RequireSecObject = 'RequireSecObject',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface MethodBase {
+  memberType?: MemberTypes;
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  attributes?: MethodAttributes;
+  methodImplementationFlags?: MethodImplAttributes;
+  callingConvention?: CallingConventions;
+  isAbstract?: boolean;
+  isConstructor?: boolean;
+  isFinal?: boolean;
+  isHideBySig?: boolean;
+  isSpecialName?: boolean;
+  isStatic?: boolean;
+  isVirtual?: boolean;
+  isAssembly?: boolean;
+  isFamily?: boolean;
+  isFamilyAndAssembly?: boolean;
+  isFamilyOrAssembly?: boolean;
+  isPrivate?: boolean;
+  isPublic?: boolean;
+  isConstructedGenericMethod?: boolean;
+  isGenericMethod?: boolean;
+  isGenericMethodDefinition?: boolean;
+  containsGenericParameters?: boolean;
+  methodHandle?: RuntimeMethodHandle;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+}
+
+/** @format string */
+export enum MethodImplAttributes {
+  CodeTypeMask = 'CodeTypeMask',
+  IL = 'IL',
+  Native = 'Native',
+  OPTIL = 'OPTIL',
+  Runtime = 'Runtime',
+  ManagedMask = 'ManagedMask',
+  Unmanaged = 'Unmanaged',
+  Managed = 'Managed',
+  ForwardRef = 'ForwardRef',
+  PreserveSig = 'PreserveSig',
+  InternalCall = 'InternalCall',
+  Synchronized = 'Synchronized',
+  NoInlining = 'NoInlining',
+  AggressiveInlining = 'AggressiveInlining',
+  NoOptimization = 'NoOptimization',
+  AggressiveOptimization = 'AggressiveOptimization',
+  MaxMethodImplVal = 'MaxMethodImplVal',
+}
+
+export interface MethodInfo {
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  attributes?: MethodAttributes;
+  methodImplementationFlags?: MethodImplAttributes;
+  callingConvention?: CallingConventions;
+  isAbstract?: boolean;
+  isConstructor?: boolean;
+  isFinal?: boolean;
+  isHideBySig?: boolean;
+  isSpecialName?: boolean;
+  isStatic?: boolean;
+  isVirtual?: boolean;
+  isAssembly?: boolean;
+  isFamily?: boolean;
+  isFamilyAndAssembly?: boolean;
+  isFamilyOrAssembly?: boolean;
+  isPrivate?: boolean;
+  isPublic?: boolean;
+  isConstructedGenericMethod?: boolean;
+  isGenericMethod?: boolean;
+  isGenericMethodDefinition?: boolean;
+  containsGenericParameters?: boolean;
+  methodHandle?: RuntimeMethodHandle;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+  memberType?: MemberTypes;
+  returnParameter?: ParameterInfo;
+  returnType?: Type;
+  returnTypeCustomAttributes?: ICustomAttributeProvider;
+}
+
+export interface Module {
+  assembly?: Assembly;
+  fullyQualifiedName?: string;
+  name?: string;
+  /** @format int32 */
+  mdStreamVersion?: number;
+  /** @format uuid */
+  moduleVersionId?: string;
+  scopeName?: string;
+  moduleHandle?: ModuleHandle;
+  customAttributes?: CustomAttributeData[];
+  /** @format int32 */
+  metadataToken?: number;
+}
+
+export interface ModuleHandle {
+  /** @format int32 */
+  mdStreamVersion?: number;
+}
+
+/** @format string */
+export enum ParameterAttributes {
+  None = 'None',
+  In = 'In',
+  Out = 'Out',
+  Lcid = 'Lcid',
+  Retval = 'Retval',
+  Optional = 'Optional',
+  HasDefault = 'HasDefault',
+  HasFieldMarshal = 'HasFieldMarshal',
+  Reserved3 = 'Reserved3',
+  Reserved4 = 'Reserved4',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface ParameterInfo {
+  attributes?: ParameterAttributes;
+  member?: MemberInfo;
+  name?: string | null;
+  parameterType?: Type;
+  /** @format int32 */
+  position?: number;
+  isIn?: boolean;
+  isLcid?: boolean;
+  isOptional?: boolean;
+  isOut?: boolean;
+  isRetval?: boolean;
+  defaultValue?: any;
+  rawDefaultValue?: any;
+  hasDefaultValue?: boolean;
+  customAttributes?: CustomAttributeData[];
+  /** @format int32 */
+  metadataToken?: number;
+}
+
 /** @format string */
 export enum ProductType {
   MurderParty = 'MurderParty',
 }
 
+/** @format string */
+export enum PropertyAttributes {
+  None = 'None',
+  SpecialName = 'SpecialName',
+  RTSpecialName = 'RTSpecialName',
+  HasDefault = 'HasDefault',
+  Reserved2 = 'Reserved2',
+  Reserved3 = 'Reserved3',
+  Reserved4 = 'Reserved4',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface PropertyInfo {
+  name?: string;
+  declaringType?: Type;
+  reflectedType?: Type;
+  module?: Module;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  memberType?: MemberTypes;
+  propertyType?: Type;
+  attributes?: PropertyAttributes;
+  isSpecialName?: boolean;
+  canRead?: boolean;
+  canWrite?: boolean;
+  getMethod?: MethodInfo;
+  setMethod?: MethodInfo;
+}
+
 export interface RequestResult {
   message?: string;
+}
+
+export interface RuntimeFieldHandle {
+  value?: IntPtr;
+}
+
+export interface RuntimeMethodHandle {
+  value?: IntPtr;
+}
+
+export interface RuntimeTypeHandle {
+  value?: IntPtr;
+}
+
+/** @format string */
+export enum SecurityRuleSet {
+  None = 'None',
+  Level1 = 'Level1',
+  Level2 = 'Level2',
 }
 
 export interface SignInCommand {
@@ -117,6 +605,216 @@ export interface SignUpCommand {
   email: string;
   password: string;
   marketingEmail: boolean;
+}
+
+export interface StructLayoutAttribute {
+  typeId?: any;
+  value?: LayoutKind;
+}
+
+export interface Type {
+  name?: string;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  memberType?: MemberTypes;
+  namespace?: string | null;
+  assemblyQualifiedName?: string | null;
+  fullName?: string | null;
+  assembly?: Assembly;
+  module?: Module;
+  isInterface?: boolean;
+  isNested?: boolean;
+  declaringType?: Type;
+  declaringMethod?: MethodBase;
+  reflectedType?: Type;
+  underlyingSystemType?: Type;
+  isTypeDefinition?: boolean;
+  isArray?: boolean;
+  isByRef?: boolean;
+  isPointer?: boolean;
+  isConstructedGenericType?: boolean;
+  isGenericParameter?: boolean;
+  isGenericTypeParameter?: boolean;
+  isGenericMethodParameter?: boolean;
+  isGenericType?: boolean;
+  isGenericTypeDefinition?: boolean;
+  isSZArray?: boolean;
+  isVariableBoundArray?: boolean;
+  isByRefLike?: boolean;
+  isFunctionPointer?: boolean;
+  isUnmanagedFunctionPointer?: boolean;
+  hasElementType?: boolean;
+  genericTypeArguments?: Type[];
+  /** @format int32 */
+  genericParameterPosition?: number;
+  genericParameterAttributes?: GenericParameterAttributes;
+  attributes?: TypeAttributes;
+  isAbstract?: boolean;
+  isImport?: boolean;
+  isSealed?: boolean;
+  isSpecialName?: boolean;
+  isClass?: boolean;
+  isNestedAssembly?: boolean;
+  isNestedFamANDAssem?: boolean;
+  isNestedFamily?: boolean;
+  isNestedFamORAssem?: boolean;
+  isNestedPrivate?: boolean;
+  isNestedPublic?: boolean;
+  isNotPublic?: boolean;
+  isPublic?: boolean;
+  isAutoLayout?: boolean;
+  isExplicitLayout?: boolean;
+  isLayoutSequential?: boolean;
+  isAnsiClass?: boolean;
+  isAutoClass?: boolean;
+  isUnicodeClass?: boolean;
+  isCOMObject?: boolean;
+  isContextful?: boolean;
+  isEnum?: boolean;
+  isMarshalByRef?: boolean;
+  isPrimitive?: boolean;
+  isValueType?: boolean;
+  isSignatureType?: boolean;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+  structLayoutAttribute?: StructLayoutAttribute;
+  typeInitializer?: ConstructorInfo;
+  typeHandle?: RuntimeTypeHandle;
+  /** @format uuid */
+  guid?: string;
+  baseType?: Type;
+  /** @deprecated */
+  isSerializable?: boolean;
+  containsGenericParameters?: boolean;
+  isVisible?: boolean;
+}
+
+/** @format string */
+export enum TypeAttributes {
+  VisibilityMask = 'VisibilityMask',
+  NotPublic = 'NotPublic',
+  Public = 'Public',
+  NestedPublic = 'NestedPublic',
+  NestedPrivate = 'NestedPrivate',
+  NestedFamily = 'NestedFamily',
+  NestedAssembly = 'NestedAssembly',
+  NestedFamANDAssem = 'NestedFamANDAssem',
+  NestedFamORAssem = 'NestedFamORAssem',
+  LayoutMask = 'LayoutMask',
+  AutoLayout = 'AutoLayout',
+  SequentialLayout = 'SequentialLayout',
+  ExplicitLayout = 'ExplicitLayout',
+  ClassSemanticsMask = 'ClassSemanticsMask',
+  Class = 'Class',
+  Interface = 'Interface',
+  Abstract = 'Abstract',
+  Sealed = 'Sealed',
+  SpecialName = 'SpecialName',
+  Import = 'Import',
+  Serializable = 'Serializable',
+  WindowsRuntime = 'WindowsRuntime',
+  StringFormatMask = 'StringFormatMask',
+  AnsiClass = 'AnsiClass',
+  UnicodeClass = 'UnicodeClass',
+  AutoClass = 'AutoClass',
+  CustomFormatClass = 'CustomFormatClass',
+  CustomFormatMask = 'CustomFormatMask',
+  BeforeFieldInit = 'BeforeFieldInit',
+  RTSpecialName = 'RTSpecialName',
+  HasSecurity = 'HasSecurity',
+  ReservedMask = 'ReservedMask',
+}
+
+export interface TypeInfo {
+  name?: string;
+  customAttributes?: CustomAttributeData[];
+  isCollectible?: boolean;
+  /** @format int32 */
+  metadataToken?: number;
+  memberType?: MemberTypes;
+  namespace?: string | null;
+  assemblyQualifiedName?: string | null;
+  fullName?: string | null;
+  assembly?: Assembly;
+  module?: Module;
+  isInterface?: boolean;
+  isNested?: boolean;
+  declaringType?: Type;
+  declaringMethod?: MethodBase;
+  reflectedType?: Type;
+  underlyingSystemType?: Type;
+  isTypeDefinition?: boolean;
+  isArray?: boolean;
+  isByRef?: boolean;
+  isPointer?: boolean;
+  isConstructedGenericType?: boolean;
+  isGenericParameter?: boolean;
+  isGenericTypeParameter?: boolean;
+  isGenericMethodParameter?: boolean;
+  isGenericType?: boolean;
+  isGenericTypeDefinition?: boolean;
+  isSZArray?: boolean;
+  isVariableBoundArray?: boolean;
+  isByRefLike?: boolean;
+  isFunctionPointer?: boolean;
+  isUnmanagedFunctionPointer?: boolean;
+  hasElementType?: boolean;
+  genericTypeArguments?: Type[];
+  /** @format int32 */
+  genericParameterPosition?: number;
+  genericParameterAttributes?: GenericParameterAttributes;
+  attributes?: TypeAttributes;
+  isAbstract?: boolean;
+  isImport?: boolean;
+  isSealed?: boolean;
+  isSpecialName?: boolean;
+  isClass?: boolean;
+  isNestedAssembly?: boolean;
+  isNestedFamANDAssem?: boolean;
+  isNestedFamily?: boolean;
+  isNestedFamORAssem?: boolean;
+  isNestedPrivate?: boolean;
+  isNestedPublic?: boolean;
+  isNotPublic?: boolean;
+  isPublic?: boolean;
+  isAutoLayout?: boolean;
+  isExplicitLayout?: boolean;
+  isLayoutSequential?: boolean;
+  isAnsiClass?: boolean;
+  isAutoClass?: boolean;
+  isUnicodeClass?: boolean;
+  isCOMObject?: boolean;
+  isContextful?: boolean;
+  isEnum?: boolean;
+  isMarshalByRef?: boolean;
+  isPrimitive?: boolean;
+  isValueType?: boolean;
+  isSignatureType?: boolean;
+  isSecurityCritical?: boolean;
+  isSecuritySafeCritical?: boolean;
+  isSecurityTransparent?: boolean;
+  structLayoutAttribute?: StructLayoutAttribute;
+  typeInitializer?: ConstructorInfo;
+  typeHandle?: RuntimeTypeHandle;
+  /** @format uuid */
+  guid?: string;
+  baseType?: Type;
+  /** @deprecated */
+  isSerializable?: boolean;
+  containsGenericParameters?: boolean;
+  isVisible?: boolean;
+  genericTypeParameters?: Type[];
+  declaredConstructors?: ConstructorInfo[];
+  declaredEvents?: EventInfo[];
+  declaredFields?: FieldInfo[];
+  declaredMembers?: MemberInfo[];
+  declaredMethods?: MethodInfo[];
+  declaredNestedTypes?: TypeInfo[];
+  declaredProperties?: PropertyInfo[];
+  implementedInterfaces?: Type[];
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
@@ -308,6 +1006,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: 'json',
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name ForgotPassword
+     * @request POST:/Authenticate/ForgotPassword
+     */
+    forgotPassword: (data: ForgotPasswordCommand, params: RequestParams = {}) =>
+      this.request<SignInDtoRequestResult, any>({
+        path: `/Authenticate/ForgotPassword`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
   };
   contact = {
     /**
@@ -323,6 +1038,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: 'POST',
         body: data,
         type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+  };
+  healthCheck = {
+    /**
+     * No description
+     *
+     * @tags HealthCheck
+     * @name HealthCheck
+     * @request GET:/HealthCheck
+     */
+    healthCheck: (params: RequestParams = {}) =>
+      this.request<HealthReport, HealthReport>({
+        path: `/HealthCheck`,
+        method: 'GET',
         format: 'json',
         ...params,
       }),
@@ -424,6 +1155,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/Stripe/Webhook/PaymentIntent/Succeeded`,
         method: 'POST',
+        ...params,
+      }),
+  };
+  user = {
+    /**
+     * No description
+     *
+     * @tags User
+     * @name GetUser
+     * @request GET:/User
+     */
+    getUser: (params: RequestParams = {}) =>
+      this.request<GetProductDtoArrayRequestResult, any>({
+        path: `/User`,
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
   };

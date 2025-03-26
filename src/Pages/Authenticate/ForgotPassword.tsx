@@ -9,33 +9,36 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
-import { useCookies } from 'react-cookie';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material';
-import { SignInCommand } from '../../__generated__/api-generated';
+import { Link } from 'react-router-dom';
+import { FormHelperText, useTheme } from '@mui/material';
+import { ForgotPasswordCommand } from '../../__generated__/api-generated';
 import { AxiosError, AxiosResponse } from 'axios';
 import DynamicIcon from '../../components/DynamicIcon';
+import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 
 const ForgotPassword = (): JSX.Element => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const params = new URLSearchParams(window.location.search);
+  const emailParam = params.get('email');
+  console.log(emailParam);
+  const [email, setEmail] = useState<string>(emailParam ?? '');
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [, setCookies] = useCookies(['token']);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [errors, setErrors] = useState<string[]>([]);
   const theme = useTheme();
 
   const handleSubmit = async () => {
     setIsFetching(true);
 
     api.authenticate
-      .signIn({ email, password } as SignInCommand)
-      .then((result: AxiosResponse) => {
-        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
-        navigate(location?.state?.from ? location?.state?.from : '/account');
-      })
-      .catch((error: AxiosError) => console.error(error))
-      .finally(() => setIsFetching(false));
+      .forgotPassword({ email } as ForgotPasswordCommand)
+      .then((result: AxiosResponse) => {})
+      .catch((error: AxiosError) => {
+        const errors = error?.response?.data as AxiosErrorData;
+        console.log(errors);
+        if (errors) {
+          setErrors([errors.message]);
+        }
+        setIsFetching(false);
+      });
   };
 
   return (
@@ -60,10 +63,15 @@ const ForgotPassword = (): JSX.Element => {
             id="email"
             label={i18n.t('authenticate:email')}
             name="email"
+            value={email}
             autoComplete="email"
             autoFocus
             onChange={e => setEmail(e.target.value)}
+            error={errors.some(e => e == 'userNotFound')}
           />
+          {errors.some(e => e == 'userNotFound') && (
+            <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
+          )}
           <Button
             type="button"
             fullWidth

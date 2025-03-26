@@ -100,7 +100,11 @@ const SignIn = (): JSX.Element => {
             type="password"
             id="password"
             autoComplete="current-password"
-            error={errors.some(e => e == 'passwordError') || errors.some(e => e == 'passwordValidationError')}
+            error={
+              errors.some(e => e == 'passwordError') ||
+              errors.some(e => e == 'passwordValidationError') ||
+              errors.some(e => e == 'userNotFound')
+            }
             helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
@@ -127,7 +131,9 @@ const SignIn = (): JSX.Element => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/authenticate/forgotpassword" style={{ color: theme.palette.primary.main }}>
+              <Link
+                to={`/authenticate/forgotpassword?email=${signIn.email}`}
+                style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>
             </Grid>

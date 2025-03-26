@@ -21,7 +21,7 @@ import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState<SignUpCommand>({ marketingEmail: false } as SignUpCommand);
+  const [signUp, setSignUp] = useState<SignUpCommand>({ email: '', marketingEmail: false } as SignUpCommand);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
@@ -152,7 +152,14 @@ const SignUp = (): JSX.Element => {
             sx={{ mt: 3, mb: 2 }}>
             {i18n.t('authenticate:signUp')}
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid container>
+            <Grid item xs>
+              <Link
+                to={`/authenticate/forgotpassword?email=${signUp.email}`}
+                style={{ color: theme.palette.primary.main }}>
+                {i18n.t('authenticate:forgotPassword')}
+              </Link>
+            </Grid>
             <Grid item>
               <Link to="/authenticate/signin" rel="nofollow" style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:signIn')}
