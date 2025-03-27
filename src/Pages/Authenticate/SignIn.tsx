@@ -48,8 +48,8 @@ const SignIn = (): JSX.Element => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      .catch((error: AxiosError) => {
-        const errors = error?.response?.data as AxiosErrorData;
+      .catch((axiosError: AxiosError) => {
+        const errors = axiosError?.response?.data as AxiosErrorData;
         if (errors) {
           setErrors([errors.message]);
         }
@@ -82,7 +82,7 @@ const SignIn = (): JSX.Element => {
             autoComplete="email"
             autoFocus
             error={errors.some(e => e == 'emailError')}
-            helperText={errors.some(e => e == 'emailError') && i18n.t('account:emailError')}
+            helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('email')));
               setSignIn(params => ({
@@ -105,7 +105,7 @@ const SignIn = (): JSX.Element => {
               errors.some(e => e == 'passwordValidationError') ||
               errors.some(e => e == 'userNotFound')
             }
-            helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
+            helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
               setSignIn(params => ({
@@ -115,10 +115,10 @@ const SignIn = (): JSX.Element => {
             }}
           />
           {errors.some(e => e == 'passwordValidationError') && (
-            <FormHelperText error>{i18n.t('account:passwordValidationError')}</FormHelperText>
+            <FormHelperText error>{i18n.t('authenticate:passwordValidationError')}</FormHelperText>
           )}
           {errors.some(e => e == 'userNotFound') && (
-            <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
+            <FormHelperText error>{i18n.t('authenticate:userNotFound')}</FormHelperText>
           )}
           <Button
             type="button"

@@ -6,7 +6,6 @@ import { CookiesProvider } from 'react-cookie';
 import Contact from '../../Pages/Contact/Contact';
 import i18n from '../../i18n';
 import api from '../../__generated__/api';
-import { mockNavigate } from '../../../setupTests';
 
 const theme = createTheme();
 

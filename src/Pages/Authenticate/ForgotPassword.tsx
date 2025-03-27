@@ -13,8 +13,8 @@ import { Link } from 'react-router-dom';
 import { FormHelperText, useTheme } from '@mui/material';
 import { ForgotPasswordCommand } from '../../__generated__/api-generated';
 import { AxiosError, AxiosResponse } from 'axios';
-import DynamicIcon from '../../components/DynamicIcon';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
+import { LockReset } from '@mui/icons-material';
 
 const ForgotPassword = (): JSX.Element => {
   const params = new URLSearchParams(window.location.search);
@@ -30,12 +30,11 @@ const ForgotPassword = (): JSX.Element => {
 
     api.authenticate
       .forgotPassword({ email } as ForgotPasswordCommand)
-      .then((result: AxiosResponse) => {
+      .then(() => {
         setIsEmailSend(true);
       })
-      .catch((error: AxiosError) => {
-        const errors = error?.response?.data as AxiosErrorData;
-        console.log(errors);
+      .catch((axiosError: AxiosError) => {
+        const errors = axiosError?.response?.data as AxiosErrorData;
         if (errors) {
           setErrors([errors.message]);
         }
@@ -52,7 +51,7 @@ const ForgotPassword = (): JSX.Element => {
           alignItems: 'center',
         }}>
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <DynamicIcon icon="LockResetIcon" />
+          <LockReset />
         </Avatar>
         <Typography component="h1" variant="h5">
           {i18n.t('authenticate:forgotPasswordTitle')}
@@ -78,7 +77,7 @@ const ForgotPassword = (): JSX.Element => {
               error={errors.some(e => e == 'userNotFound')}
             />
             {errors.some(e => e == 'userNotFound') && (
-              <FormHelperText error>{i18n.t('account:userNotFound')}</FormHelperText>
+              <FormHelperText error>{i18n.t('authenticate:userNotFound')}</FormHelperText>
             )}
             <Button
               type="button"

@@ -6,7 +6,7 @@ import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
 import api from '../../__generated__/api';
 import { AxiosResponse } from 'axios';
-import DynamicIcon from '../../components/DynamicIcon';
+import { RemoveShoppingCart } from '@mui/icons-material';
 
 export const Basket = (): JSX.Element => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export const Basket = (): JSX.Element => {
                       </Typography>
                     </div>
                     <div style={{ cursor: 'pointer', fontSize: '16px' }} onClick={() => removeFromBasket(product.id)}>
-                      <DynamicIcon icon="RemoveShoppingCart" /> Supprimer
+                      <RemoveShoppingCart /> Supprimer
                     </div>
                   </Box>
                   <Typography component="h6" variant="subtitle1" margin={0} color={'gray'}>

@@ -49,9 +49,8 @@ const SignUp = (): JSX.Element => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
         navigate(location?.state?.from ? location?.state?.from : '/account');
       })
-      .catch((error: AxiosError) => {
-        const errors = error?.response?.data as AxiosErrorData;
-        console.log(errors);
+      .catch((axiosError: AxiosError) => {
+        const errors = axiosError?.response?.data as AxiosErrorData;
         if (errors) {
           setErrors([errors.message]);
         }
@@ -83,7 +82,7 @@ const SignUp = (): JSX.Element => {
                 name="email"
                 autoComplete="email"
                 error={errors.some(e => e == 'emailError' || e == 'userDuplicate')}
-                helperText={errors.some(e => e == 'emailError') && i18n.t('account:emailError')}
+                helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
                 onChange={event => {
                   setErrors(errors.filter(err => !err.includes('email')));
                   setSignUp(params => ({
@@ -93,7 +92,7 @@ const SignUp = (): JSX.Element => {
                 }}
               />
               {errors.some(e => e == 'userDuplicate') && (
-                <FormHelperText error>{i18n.t('account:userDuplicate')}</FormHelperText>
+                <FormHelperText error>{i18n.t('authenticate:userDuplicate')}</FormHelperText>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -112,7 +111,7 @@ const SignUp = (): JSX.Element => {
                   }))
                 }
                 error={errors.some(e => e == 'passwordError')}
-                helperText={errors.some(e => e == 'passwordError') && i18n.t('account:passwordError')}
+                helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">

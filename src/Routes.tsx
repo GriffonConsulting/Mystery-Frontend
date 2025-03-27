@@ -16,58 +16,59 @@ const Account = React.lazy(() => import('./Pages/Account/Account'));
 const Checkout = React.lazy(() => import('./Pages/Order/Checkout'));
 const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInformations'));
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
+const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
 const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
-
 
 export const AppRoutes = (): JSX.Element => {
   return (
     <BrowserRouter>
       <AxiosInterceptor>
         <Layout>
-  <Suspense fallback={<Loader/>}>
-          <Routes>
-            <Route index element={<Products />} />
-            <Route path="/authenticate/signin" element={<SignIn />} />
-            <Route path="/authenticate/signup" element={<SignUp />} />
-            <Route path="/authenticate/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/product/:productType" element={<Products />} />
-            <Route path="/product/:productType/:productCode" element={<Product />} />
-            <Route path="/order/basket" element={<Basket />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route
-              path={'/account'}
-              element={
-                <RequiredAuth>
-                  <Account />
-                </RequiredAuth>
-              }
-            />
-            <Route
-              path={'/account/informations'}
-              element={
-                <RequiredAuth>
-                  <AccountInformations />
-                </RequiredAuth>
-              }
-            />
-            <Route
-              path={'/account/invoices'}
-              element={
-                <RequiredAuth>
-                  <Invoices />
-                </RequiredAuth>
-              }
-            />
-            <Route
-              path={'/order/checkout'}
-              element={
-                <RequiredAuth>
-                  <Checkout />
-                </RequiredAuth>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route index element={<Products />} />
+              <Route path="/authenticate/signin" element={<SignIn />} />
+              <Route path="/authenticate/signup" element={<SignUp />} />
+              <Route path="/authenticate/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/authenticate/resetpassword" element={<ResetPassword />} />
+              <Route path="/product/:productType" element={<Products />} />
+              <Route path="/product/:productType/:productCode" element={<Product />} />
+              <Route path="/order/basket" element={<Basket />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route
+                path={'/account'}
+                element={
+                  <RequiredAuth>
+                    <Account />
+                  </RequiredAuth>
+                }
+              />
+              <Route
+                path={'/account/informations'}
+                element={
+                  <RequiredAuth>
+                    <AccountInformations />
+                  </RequiredAuth>
+                }
+              />
+              <Route
+                path={'/account/invoices'}
+                element={
+                  <RequiredAuth>
+                    <Invoices />
+                  </RequiredAuth>
+                }
+              />
+              <Route
+                path={'/order/checkout'}
+                element={
+                  <RequiredAuth>
+                    <Checkout />
+                  </RequiredAuth>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </Suspense>
         </Layout>
       </AxiosInterceptor>

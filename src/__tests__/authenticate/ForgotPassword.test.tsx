@@ -2,12 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, vi, expect, beforeEach } from 'vitest';
 import ForgotPassword from '../../Pages/Authenticate/ForgotPassword';
 import api from '../../__generated__/api';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import i18n from '../../i18n';
 import { CookiesProvider } from 'react-cookie';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
-import { error } from 'console';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');

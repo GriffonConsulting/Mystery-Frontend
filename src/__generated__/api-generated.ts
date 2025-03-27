@@ -566,6 +566,12 @@ export interface RequestResult {
   message?: string;
 }
 
+export interface ResetPasswordCommand {
+  token: string;
+  email: string;
+  password: string;
+}
+
 export interface RuntimeFieldHandle {
   value?: IntPtr;
 }
@@ -1017,6 +1023,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     forgotPassword: (data: ForgotPasswordCommand, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, any>({
         path: `/Authenticate/ForgotPassword`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name ResetPassword
+     * @request POST:/Authenticate/ResetPassword
+     */
+    resetPassword: (data: ResetPasswordCommand, params: RequestParams = {}) =>
+      this.request<RequestResult, any>({
+        path: `/Authenticate/ResetPassword`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
