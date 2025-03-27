@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, useTheme } from '@mui/material';
-import { Search } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import NotFoundSvg from './NotFoundSvg';
+import i18n from '../../i18n';
 
 export const NotFound = (): JSX.Element => {
   const theme = useTheme();
@@ -11,10 +11,10 @@ export const NotFound = (): JSX.Element => {
       <Link to="/">
         <NotFoundSvg />
       </Link>
-      Page non trouvée
+      <span>{i18n.t('notFound')}</span>
       <br />
       <Link style={{ color: theme.palette.primary.dark }} to="/">
-        Retourner à la page d&apos;accueil
+        <span>{i18n.t('return')}</span>
       </Link>
     </Container>
   );
