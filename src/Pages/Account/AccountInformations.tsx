@@ -8,16 +8,36 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AccountCircle } from '@mui/icons-material';
+import { object, string } from 'yup';
 
 const AccountInformations = (): JSX.Element => {
   const [user, setUser] = useState<UpdateUserCommand>();
   const { i18n } = useTranslation();
+  const [errors, setErrors] = useState<string[]>([]);
   const countriesObject = i18n.services.resourceStore.data[i18n.language].countries;
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const countriesArray = Object.entries(countriesObject).map(([value, label]) => ({
     value,
     label,
   }));
   const theme = useTheme();
+  console.log(errors);
+
+  const updateUserSchema = object({
+    newEmail: string().required('emailError').email('emailError'),
+    password: string().matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, {
+      message: 'passwordError',
+      excludeEmptyString: true,
+    }),
+    firstname: string().max(35, 'firstnameError'),
+    lastname: string().max(35, 'lastnameError'),
+    address: string().max(255, 'addressError'),
+    complementaryAddress: string().max(255, 'complementaryAddressError'),
+    postalCode: string().max(12, 'postalCodeError'),
+    city: string().max(255, 'cityError'),
+    country: string().max(2, 'countryError'),
+  });
+
   React.useEffect(() => {
     api.user.getUser().then((result: AxiosResponse) => {
       const user = result.data.result as GetUserDto;
@@ -36,6 +56,15 @@ const AccountInformations = (): JSX.Element => {
       } as UpdateUserCommand);
     });
   }, []);
+
+  const handleSubmit = async () => {
+    setErrors([]);
+    if (!(await updateUserSchema.isValid(user))) {
+      await updateUserSchema.validate(user, { abortEarly: false }).catch(error => setErrors(error.errors));
+      return;
+    }
+    setIsFetching(true);
+  };
 
   return (
     <Container>
@@ -68,7 +97,14 @@ const AccountInformations = (): JSX.Element => {
                 autoComplete="email"
                 autoFocus
                 value={user?.newEmail}
-                // onChange={e => setEmail(e.target.value)}
+                error={errors.some(e => e == 'emailError')}
+                onChange={event => {
+                  setErrors(errors.filter(err => !err.includes('emailError')));
+                  setUser(params => ({
+                    ...params,
+                    newEmail: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -153,11 +189,11 @@ const AccountInformations = (): JSX.Element => {
               <Button
                 type="button"
                 fullWidth
-                // disabled={isFetching}
-                // onClick={handleSubmit}
+                disabled={isFetching}
+                onClick={handleSubmit}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}>
-                {i18n.t('modify')}
+                {i18n.t('update')}
               </Button>
             </Box>
           </Box>

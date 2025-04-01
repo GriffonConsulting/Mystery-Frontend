@@ -846,8 +846,6 @@ export interface TypeInfo {
 
 export interface UpdateUserCommand {
   /** @format email */
-  oldEmail: string;
-  /** @format email */
   newEmail: string;
   password?: string | null;
   /** @maxLength 35 */

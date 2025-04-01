@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCookies } from 'react-cookie';
 import { Container, Grid, Paper, styled, Typography } from '@mui/material';
 import i18n from '../../i18n';
-import { AccountCircle, NoAccounts } from '@mui/icons-material';
+import { AccountCircle, Casino, Description, NoAccounts, Receipt } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const Account = (): JSX.Element => {
@@ -20,6 +20,18 @@ const Account = (): JSX.Element => {
           <Item onClick={() => navigate('/account/informations')}>
             <AccountCircle style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:informations')}</Typography>
+          </Item>
+        </AccountGrid>
+        <AccountGrid>
+          <Item onClick={() => navigate('/account/games')}>
+            <Casino style={iconStyle} sx={{ color: 'primary.main' }} />
+            <Typography variant="h5">{i18n.t('account:games')}</Typography>
+          </Item>
+        </AccountGrid>
+        <AccountGrid>
+          <Item onClick={() => navigate('/account/invoices')}>
+            <Description style={iconStyle} sx={{ color: 'primary.main' }} />
+            <Typography variant="h5">{i18n.t('account:invoices')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
