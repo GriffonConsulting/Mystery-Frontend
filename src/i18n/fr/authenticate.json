@@ -16,5 +16,6 @@
   "sendEmail": "Un email vient de vous être envoyé.",
   "newPassword": "Nouveau mot de passe",
   "resetPasswordTitle": "Réinitialiser votre mot de passe",
-  "invalidToken": "Le lien a expiré. Veuillez recommencer la procédure."
+  "invalidToken": "Le lien a expiré. Veuillez recommencer la procédure.",
+  "passwordValidationError": "Le mot de passe n'est pas bon."
 }

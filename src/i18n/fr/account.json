@@ -8,5 +8,6 @@
   "emailError": "Veuillez saisir une adresse e-mail valide.",
   "userDuplicate": "Cet email existe déjà.",
   "userNotFound": "Ce compte n'existe pas.",
-  "passwordValidationError": "Le mot de passe n'est pas bon."
+  "passwordValidationError": "Le mot de passe n'est pas bon.",
+  "informations": "Mes informations"
 }

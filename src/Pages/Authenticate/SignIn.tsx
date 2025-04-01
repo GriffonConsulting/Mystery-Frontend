@@ -14,12 +14,12 @@ import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FormHelperText, useTheme } from '@mui/material';
 import { AxiosError, AxiosResponse } from 'axios';
-import { SignInCommand } from '../../__generated__/api-generated';
+import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 
 const SignIn = (): JSX.Element => {
-  const [signIn, setSignIn] = useState<SignInCommand>({} as SignInCommand);
+  const [signIn, setSignIn] = useState<SignInQuery>({} as SignInQuery);
   const [errors, setErrors] = useState<string[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [, setCookies] = useCookies(['token']);

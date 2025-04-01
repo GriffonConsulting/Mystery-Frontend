@@ -57,6 +57,7 @@ export interface CheckoutProductsCommand {
 }
 
 export interface ConfirmEmailCommand {
+  /** @format email */
   email: string;
   token: string;
 }
@@ -224,6 +225,7 @@ export interface FieldInfo {
 }
 
 export interface ForgotPasswordCommand {
+  /** @format email */
   email: string;
 }
 
@@ -285,6 +287,22 @@ export interface GetProductDtoArrayRequestResult {
 export interface GetProductDtoRequestResult {
   message?: string;
   result: GetProductDto;
+}
+
+export interface GetUserDto {
+  firstname?: string | null;
+  lastname?: string | null;
+  address?: string | null;
+  complementaryAddress?: string | null;
+  postalCode?: string | null;
+  city?: string | null;
+  country?: string | null;
+  marketingEmail?: boolean;
+}
+
+export interface GetUserDtoRequestResult {
+  message?: string;
+  result: GetUserDto;
 }
 
 export interface HealthReport {
@@ -568,6 +586,7 @@ export interface RequestResult {
 
 export interface ResetPasswordCommand {
   token: string;
+  /** @format email */
   email: string;
   password: string;
 }
@@ -591,11 +610,6 @@ export enum SecurityRuleSet {
   Level2 = 'Level2',
 }
 
-export interface SignInCommand {
-  email: string;
-  password: string;
-}
-
 export interface SignInDto {
   token: string;
   /** @format date-time */
@@ -607,7 +621,13 @@ export interface SignInDtoRequestResult {
   result: SignInDto;
 }
 
+export interface SignInQuery {
+  email: string;
+  password: string;
+}
+
 export interface SignUpCommand {
+  /** @format email */
   email: string;
   password: string;
   marketingEmail: boolean;
@@ -823,6 +843,29 @@ export interface TypeInfo {
   implementedInterfaces?: Type[];
 }
 
+export interface UpdateUserCommand {
+  /** @format email */
+  oldEmail: string;
+  /** @format email */
+  newEmail: string;
+  password?: string | null;
+  /** @maxLength 35 */
+  firstname?: string | null;
+  /** @maxLength 35 */
+  lastname?: string | null;
+  /** @maxLength 255 */
+  address?: string | null;
+  /** @maxLength 255 */
+  complementaryAddress?: string | null;
+  /** @maxLength 12 */
+  postalCode?: string | null;
+  /** @maxLength 255 */
+  city?: string | null;
+  /** @maxLength 2 */
+  country?: string | null;
+  marketingEmail?: boolean;
+}
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
 import axios from 'axios';
 
@@ -1003,7 +1046,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name SignIn
      * @request POST:/Authenticate/SignIn
      */
-    signIn: (data: SignInCommand, params: RequestParams = {}) =>
+    signIn: (data: SignInQuery, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignIn`,
         method: 'POST',
@@ -1188,11 +1231,32 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags User
      * @name GetUser
      * @request GET:/User
+     * @secure
      */
     getUser: (params: RequestParams = {}) =>
-      this.request<GetProductDtoArrayRequestResult, any>({
+      this.request<GetUserDtoRequestResult, any>({
         path: `/User`,
         method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
+     * @name UpdateUser
+     * @request PUT:/User
+     * @secure
+     */
+    updateUser: (data: UpdateUserCommand, params: RequestParams = {}) =>
+      this.request<RequestResult, any>({
+        path: `/User`,
+        method: 'PUT',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
