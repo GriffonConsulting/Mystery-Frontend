@@ -9,5 +9,13 @@
   "userDuplicate": "Cet email existe déjà.",
   "userNotFound": "Ce compte n'existe pas.",
   "passwordValidationError": "Le mot de passe n'est pas bon.",
-  "informations": "Mes informations"
+  "informations": "Mes informations",
+  "newPassword": "Nouveau mot de passe",
+  "firstname": "Prénom",
+  "lastname": "Nom",
+  "address": "Adresse",
+  "complementaryAddress": "Adresse complémentaire",
+  "postalCode": "Code postal",
+  "city": "Ville",
+  "country": "Pays"
 }

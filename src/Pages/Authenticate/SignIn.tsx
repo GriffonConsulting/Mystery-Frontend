@@ -17,6 +17,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
+import { AccountCircle } from '@mui/icons-material';
 
 const SignIn = (): JSX.Element => {
   const [signIn, setSignIn] = useState<SignInQuery>({} as SignInQuery);
@@ -64,10 +65,9 @@ const SignIn = (): JSX.Element => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          marginTop: 2,
         }}>
-        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <AccountCircle style={{ fontSize: 60 }} sx={{ color: 'primary.main' }} />
         <Typography component="h1" variant="h5">
           {i18n.t('authenticate:signIn')}
         </Typography>

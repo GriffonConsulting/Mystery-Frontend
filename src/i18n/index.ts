@@ -4,6 +4,7 @@ import common from './fr/common.json';
 import account from './fr/account.json';
 import authenticate from './fr/authenticate.json';
 import product from './fr/product.json';
+import countries from './fr/countries.json';
 import moment from 'moment';
 
 const resources = {
@@ -12,6 +13,7 @@ const resources = {
     account,
     authenticate,
     product,
+    countries,
   },
 };
 

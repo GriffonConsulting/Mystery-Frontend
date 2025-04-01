@@ -1,11 +1,9 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Checkbox, FormControlLabel, FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
@@ -14,7 +12,7 @@ import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
@@ -64,10 +62,9 @@ const SignUp = (): JSX.Element => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          marginTop: 2,
         }}>
-        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <AccountCircle style={{ fontSize: 60 }} sx={{ color: 'primary.main' }} />
         <Typography component="h1" variant="h5">
           {i18n.t('authenticate:signUp')}
         </Typography>

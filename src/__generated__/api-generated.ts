@@ -290,6 +290,7 @@ export interface GetProductDtoRequestResult {
 }
 
 export interface GetUserDto {
+  email: string;
   firstname?: string | null;
   lastname?: string | null;
   address?: string | null;
