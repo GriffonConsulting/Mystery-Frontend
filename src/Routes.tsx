@@ -4,6 +4,7 @@ import Layout from './Pages/Layout/Layout';
 import { AxiosInterceptor } from './__generated__/api';
 import RequiredAuth from './RequiredAuth';
 import Loader from './components/Loader';
+import { EnumAppRoutes } from './Enum/EnumAppRoutes';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
 const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
@@ -26,17 +27,18 @@ export const AppRoutes = (): JSX.Element => {
         <Layout>
           <Suspense fallback={<Loader />}>
             <Routes>
+              {/* <Route path=":lang/"> */}
               <Route index element={<Products />} />
-              <Route path="/authenticate/signin" element={<SignIn />} />
-              <Route path="/authenticate/signup" element={<SignUp />} />
-              <Route path="/authenticate/forgotpassword" element={<ForgotPassword />} />
-              <Route path="/authenticate/resetpassword" element={<ResetPassword />} />
-              <Route path="/product/:productType" element={<Products />} />
-              <Route path="/product/:productType/:productCode" element={<Product />} />
-              <Route path="/order/basket" element={<Basket />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path={EnumAppRoutes.SignIn} element={<SignIn />} />
+              <Route path={EnumAppRoutes.SignUp} element={<SignUp />} />
+              <Route path={EnumAppRoutes.ForgotPassword} element={<ForgotPassword />} />
+              <Route path={EnumAppRoutes.ResetPassword} element={<ResetPassword />} />
+              <Route path={EnumAppRoutes.Procucts} element={<Products />} />
+              <Route path={EnumAppRoutes.Product} element={<Product />} />
+              <Route path={EnumAppRoutes.Basket} element={<Basket />} />
+              <Route path={EnumAppRoutes.Contact} element={<Contact />} />
               <Route
-                path={'/account'}
+                path={EnumAppRoutes.Account}
                 element={
                   <RequiredAuth>
                     <Account />
@@ -44,7 +46,7 @@ export const AppRoutes = (): JSX.Element => {
                 }
               />
               <Route
-                path={'/account/informations'}
+                path={EnumAppRoutes.AccountInformations}
                 element={
                   <RequiredAuth>
                     <AccountInformations />
@@ -52,7 +54,7 @@ export const AppRoutes = (): JSX.Element => {
                 }
               />
               <Route
-                path={'/account/invoices'}
+                path={EnumAppRoutes.AccountInvoices}
                 element={
                   <RequiredAuth>
                     <Invoices />
@@ -60,14 +62,14 @@ export const AppRoutes = (): JSX.Element => {
                 }
               />
               <Route
-                path={'/order/checkout'}
+                path={EnumAppRoutes.OrderCheckout}
                 element={
                   <RequiredAuth>
                     <Checkout />
                   </RequiredAuth>
                 }
               />
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />*{/* </Route> */}
             </Routes>
           </Suspense>
         </Layout>

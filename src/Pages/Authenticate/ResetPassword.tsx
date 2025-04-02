@@ -15,6 +15,7 @@ import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { Visibility, VisibilityOff, LockReset } from '@mui/icons-material';
 import { object, string } from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 const resetPasswordSchema = object({
   password: string()
@@ -47,7 +48,7 @@ const ResetPassword = (): JSX.Element => {
     api.authenticate
       .resetPassword(resetPasswordCommand)
       .then(() => {
-        navigate('/authenticate/signin');
+        navigate(EnumAppRoutes.SignIn);
       })
       .catch((axiosError: AxiosError) => {
         const errors = axiosError?.response?.data as AxiosErrorData;

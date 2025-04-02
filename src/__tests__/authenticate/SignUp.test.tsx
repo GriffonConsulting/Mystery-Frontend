@@ -7,6 +7,7 @@ import SignUp from '../../Pages/Authenticate/SignUp';
 import i18n from '../../i18n';
 import api from '../../__generated__/api';
 import { mockNavigate } from '../../../setupTests';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 const theme = createTheme();
 
@@ -72,7 +73,7 @@ describe('SignUp Component', () => {
         password: 'Valid@1234',
         marketingEmail: true,
       });
-      expect(mockNavigate).toHaveBeenCalledWith('/account');
+      expect(mockNavigate).toHaveBeenCalledWith(EnumAppRoutes.Account);
     });
   });
 

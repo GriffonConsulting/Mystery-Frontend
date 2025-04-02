@@ -4,6 +4,7 @@ import { Container, Grid, Paper, styled, Typography } from '@mui/material';
 import i18n from '../../i18n';
 import { AccountCircle, Casino, Description, NoAccounts, Receipt } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 const Account = (): JSX.Element => {
   const [, , removeCookies] = useCookies(['token']);
@@ -17,19 +18,19 @@ const Account = (): JSX.Element => {
     <Container style={{ marginTop: 32 }}>
       <Grid container spacing={{ xs: 2 }}>
         <AccountGrid>
-          <Item onClick={() => navigate('/account/informations')}>
+          <Item onClick={() => navigate(EnumAppRoutes.AccountInformations)}>
             <AccountCircle style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:informations')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={() => navigate('/account/games')}>
+          <Item onClick={() => navigate(EnumAppRoutes.AccountGames)}>
             <Casino style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:games')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={() => navigate('/account/invoices')}>
+          <Item onClick={() => navigate(EnumAppRoutes.AccountInvoices)}>
             <Description style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:invoices')}</Typography>
           </Item>

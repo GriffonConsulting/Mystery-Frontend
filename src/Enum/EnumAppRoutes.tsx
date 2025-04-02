@@ -1,0 +1,15 @@
+export enum EnumAppRoutes {
+  SignIn = '/authenticate/signin',
+  SignUp = '/authenticate/signup',
+  ForgotPassword = '/authenticate/forgotpassword',
+  ResetPassword = '/authenticate/resetpassword',
+  Procucts = '/product/:productType',
+  Product = '/product/:productType/:productCode',
+  Basket = '/order/basket',
+  Contact = '/contact',
+  Account = '/account',
+  AccountInformations = '/account/informations',
+  AccountInvoices = '/account/invoices',
+  AccountGames = '/account/games',
+  OrderCheckout = '/order/checkout',
+}
