@@ -27,49 +27,50 @@ export const AppRoutes = (): JSX.Element => {
         <Layout>
           <Suspense fallback={<Loader />}>
             <Routes>
-              {/* <Route path=":lang/"> */}
-              <Route index element={<Products />} />
-              <Route path={EnumAppRoutes.SignIn} element={<SignIn />} />
-              <Route path={EnumAppRoutes.SignUp} element={<SignUp />} />
-              <Route path={EnumAppRoutes.ForgotPassword} element={<ForgotPassword />} />
-              <Route path={EnumAppRoutes.ResetPassword} element={<ResetPassword />} />
-              <Route path={EnumAppRoutes.Procucts} element={<Products />} />
-              <Route path={EnumAppRoutes.Product} element={<Product />} />
-              <Route path={EnumAppRoutes.Basket} element={<Basket />} />
-              <Route path={EnumAppRoutes.Contact} element={<Contact />} />
-              <Route
-                path={EnumAppRoutes.Account}
-                element={
-                  <RequiredAuth>
-                    <Account />
-                  </RequiredAuth>
-                }
-              />
-              <Route
-                path={EnumAppRoutes.AccountInformations}
-                element={
-                  <RequiredAuth>
-                    <AccountInformations />
-                  </RequiredAuth>
-                }
-              />
-              <Route
-                path={EnumAppRoutes.AccountInvoices}
-                element={
-                  <RequiredAuth>
-                    <Invoices />
-                  </RequiredAuth>
-                }
-              />
-              <Route
-                path={EnumAppRoutes.OrderCheckout}
-                element={
-                  <RequiredAuth>
-                    <Checkout />
-                  </RequiredAuth>
-                }
-              />
-              <Route path="*" element={<NotFound />} />*{/* </Route> */}
+              <Route path=":lang/">
+                <Route index element={<Products />} />
+                <Route path={EnumAppRoutes.SignIn} element={<SignIn />} />
+                <Route path={EnumAppRoutes.SignUp} element={<SignUp />} />
+                <Route path={EnumAppRoutes.ForgotPassword} element={<ForgotPassword />} />
+                <Route path={EnumAppRoutes.ResetPassword} element={<ResetPassword />} />
+                <Route path={EnumAppRoutes.Products} element={<Products />} />
+                <Route path={EnumAppRoutes.Product} element={<Product />} />
+                <Route path={EnumAppRoutes.Basket} element={<Basket />} />
+                <Route path={EnumAppRoutes.Contact} element={<Contact />} />
+                <Route
+                  path={EnumAppRoutes.Account}
+                  element={
+                    <RequiredAuth>
+                      <Account />
+                    </RequiredAuth>
+                  }
+                />
+                <Route
+                  path={EnumAppRoutes.AccountInformations}
+                  element={
+                    <RequiredAuth>
+                      <AccountInformations />
+                    </RequiredAuth>
+                  }
+                />
+                <Route
+                  path={EnumAppRoutes.AccountInvoices}
+                  element={
+                    <RequiredAuth>
+                      <Invoices />
+                    </RequiredAuth>
+                  }
+                />
+                <Route
+                  path={EnumAppRoutes.Checkout}
+                  element={
+                    <RequiredAuth>
+                      <Checkout />
+                    </RequiredAuth>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </Suspense>
         </Layout>

@@ -18,6 +18,8 @@ import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { AccountCircle } from '@mui/icons-material';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 const SignIn = (): JSX.Element => {
   const [signIn, setSignIn] = useState<SignInQuery>({} as SignInQuery);
@@ -47,7 +49,7 @@ const SignIn = (): JSX.Element => {
       .signIn(signIn)
       .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
-        navigate(location?.state?.from ? location?.state?.from : '/account');
+        navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.Account));
       })
       .catch((axiosError: AxiosError) => {
         const errors = axiosError?.response?.data as AxiosErrorData;
@@ -138,7 +140,7 @@ const SignIn = (): JSX.Element => {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/authenticate/signup" style={{ color: theme.palette.primary.main }}>
+              <Link to={BuildUrl(EnumAppRoutes.SignUp)} style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:signUp')}
               </Link>
             </Grid>

@@ -24,7 +24,7 @@ export function AxiosInterceptor({ children }: { children: any }) {
         var expirationDate = new Date(cookies?.token?.expirationDate);
         if (expirationDate < date) {
           removeCookies('token', { sameSite: true, secure: true, path: '/' });
-          navigate('authenticate/signin', {});
+          navigate(BuildUrl(EnumAppRoutes.SignIn));
         }
       }
 

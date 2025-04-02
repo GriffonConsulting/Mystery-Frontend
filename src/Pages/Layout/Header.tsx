@@ -15,12 +15,8 @@ import { ProductType } from '../../__generated__/api-generated';
 import { ShoppingBasket } from '@mui/icons-material';
 import { useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
-
-const logoStyle = {
-  width: 'auto',
-  height: '50px',
-  cursor: 'pointer',
-};
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 function Header(): JSX.Element {
   const theme = useTheme();
@@ -64,7 +60,7 @@ function Header(): JSX.Element {
               alignItems: 'center',
               px: 0,
             }}>
-            <Link to="/">
+            <Link to={BuildUrl(EnumAppRoutes.HomePage)}>
               <img src={'/assets/mea logo.png'} style={logoStyle} alt="logo" />
             </Link>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -72,7 +68,7 @@ function Header(): JSX.Element {
                 <MenuItem
                   key={pt}
                   onClick={() => {
-                    navigate(`/product/${pt}`);
+                    navigate(BuildUrl(EnumAppRoutes.Products, { productType: pt }));
                   }}
                   sx={{ py: '6px', px: '12px' }}>
                   <Typography variant="body2" color="text.primary">
@@ -82,7 +78,7 @@ function Header(): JSX.Element {
               ))}
               <MenuItem
                 onClick={() => {
-                  navigate(`/contact`);
+                  navigate(BuildUrl(EnumAppRoutes.Contact));
                 }}
                 sx={{ py: '6px', px: '12px' }}>
                 <Typography variant="body2" color="text.primary">
@@ -99,12 +95,12 @@ function Header(): JSX.Element {
             }}>
             {!cookies.token && (
               <>
-                <Link to="/authenticate/signup">
+                <Link to={BuildUrl(EnumAppRoutes.SignUp)}>
                   <Button color="primary" variant="text" size="small">
                     {i18n.t('signUp')}
                   </Button>
                 </Link>
-                <Link to="/authenticate/signin">
+                <Link to={BuildUrl(EnumAppRoutes.SignIn)}>
                   <Button color="primary" variant="contained" size="small">
                     {i18n.t('signIn')}
                   </Button>
@@ -112,14 +108,14 @@ function Header(): JSX.Element {
               </>
             )}
             {cookies.token && (
-              <Link to="/account">
+              <Link to={BuildUrl(EnumAppRoutes.Account)}>
                 <Button color="primary" variant="contained" size="small">
                   {i18n.t('account')}
                 </Button>
               </Link>
             )}
             {cookies.basket && (
-              <Link to="/order/basket">
+              <Link to={BuildUrl(EnumAppRoutes.Basket)}>
                 <div style={{ position: 'relative' }}>
                   <Button sx={{ m: 1 }} color="primary" variant="outlined">
                     <ShoppingBasket />
@@ -173,7 +169,7 @@ function Header(): JSX.Element {
                   <MenuItem
                     key={pt}
                     onClick={() => {
-                      navigate(`/product/${pt}`);
+                      navigate(BuildUrl(EnumAppRoutes.Products, { productType: pt }));
                     }}
                     sx={{ py: '6px', px: '12px' }}>
                     <Typography variant="body2" color="text.primary">
@@ -183,7 +179,7 @@ function Header(): JSX.Element {
                 ))}
                 <MenuItem
                   onClick={() => {
-                    navigate(`/contact`);
+                    navigate(BuildUrl(EnumAppRoutes.Contact));
                   }}>
                   {i18n.t('contact')}
                 </MenuItem>
@@ -191,14 +187,14 @@ function Header(): JSX.Element {
                 {!cookies.token && (
                   <>
                     <MenuItem>
-                      <Link to="/authenticate/signup">
+                      <Link to={BuildUrl(EnumAppRoutes.SignUp)}>
                         <Button color="primary" variant="outlined" sx={{ width: '100%' }}>
                           {i18n.t('signUp')}
                         </Button>
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link to="/authenticate/signin">
+                      <Link to={BuildUrl(EnumAppRoutes.SignIn)}>
                         <Button color="primary" variant="contained" sx={{ width: '100%' }}>
                           {i18n.t('signIn')}
                         </Button>
@@ -207,14 +203,14 @@ function Header(): JSX.Element {
                   </>
                 )}
                 {cookies.token && (
-                  <Link to="/account">
+                  <Link to={BuildUrl(EnumAppRoutes.Account)}>
                     <Button color="primary" variant="contained" size="small">
                       {i18n.t('account')}
                     </Button>
                   </Link>
                 )}
                 <MenuItem>
-                  <Link to="/order/basket">
+                  <Link to={BuildUrl(EnumAppRoutes.Basket)}>
                     <Button color="primary" variant="contained" sx={{ width: '100%' }}>
                       {i18n.t('goToBasket')}
                     </Button>
@@ -228,5 +224,11 @@ function Header(): JSX.Element {
     </AppBar>
   );
 }
+
+const logoStyle = {
+  width: 'auto',
+  height: '50px',
+  cursor: 'pointer',
+};
 
 export default Header;

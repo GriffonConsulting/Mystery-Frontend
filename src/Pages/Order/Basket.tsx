@@ -8,6 +8,7 @@ import api from '../../__generated__/api';
 import { AxiosResponse } from 'axios';
 import { RemoveShoppingCart } from '@mui/icons-material';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 export const Basket = (): JSX.Element => {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ export const Basket = (): JSX.Element => {
             <div style={{ marginBottom: 16 }}>
               <b>Total {frEuro.format(products?.reduce((i: number, { price }: GetProductDto) => i + price, 0) ?? 0)}</b>
             </div>
-            <Button variant="contained" fullWidth={true} onClick={() => navigate(EnumAppRoutes.OrderCheckout)}>
+            <Button variant="contained" fullWidth={true} onClick={() => navigate(BuildUrl(EnumAppRoutes.Checkout))}>
               Commander
             </Button>
           </Box>

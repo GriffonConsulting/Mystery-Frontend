@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AccountCircle } from '@mui/icons-material';
 import { object, string } from 'yup';
+import { BuildUrl } from '../../Functions/BuildUrl';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 const AccountInformations = (): JSX.Element => {
   const [user, setUser] = useState<UpdateUserCommand>();
@@ -69,7 +71,7 @@ const AccountInformations = (): JSX.Element => {
   return (
     <Container>
       <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
-        <Link to={'/account'} style={{ color: theme.palette.primary.main }}>
+        <Link to={BuildUrl(EnumAppRoutes.Account)} style={{ color: theme.palette.primary.main }}>
           {i18n.t('account:account')}
         </Link>
         <Typography color={theme.palette.primary.main}>{i18n.t('account:informations')}</Typography>

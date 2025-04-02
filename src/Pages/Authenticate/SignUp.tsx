@@ -16,6 +16,8 @@ import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const SignUp = (): JSX.Element => {
       .signUp(signUp)
       .then((result: AxiosResponse) => {
         setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
-        navigate(location?.state?.from ? location?.state?.from : '/account');
+        navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.Account));
       })
       .catch((axiosError: AxiosError) => {
         const errors = axiosError?.response?.data as AxiosErrorData;
@@ -157,7 +159,7 @@ const SignUp = (): JSX.Element => {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/authenticate/signin" rel="nofollow" style={{ color: theme.palette.primary.main }}>
+              <Link to={BuildUrl(EnumAppRoutes.SignIn)} rel="nofollow" style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:signIn')}
               </Link>
             </Grid>

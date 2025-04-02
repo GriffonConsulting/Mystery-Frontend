@@ -5,6 +5,7 @@ import i18n from '../../i18n';
 import { AccountCircle, Casino, Description, NoAccounts, Receipt } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 const Account = (): JSX.Element => {
   const [, , removeCookies] = useCookies(['token']);
@@ -18,19 +19,19 @@ const Account = (): JSX.Element => {
     <Container style={{ marginTop: 32 }}>
       <Grid container spacing={{ xs: 2 }}>
         <AccountGrid>
-          <Item onClick={() => navigate(EnumAppRoutes.AccountInformations)}>
+          <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountInformations))}>
             <AccountCircle style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:informations')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={() => navigate(EnumAppRoutes.AccountGames)}>
+          <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountGames))}>
             <Casino style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:games')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={() => navigate(EnumAppRoutes.AccountInvoices)}>
+          <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountInvoices))}>
             <Description style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:invoices')}</Typography>
           </Item>

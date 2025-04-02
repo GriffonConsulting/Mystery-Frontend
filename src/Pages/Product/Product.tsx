@@ -8,6 +8,8 @@ import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
 import { AxiosResponse } from 'axios';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 export const Product = (): JSX.Element => {
   const theme = useTheme();
@@ -40,10 +42,10 @@ export const Product = (): JSX.Element => {
   return (
     <Container>
       <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
-        <Link to={`/`} style={{ color: theme.palette.primary.main }}>
+        <Link to={BuildUrl(EnumAppRoutes.HomePage)} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
         </Link>
-        <Link to={`/product/${productType}`} style={{ color: theme.palette.primary.main }}>
+        <Link to={BuildUrl(EnumAppRoutes.Products, { productType })} style={{ color: theme.palette.primary.main }}>
           {productType}
         </Link>
         <Typography color={theme.palette.primary.main}>{product?.title}</Typography>
@@ -133,7 +135,7 @@ export const Product = (): JSX.Element => {
             </Box>
             {product.description}
             <Box marginLeft={'auto'} marginTop={'auto'}>
-              <Link to={`/order/basket`} onClick={addToBasket}>
+              <Link to={BuildUrl(EnumAppRoutes.Basket)} onClick={addToBasket}>
                 <Button disabled={isFetching} variant="contained">
                   {i18n.t('addToBasket')}
                 </Button>

@@ -6,6 +6,8 @@ import { Box, Breadcrumbs, Button, Container, Typography, useTheme } from '@mui/
 import i18n from '../../i18n';
 import { useCookies } from 'react-cookie';
 import { AxiosResponse } from 'axios';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 export const Products = (): JSX.Element => {
   const theme = useTheme();
@@ -38,7 +40,7 @@ export const Products = (): JSX.Element => {
   return (
     <Container>
       <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
-        <Link to={`/`} style={{ color: theme.palette.primary.main }}>
+        <Link to={BuildUrl(EnumAppRoutes.HomePage)} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
         </Link>
         {productType && <Typography color={theme.palette.primary.main}>{productType}</Typography>}
@@ -64,7 +66,7 @@ export const Products = (): JSX.Element => {
               display={'flex'}>
               <Box p={2} flex={1} maxWidth={300}>
                 {p.images && (
-                  <Link to={`/product/${productType}/${p.productCode}`}>
+                  <Link to={BuildUrl(EnumAppRoutes.Product, { productType, productCode: p.productCode })}>
                     <img
                       width={'100%'}
                       className="imageCarousel"
@@ -98,10 +100,10 @@ export const Products = (): JSX.Element => {
                   <span style={{ fontSize: 14 }}>{p.description}</span>
                 </div>
                 <Box justifyContent={'flex-end'} flexDirection={'row'} display={'flex'}>
-                  <Link to={`/product/${productType}/${p.productCode}`}>
+                  <Link to={BuildUrl(EnumAppRoutes.Product, { productType, productCode: p.productCode })}>
                     <Button>{i18n.t('product:seeDescription')}</Button>
                   </Link>
-                  <Link to={`/order/basket`}>
+                  <Link to={BuildUrl(EnumAppRoutes.Basket)}>
                     <Button disabled={isFetching} variant="contained" onClick={() => addToBasket(p)}>
                       {i18n.t('addToBasket')}
                     </Button>

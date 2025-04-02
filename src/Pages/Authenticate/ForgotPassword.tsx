@@ -15,6 +15,8 @@ import { ForgotPasswordCommand } from '../../__generated__/api-generated';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { LockReset } from '@mui/icons-material';
+import { BuildUrl } from '../../Functions/BuildUrl';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 const ForgotPassword = (): JSX.Element => {
   const params = new URLSearchParams(window.location.search);
@@ -90,12 +92,12 @@ const ForgotPassword = (): JSX.Element => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="/authenticate/signUp" style={{ color: theme.palette.primary.main }}>
+                <Link to={BuildUrl(EnumAppRoutes.SignUp)} style={{ color: theme.palette.primary.main }}>
                   {i18n.t('authenticate:signUp')}
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/authenticate/signIn" style={{ color: theme.palette.primary.main }}>
+                <Link to={BuildUrl(EnumAppRoutes.SignIn)} style={{ color: theme.palette.primary.main }}>
                   {i18n.t('authenticate:signIn')}
                 </Link>
               </Grid>
