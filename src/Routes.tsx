@@ -1,10 +1,12 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Pages/Layout/Layout';
 import { AxiosInterceptor } from './__generated__/api';
 import RequiredAuth from './RequiredAuth';
 import Loader from './components/Loader';
 import { EnumAppRoutes } from './Enum/EnumAppRoutes';
+import { build } from 'vite';
+import { BuildUrl } from './Functions/BuildUrl';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
 const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
@@ -71,6 +73,7 @@ export const AppRoutes = (): JSX.Element => {
                 />
                 <Route path="*" element={<NotFound />} />
               </Route>
+              <Route path="*" element={<Navigate to={BuildUrl(EnumAppRoutes.HomePage)} replace />} />
             </Routes>
           </Suspense>
         </Layout>

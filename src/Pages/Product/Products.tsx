@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie';
 import { AxiosResponse } from 'axios';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { Helmet } from 'react-helmet';
 
 export const Products = (): JSX.Element => {
   const theme = useTheme();
@@ -39,6 +40,11 @@ export const Products = (): JSX.Element => {
 
   return (
     <Container>
+      {/* todo customize Helmet */}
+      <Helmet>
+        <title>{`${productType}`}</title>
+        <meta name="description" content={i18n.t('appDescription')} />
+      </Helmet>
       <Breadcrumbs separator="-" aria-label="breadcrumb" style={{ marginTop: 16 }}>
         <Link to={BuildUrl(EnumAppRoutes.HomePage)} style={{ color: theme.palette.primary.main }}>
           {i18n.t('homepage')}
