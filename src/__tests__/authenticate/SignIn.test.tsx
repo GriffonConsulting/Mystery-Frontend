@@ -8,6 +8,7 @@ import i18n from '../../i18n';
 import api from '../../__generated__/api';
 import { mockNavigate } from '../../../setupTests';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../Functions/BuildUrl';
 
 const theme = createTheme();
 
@@ -67,7 +68,7 @@ describe('SignIn Component', () => {
         email: 'test@example.com',
         password: 'Valid@1234',
       });
-      expect(mockNavigate).toHaveBeenCalledWith(EnumAppRoutes.Account);
+      expect(mockNavigate).toHaveBeenCalledWith(BuildUrl(EnumAppRoutes.Account));
     });
   });
 
