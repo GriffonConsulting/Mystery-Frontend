@@ -17,7 +17,7 @@ export const Product = (): JSX.Element => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [product, setProduct] = useState<GetProductDto>();
   const { productType, productCode } = useParams();
-  const [carouselIndex, setCarrouselIndex] = useState<number>(0);
+  const [carouselIndex, setCarouselIndex] = useState<number>(0);
   const [cookies, setCookie] = useCookies(['basket']);
   const frEuro = new Intl.NumberFormat('fr-FR', {
     style: 'currency',
@@ -93,7 +93,7 @@ export const Product = (): JSX.Element => {
                   className="imageCarousel"
                   src={item}
                   alt={`${productType} ${productType} ${i}`}
-                  onClick={() => setCarrouselIndex(i)}
+                  onClick={() => setCarouselIndex(i)}
                 />
               ))}
           </Box>
@@ -117,7 +117,7 @@ export const Product = (): JSX.Element => {
                   height={'100%'}
                   className="imageCarousel"
                   src={item}
-                  alt={`${i18n.t(`${productType}`)} ${productType} ${i}`}
+                  alt={`${i18n.t(productType as string)} ${productType} ${i}`}
                 />
               ))}
             </Carousel>

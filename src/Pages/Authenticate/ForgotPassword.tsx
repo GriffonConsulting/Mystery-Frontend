@@ -12,7 +12,7 @@ import i18n from '../../i18n';
 import { Link } from 'react-router-dom';
 import { FormHelperText, useTheme } from '@mui/material';
 import { ForgotPasswordCommand } from '../../__generated__/api-generated';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { LockReset } from '@mui/icons-material';
 import { BuildUrl } from '../../Functions/BuildUrl';

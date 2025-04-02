@@ -32,7 +32,7 @@ const SignUp = (): JSX.Element => {
   const signUpSchema = object({
     email: string().required('emailError').email('emailError'),
     password: string()
-      .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
+      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
       .required('passwordError'),
   });
 

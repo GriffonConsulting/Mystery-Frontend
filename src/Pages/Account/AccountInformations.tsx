@@ -39,7 +39,7 @@ const AccountInformations = (): JSX.Element => {
 
   const updateUserSchema = object({
     newEmail: string().required('emailError').email('emailError'),
-    password: string().matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, {
+    password: string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, {
       message: 'passwordError',
       excludeEmptyString: true,
     }),

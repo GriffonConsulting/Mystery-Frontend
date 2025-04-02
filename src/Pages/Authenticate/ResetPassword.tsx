@@ -10,7 +10,7 @@ import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { FormHelperText, IconButton, InputAdornment } from '@mui/material';
 import { ResetPasswordCommand } from '../../__generated__/api-generated';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { Visibility, VisibilityOff, LockReset } from '@mui/icons-material';
 import { object, string } from 'yup';
@@ -20,7 +20,7 @@ import { BuildUrl } from '../../Functions/BuildUrl';
 
 const resetPasswordSchema = object({
   password: string()
-    .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/, 'passwordError')
     .required('passwordError'),
 });
 

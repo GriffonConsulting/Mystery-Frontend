@@ -20,7 +20,6 @@ const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInfo
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
 const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
-// const HomePage = React.lazy(() => import('./HomePage'));
 
 export const AppRoutes = (): JSX.Element => {
   return (

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCookies } from 'react-cookie';
 import { Container, Grid, Paper, styled, Typography } from '@mui/material';
 import i18n from '../../i18n';
-import { AccountCircle, Casino, Description, NoAccounts, Receipt } from '@mui/icons-material';
+import { AccountCircle, Casino, Description, NoAccounts } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
