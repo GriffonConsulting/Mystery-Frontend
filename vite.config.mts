@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import pluginChecker from 'vite-plugin-checker';
 
@@ -13,5 +13,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['setupTests.ts'],
+
+    coverage: {
+      exclude: [...configDefaults.exclude, '**/__generated__/**', '**/*.js', '**/*.ts'],
+    },
   },
 });
