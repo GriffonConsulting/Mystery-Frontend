@@ -51,7 +51,11 @@ export const Products = (): JSX.Element => {
         </Link>
         {productType && <Typography color={theme.palette.primary.main}>{productType}</Typography>}
       </Breadcrumbs>
-      {productType && i18n.t(`${productType}`)}
+      {productType && (
+        <Typography component="h1" variant="h4" margin={0}>
+          {i18n.t(`${productType}`)}
+        </Typography>
+      )}
       <Box display={'flex'} flexDirection={'column'} gap={3} marginTop={3}>
         {products &&
           products.length > 0 &&
@@ -85,7 +89,7 @@ export const Products = (): JSX.Element => {
               <Box p={2} justifyContent={'space-between'} flexDirection={'column'} display={'flex'} flex={1}>
                 <div>
                   <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
-                    <Typography component="h1" variant="h5" margin={0}>
+                    <Typography component="h2" variant="h5" margin={0}>
                       {p.title}
                     </Typography>
                     <div>
@@ -98,7 +102,7 @@ export const Products = (): JSX.Element => {
                     </div>
                   </Box>
                   <Box justifyContent={'space-between'} flexDirection={'row'} display={'flex'}>
-                    <Typography component="h2" variant="h6" margin={0} color={'grey'}>
+                    <Typography component="h3" variant="h6" margin={0} color={'grey'}>
                       {p.subtitle}
                     </Typography>
                     <div>{frEuro.format(p.price)}</div>

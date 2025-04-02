@@ -1,7 +1,18 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import { Box, Avatar, Typography, TextField, Button, Grid, Breadcrumbs, useTheme, MenuItem } from '@mui/material';
-import { AxiosResponse } from 'axios';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Breadcrumbs,
+  useTheme,
+  MenuItem,
+  FormHelperText,
+  Alert,
+  Snackbar,
+} from '@mui/material';
+import { AxiosError, AxiosResponse } from 'axios';
 import api from '../../__generated__/api';
 import { GetUserDto, UpdateUserCommand } from '../../__generated__/api-generated';
 import { useState } from 'react';
@@ -11,19 +22,20 @@ import { AccountCircle } from '@mui/icons-material';
 import { object, string } from 'yup';
 import { BuildUrl } from '../../Functions/BuildUrl';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
+import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 
 const AccountInformations = (): JSX.Element => {
-  const [user, setUser] = useState<UpdateUserCommand>();
+  const [user, setUser] = useState<UpdateUserCommand>({} as UpdateUserCommand);
   const { i18n } = useTranslation();
   const [errors, setErrors] = useState<string[]>([]);
   const countriesObject = i18n.services.resourceStore.data[i18n.language].countries;
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const countriesArray = Object.entries(countriesObject).map(([value, label]) => ({
     value,
     label,
   }));
   const theme = useTheme();
-  console.log(errors);
 
   const updateUserSchema = object({
     newEmail: string().required('emailError').email('emailError'),
@@ -31,13 +43,6 @@ const AccountInformations = (): JSX.Element => {
       message: 'passwordError',
       excludeEmptyString: true,
     }),
-    firstname: string().max(35, 'firstnameError'),
-    lastname: string().max(35, 'lastnameError'),
-    address: string().max(255, 'addressError'),
-    complementaryAddress: string().max(255, 'complementaryAddressError'),
-    postalCode: string().max(12, 'postalCodeError'),
-    city: string().max(255, 'cityError'),
-    country: string().max(2, 'countryError'),
   });
 
   React.useEffect(() => {
@@ -66,6 +71,19 @@ const AccountInformations = (): JSX.Element => {
       return;
     }
     setIsFetching(true);
+
+    api.user
+      .updateUser(user)
+      .then((result: AxiosResponse) => {
+        setIsUpdateSuccess(true);
+      })
+      .catch((axiosError: AxiosError) => {
+        const errors = axiosError?.response?.data as AxiosErrorData;
+        if (errors) {
+          setErrors([errors.message]);
+        }
+      })
+      .finally(() => setIsFetching(false));
   };
 
   return (
@@ -76,7 +94,7 @@ const AccountInformations = (): JSX.Element => {
         </Link>
         <Typography color={theme.palette.primary.main}>{i18n.t('account:informations')}</Typography>
       </Breadcrumbs>
-      {user && (
+      {user.newEmail && (
         <Container maxWidth="xs">
           <Box
             sx={{
@@ -100,6 +118,7 @@ const AccountInformations = (): JSX.Element => {
                 autoFocus
                 value={user?.newEmail}
                 error={errors.some(e => e == 'emailError')}
+                helperText={errors.some(e => e == 'emailError') && i18n.t('account:emailError')}
                 onChange={event => {
                   setErrors(errors.filter(err => !err.includes('emailError')));
                   setUser(params => ({
@@ -116,8 +135,19 @@ const AccountInformations = (): JSX.Element => {
                 type="password"
                 id="password"
                 value={user?.password}
-                // onChange={e => setPassword(e.target.value)}
+                error={errors.some(e => e == 'passwordError') || errors.some(e => e == 'passwordValidationError')}
+                helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
+                onChange={event => {
+                  setErrors(errors.filter(err => !err.includes('password')));
+                  setUser(params => ({
+                    ...params,
+                    password: event.target.value,
+                  }));
+                }}
               />
+              {errors.some(e => e == 'passwordValidationError') && (
+                <FormHelperText error>{i18n.t('authenticate:passwordValidationError')}</FormHelperText>
+              )}
               <TextField
                 margin="normal"
                 fullWidth
@@ -125,7 +155,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:firstname')}
                 id="firstname"
                 value={user?.firstname}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 35 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    firstname: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -134,7 +170,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:lastname')}
                 id="lastname"
                 value={user?.lastname}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 35 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    lastname: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -143,7 +185,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:address')}
                 id="address"
                 value={user?.address}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 255 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    address: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -152,7 +200,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:complementaryAddress')}
                 id="complementaryAddress"
                 value={user?.complementaryAddress}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 255 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    complementaryAddress: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -161,7 +215,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:postalCode')}
                 id="postalCode"
                 value={user?.postalCode}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 12 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    postalCode: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -170,7 +230,13 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:city')}
                 id="city"
                 value={user?.city}
-                // onChange={e => setPassword(e.target.value)}
+                inputProps={{ maxLength: 255 }}
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    city: event.target.value,
+                  }));
+                }}
               />
               <TextField
                 margin="normal"
@@ -180,8 +246,12 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:country')}
                 id="country"
                 value={user?.country}
-                // onChange={e => setPassword(e.target.value)}
-              >
+                onChange={event => {
+                  setUser(params => ({
+                    ...params,
+                    country: event.target.value,
+                  }));
+                }}>
                 {countriesArray.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -201,6 +271,11 @@ const AccountInformations = (): JSX.Element => {
           </Box>
         </Container>
       )}
+      <Snackbar open={isUpdateSuccess} autoHideDuration={3000} onClose={() => setIsUpdateSuccess(false)}>
+        <Alert severity="success" variant="filled" sx={{ width: '100%' }}>
+          {i18n.t('account:updateSuccess')}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

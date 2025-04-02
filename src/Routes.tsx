@@ -5,7 +5,6 @@ import { AxiosInterceptor } from './__generated__/api';
 import RequiredAuth from './RequiredAuth';
 import Loader from './components/Loader';
 import { EnumAppRoutes } from './Enum/EnumAppRoutes';
-import { build } from 'vite';
 import { BuildUrl } from './Functions/BuildUrl';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
@@ -21,6 +20,7 @@ const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInfo
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
 const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
+// const HomePage = React.lazy(() => import('./HomePage'));
 
 export const AppRoutes = (): JSX.Element => {
   return (
@@ -30,7 +30,7 @@ export const AppRoutes = (): JSX.Element => {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path=":lang/">
-                <Route index element={<Products />} />
+                <Route path={EnumAppRoutes.HomePage} element={<Products />} />
                 <Route path={EnumAppRoutes.SignIn} element={<SignIn />} />
                 <Route path={EnumAppRoutes.SignUp} element={<SignUp />} />
                 <Route path={EnumAppRoutes.ForgotPassword} element={<ForgotPassword />} />

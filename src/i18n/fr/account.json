@@ -26,5 +26,6 @@
   "country": "Pays",
   "countryError": "Le code pays est trop long.",
   "games": "Mes jeux",
-  "invoices": "Mes factures"
+  "invoices": "Mes factures",
+  "updateSuccess": "Les modifications ont bien été enregistrées."
 }

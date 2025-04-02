@@ -54,7 +54,7 @@ export const Product = (): JSX.Element => {
         <Link to={BuildUrl(EnumAppRoutes.Products, { productType })} style={{ color: theme.palette.primary.main }}>
           {productType}
         </Link>
-        <Typography color={theme.palette.primary.main}>{product?.title}</Typography>
+        {product?.title && <Typography color={theme.palette.primary.main}>{product.title}</Typography>}
       </Breadcrumbs>
 
       {product && (
@@ -139,7 +139,7 @@ export const Product = (): JSX.Element => {
               </Typography>
               <div>{frEuro.format(product.price)}</div>
             </Box>
-            {product.description}
+            <p>{product.description}</p>
             <Box marginLeft={'auto'} marginTop={'auto'}>
               <Link to={BuildUrl(EnumAppRoutes.Basket)} onClick={addToBasket}>
                 <Button disabled={isFetching} variant="contained">
