@@ -13,4 +13,5 @@ export enum EnumAppRoutes {
   AccountGames = 'account/games',
   Basket = 'order/basket',
   Checkout = 'order/checkout',
+  Faq = 'faq',
 }

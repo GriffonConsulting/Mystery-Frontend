@@ -91,12 +91,12 @@ const ForgotPassword = (): JSX.Element => {
               {i18n.t('authenticate:send')}
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid size="grow">
                 <Link to={BuildUrl(EnumAppRoutes.SignUp)} style={{ color: theme.palette.primary.main }}>
                   {i18n.t('authenticate:signUp')}
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid>
                 <Link to={BuildUrl(EnumAppRoutes.SignIn)} style={{ color: theme.palette.primary.main }}>
                   {i18n.t('authenticate:signIn')}
                 </Link>

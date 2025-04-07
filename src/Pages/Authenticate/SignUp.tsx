@@ -72,7 +72,7 @@ const SignUp = (): JSX.Element => {
         </Typography>
         <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 required
                 fullWidth
@@ -94,7 +94,7 @@ const SignUp = (): JSX.Element => {
                 <FormHelperText error>{i18n.t('authenticate:userDuplicate')}</FormHelperText>
               )}
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 required
                 fullWidth
@@ -125,7 +125,7 @@ const SignUp = (): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -151,14 +151,14 @@ const SignUp = (): JSX.Element => {
             {i18n.t('authenticate:signUp')}
           </Button>
           <Grid container>
-            <Grid item xs>
+            <Grid size="grow">
               <Link
                 to={`/authenticate/forgotpassword?email=${signUp.email}`}
                 style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>
             </Grid>
-            <Grid item>
+            <Grid>
               <Link to={BuildUrl(EnumAppRoutes.SignIn)} rel="nofollow" style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:signIn')}
               </Link>

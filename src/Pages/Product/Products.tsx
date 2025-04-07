@@ -81,7 +81,7 @@ export const Products = (): JSX.Element => {
                       width={'100%'}
                       className="imageCarousel"
                       src={p.images[0]}
-                      alt={`${i18n.t(productType)} ${productType}`}
+                      alt={`${i18n.t(productType ?? '')} ${productType}`}
                     />
                   </Link>
                 )}

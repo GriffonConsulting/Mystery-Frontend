@@ -130,14 +130,14 @@ const SignIn = (): JSX.Element => {
             {i18n.t('signIn')}
           </Button>
           <Grid container>
-            <Grid item xs>
+            <Grid size="grow">
               <Link
                 to={`/authenticate/forgotpassword?email=${signIn.email}`}
                 style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>
             </Grid>
-            <Grid item>
+            <Grid>
               <Link to={BuildUrl(EnumAppRoutes.SignUp)} style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:signUp')}
               </Link>

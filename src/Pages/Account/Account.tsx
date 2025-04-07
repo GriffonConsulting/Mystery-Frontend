@@ -64,7 +64,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const AccountGrid = (props: any): JSX.Element => {
   return (
-    <Grid item xs={12} sm={6} height={160} marginTop={2}>
+    <Grid size={{ xs: 12, sm: 6 }} height={160} marginTop={2}>
       {props.children}
     </Grid>
   );

@@ -78,6 +78,15 @@ function Header(): JSX.Element {
               ))}
               <MenuItem
                 onClick={() => {
+                  navigate(BuildUrl(EnumAppRoutes.Faq));
+                }}
+                sx={{ py: '6px', px: '12px' }}>
+                <Typography variant="body2" color="text.primary">
+                  {i18n.t('faq')}
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
                   navigate(BuildUrl(EnumAppRoutes.Contact));
                 }}
                 sx={{ py: '6px', px: '12px' }}>

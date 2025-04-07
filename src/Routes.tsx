@@ -20,6 +20,7 @@ const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInfo
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
 const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
+const Faq = React.lazy(() => import('./Pages/Faq/Faq'));
 
 export const AppRoutes = (): JSX.Element => {
   return (
@@ -38,6 +39,7 @@ export const AppRoutes = (): JSX.Element => {
                 <Route path={EnumAppRoutes.Product} element={<Product />} />
                 <Route path={EnumAppRoutes.Basket} element={<Basket />} />
                 <Route path={EnumAppRoutes.Contact} element={<Contact />} />
+                <Route path={EnumAppRoutes.Faq} element={<Faq />} />
                 <Route
                   path={EnumAppRoutes.Account}
                   element={
