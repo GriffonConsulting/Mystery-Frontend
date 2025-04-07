@@ -21,5 +21,6 @@
   "messageSend": "Votre message a bien été envoyé !",
   "notFound": "Page non trouvée",
   "return": "Retourner à la page d'accueil",
-  "faq": "FAQ"
+  "faq": "FAQ",
+  "faqTitle": "Foire à question"
 }

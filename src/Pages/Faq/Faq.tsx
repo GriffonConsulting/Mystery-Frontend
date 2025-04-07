@@ -7,9 +7,17 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import i18n from '../../i18n';
+import { AxiosResponse } from 'axios';
+import api from '../../__generated__/api';
+import { GetFaqDto } from '../../__generated__/api-generated';
 
 export default function FAQ() {
   const [expanded, setExpanded] = React.useState<string[]>([]);
+  const [faq, setFaq] = React.useState<GetFaqDto[]>([]);
+
+  React.useEffect(() => {
+    api.faq.getFaq(i18n.language).then((result: AxiosResponse) => setFaq(result.data.result));
+  }, [i18n.language]);
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? [...expanded, panel] : expanded.filter(item => item !== panel));
@@ -35,33 +43,23 @@ export default function FAQ() {
           width: { sm: '100%', md: '60%' },
           textAlign: { sm: 'left', md: 'center' },
         }}>
-        {i18n.t('faq:faqTitle')}
+        {i18n.t('faqTitle')}
       </Typography>
       <Box sx={{ width: '100%' }}>
-        <Accordion expanded={expanded.includes('panel1')} onChange={handleChange('panel1')}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
-            <Typography component="span" variant="subtitle2">
-              {i18n.t('faq:question1')}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body2" gutterBottom sx={{ maxWidth: { sm: '100%', md: '70%' } }}>
-              {i18n.t('faq:answer1')}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded.includes('panel1')} onChange={handleChange('panel1')}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
-            <Typography component="span" variant="subtitle2">
-              {i18n.t('faq:question2')}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body2" gutterBottom sx={{ maxWidth: { sm: '100%', md: '70%' } }}>
-              {i18n.t('faq:answer2')}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+        {faq.map((f, i) => (
+          <Accordion key={f.question} expanded={expanded.includes(`panel${i}`)} onChange={handleChange(`panel${i}`)}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
+              <Typography component="span" variant="subtitle2">
+                {f.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="body2" gutterBottom sx={{ maxWidth: { sm: '100%', md: '70%' } }}>
+                {f.answer}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </Box>
     </Container>
   );

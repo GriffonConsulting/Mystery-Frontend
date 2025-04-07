@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 generateApi({
-  name: 'api-generated',
+  fileName: 'api-generated',
   output: path.resolve('./src/__generated__'),
   url: 'https://localhost:44301/swagger/v1/swagger.yaml',
   httpClientType: 'axios',

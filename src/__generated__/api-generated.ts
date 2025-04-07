@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+// @ts-nocheck
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -242,7 +243,17 @@ export enum GenericParameterAttributes {
   AllowByRefLike = 'AllowByRefLike',
 }
 
-export interface GetInvoicesResult {
+export interface GetFaqDto {
+  question: string;
+  answer: string;
+}
+
+export interface GetFaqDtoRequestResult {
+  message?: string;
+  result: GetFaqDto;
+}
+
+export interface GetInvoicesDto {
   /** @format double */
   amount: number;
   /** @format date-time */
@@ -250,9 +261,9 @@ export interface GetInvoicesResult {
   receiptUrl: string;
 }
 
-export interface GetInvoicesResultArrayRequestResult {
+export interface GetInvoicesDtoArrayRequestResult {
   message?: string;
-  result: GetInvoicesResult[];
+  result: GetInvoicesDto[];
 }
 
 export interface GetProductDto {
@@ -1107,6 +1118,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  faq = {
+    /**
+     * No description
+     *
+     * @tags Faq
+     * @name GetFaq
+     * @request GET:/Faq/{lang}
+     */
+    getFaq: (lang: string, params: RequestParams = {}) =>
+      this.request<GetFaqDtoRequestResult, any>({
+        path: `/Faq/${lang}`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+  };
   healthCheck = {
     /**
      * No description
@@ -1133,7 +1160,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getInvoicesByUserId: (params: RequestParams = {}) =>
-      this.request<GetInvoicesResultArrayRequestResult, any>({
+      this.request<GetInvoicesDtoArrayRequestResult, any>({
         path: `/Invoice/ByUserId`,
         method: 'GET',
         secure: true,
