@@ -44,6 +44,11 @@ export enum CallingConventions {
   ExplicitThis = 'ExplicitThis',
 }
 
+export interface CheckoutCommand {
+  returnUrl: string;
+  productsIds: string[];
+}
+
 export interface CheckoutOutDto {
   clientSecret: string;
 }
@@ -51,10 +56,6 @@ export interface CheckoutOutDto {
 export interface CheckoutOutDtoRequestResult {
   message?: string;
   result: CheckoutOutDto;
-}
-
-export interface CheckoutProductsCommand {
-  productsIds: string[];
 }
 
 export interface ConfirmEmailCommand {
@@ -254,13 +255,13 @@ export interface GetFaqDtoRequestResult {
 }
 
 export interface GetInvoicesDto {
+  /** @format uuid */
+  id: string;
   /** @format double */
   amount: number;
   /** @format date-time */
   createdOn: string;
   receiptUrl: string;
-  /** @format uuid */
-  id: string;
 }
 
 export interface GetInvoicesDtoArrayRequestResult {
@@ -1227,7 +1228,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/Stripe/Checkout
      * @secure
      */
-    checkout: (data: CheckoutProductsCommand, params: RequestParams = {}) =>
+    checkout: (data: CheckoutCommand, params: RequestParams = {}) =>
       this.request<CheckoutOutDtoRequestResult, any>({
         path: `/Stripe/Checkout`,
         method: 'POST',

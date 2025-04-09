@@ -1,0 +1,11 @@
+{
+  "orderSuccess": "🎉 Commande réussie !",
+  "thankYou": "Merci pour votre achat. Votre commande a bien été prise en compte.",
+  "seeGames": "Vous pouvez consulter vos produits ici :",
+  "basket": "Panier",
+  "total": "Total",
+  "order": "Commander",
+  "delete": "Supprimer",
+  "games": "Mes jeux",
+  "nbPlayers": "{{nbPlayerMin}} à {{nbPlayerMax}} joueurs"
+}

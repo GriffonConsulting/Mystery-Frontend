@@ -16,10 +16,12 @@ const NotFound = React.lazy(() => import('./Pages/NotFound/NotFound'));
 const Basket = React.lazy(() => import('./Pages/Order/Basket'));
 const Account = React.lazy(() => import('./Pages/Account/Account'));
 const Checkout = React.lazy(() => import('./Pages/Order/Checkout'));
+const CheckoutSuccess = React.lazy(() => import('./Pages/Order/CheckoutSuccess'));
 const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInformations'));
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
-const Invoices = React.lazy(() => import('./Pages/Invoice/Invoices'));
+const Invoices = React.lazy(() => import('./Pages/Account/AccountInvoices'));
+const AccountGames = React.lazy(() => import('./Pages/Account/AccountGames'));
 const Faq = React.lazy(() => import('./Pages/Faq/Faq'));
 
 export const AppRoutes = (): JSX.Element => {
@@ -65,10 +67,26 @@ export const AppRoutes = (): JSX.Element => {
                   }
                 />
                 <Route
+                  path={EnumAppRoutes.AccountGames}
+                  element={
+                    <RequiredAuth>
+                      <AccountGames />
+                    </RequiredAuth>
+                  }
+                />
+                <Route
                   path={EnumAppRoutes.Checkout}
                   element={
                     <RequiredAuth>
                       <Checkout />
+                    </RequiredAuth>
+                  }
+                />
+                <Route
+                  path={EnumAppRoutes.CheckoutSuccess}
+                  element={
+                    <RequiredAuth>
+                      <CheckoutSuccess />
                     </RequiredAuth>
                   }
                 />

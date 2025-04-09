@@ -1,7 +1,7 @@
 // Invoices.test.tsx
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import Invoices from '../../Pages/Invoice/Invoices';
+import Invoices from '../../Pages/Account/AccountInvoices';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@testing-library/jest-dom';

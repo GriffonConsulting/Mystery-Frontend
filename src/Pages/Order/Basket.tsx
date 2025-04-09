@@ -37,7 +37,7 @@ export const Basket = (): JSX.Element => {
 
   return (
     <Container>
-      <h1>Panier</h1>
+      <h1>{i18n.t('order:basket')}</h1>
       {products.length !== 0 && (
         <Box display={'flex'} flexDirection={'row'} gap={5}>
           <div>
@@ -65,8 +65,9 @@ export const Basket = (): JSX.Element => {
                         {product.title}
                       </Typography>
                     </div>
+                    {/* todo avoid non native interactive elements */}
                     <div style={{ cursor: 'pointer', fontSize: '16px' }} onClick={() => removeFromBasket(product.id)}>
-                      <RemoveShoppingCart /> Supprimer
+                      <RemoveShoppingCart /> {i18n.t('order:delete')}
                     </div>
                   </Box>
                   <Typography component="h6" variant="subtitle1" margin={0} color={'gray'}>
@@ -74,7 +75,10 @@ export const Basket = (): JSX.Element => {
                   </Typography>
                   <div>
                     <b>
-                      {product.nbPlayerMin} à {product.nbPlayerMax} joueurs
+                      {i18n.t('order:nbPlayers', {
+                        nbPlayerMin: product.nbPlayerMin,
+                        nbPlayerMax: product.nbPlayerMax,
+                      })}
                     </b>
                   </div>
                   <div>{frEuro.format(product.price)}</div>
@@ -84,10 +88,13 @@ export const Basket = (): JSX.Element => {
           </div>
           <Box height={'fit-content'} p={4} borderRadius={3} style={{ backgroundColor: 'white' }} minWidth={300}>
             <div style={{ marginBottom: 16 }}>
-              <b>Total {frEuro.format(products?.reduce((i: number, { price }: GetProductDto) => i + price, 0) ?? 0)}</b>
+              <b>
+                {i18n.t('order:total')}{' '}
+                {frEuro.format(products?.reduce((i: number, { price }: GetProductDto) => i + price, 0) ?? 0)}
+              </b>
             </div>
             <Button variant="contained" fullWidth={true} onClick={() => navigate(BuildUrl(EnumAppRoutes.Checkout))}>
-              Commander
+              {i18n.t('order:order')}
             </Button>
           </Box>
         </Box>

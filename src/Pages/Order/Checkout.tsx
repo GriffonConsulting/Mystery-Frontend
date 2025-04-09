@@ -15,7 +15,10 @@ const Checkout = () => {
 
   const fetchClientSecret = useCallback(() => {
     return api.stripe
-      .checkout({ productsIds: basket })
+      .checkout({
+        returnUrl: window.location.href + '/Success',
+        productsIds: basket,
+      })
       .then((res: AxiosResponse) => {
         return res.data.result?.clientSecret;
       })

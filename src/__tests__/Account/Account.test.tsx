@@ -9,7 +9,6 @@ import { createTheme } from '@mui/material';
 import { mockNavigate } from '../../../setupTests';
 
 const theme = createTheme();
-vi.mock('../../__generated__/api');
 
 describe('Account Component', () => {
   beforeEach(() => {
