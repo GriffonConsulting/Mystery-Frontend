@@ -23,10 +23,12 @@ export const Basket = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (basket) {
+    if (basket.length > 0) {
       api.product
         .getProductsByIds(basket)
         .then((result: AxiosResponse) => setProducts(result.data.result as GetProductDto[]));
+    } else {
+      navigate(BuildUrl(EnumAppRoutes.HomePage));
     }
   }, [basket]);
 

@@ -320,6 +320,15 @@ export interface GetUserDtoRequestResult {
   result: GetUserDto;
 }
 
+export interface GetUserGamesDto {
+  products: GetProductDto[];
+}
+
+export interface GetUserGamesDtoRequestResult {
+  message?: string;
+  result: GetUserGamesDto;
+}
+
 export interface HealthReport {
   entries?: Record<string, HealthReportEntry>;
   status?: HealthStatus;
@@ -1286,6 +1295,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
+     * @name GetUserGames
+     * @request GET:/User/games
+     * @secure
+     */
+    getUserGames: (params: RequestParams = {}) =>
+      this.request<GetUserGamesDtoRequestResult, any>({
+        path: `/User/games`,
+        method: 'GET',
+        secure: true,
         format: 'json',
         ...params,
       }),
