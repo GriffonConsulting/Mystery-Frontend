@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../__generated__/api';
 import { GetInvoicesDto } from '../../__generated__/api-generated';
 import { AxiosResponse } from 'axios';
@@ -14,11 +14,13 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 const Invoices = (): JSX.Element => {
   const [invoices, setInvoices] = React.useState<GetInvoicesDto[]>([]);
   const theme = useTheme();
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   useEffect(() => {
     api.invoice
       .getInvoicesByUserId()
-      .then((result: AxiosResponse) => setInvoices(result.data.result as GetInvoicesDto[]));
+      .then((result: AxiosResponse) => setInvoices(result.data.result as GetInvoicesDto[]))
+      .finally(() => setIsFetching(false));
   }, []);
   const columns: GridColDef<(typeof invoices)[number]>[] = [
     {
@@ -58,7 +60,7 @@ const Invoices = (): JSX.Element => {
         {i18n.t('account:invoicesTitle')}
       </Typography>
 
-      <DataGrid rows={invoices} columns={columns} hideFooter />
+      <DataGrid rows={invoices} columns={columns} hideFooter loading={isFetching} />
     </Container>
   );
 };

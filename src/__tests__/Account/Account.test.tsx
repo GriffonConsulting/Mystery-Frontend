@@ -32,7 +32,7 @@ describe('Account Component', () => {
 
     expect(screen.getByText(i18n.t('account:informations'))).toBeInTheDocument();
     expect(screen.getByText(i18n.t('account:games'))).toBeInTheDocument();
-    expect(screen.getByText(i18n.t('account:invoices'))).toBeInTheDocument();
+    expect(screen.getByText(i18n.t('account:invoicesTitle'))).toBeInTheDocument();
     expect(screen.getByText(i18n.t('account:disconnect'))).toBeInTheDocument();
   });
 
