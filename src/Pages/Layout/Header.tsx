@@ -123,12 +123,12 @@ function Header(): JSX.Element {
                 </Button>
               </Link>
             )}
-            {cookies.basket && (
+            {cookies.basket && cookies.basket.length > 0 && (
               <Link to={BuildUrl(EnumAppRoutes.Basket)}>
                 <div style={{ position: 'relative' }}>
                   <Button sx={{ m: 1 }} color="primary" variant="outlined">
                     <ShoppingBasket />
-                    <span style={{ marginLeft: 8 }}>Panier</span>
+                    <span style={{ marginLeft: 8 }}>{i18n.t('basket')}</span>
                   </Button>
                   <span
                     style={{
