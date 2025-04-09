@@ -26,6 +26,9 @@
   "country": "Pays",
   "countryError": "Le code pays est trop long.",
   "games": "Mes jeux",
-  "invoices": "Mes factures",
-  "updateSuccess": "Les modifications ont bien été enregistrées."
+  "invoice": "Facture",
+  "invoicesTitle": "Mes Factures",
+  "updateSuccess": "Les modifications ont bien été enregistrées.",
+  "amount": "Montant",
+  "date": "Date"
 }

@@ -259,6 +259,8 @@ export interface GetInvoicesDto {
   /** @format date-time */
   createdOn: string;
   receiptUrl: string;
+  /** @format uuid */
+  id: string;
 }
 
 export interface GetInvoicesDtoArrayRequestResult {
@@ -1240,12 +1242,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Stripe
-     * @name WebhookPaymentIntentSucceededCreate
-     * @request POST:/Stripe/Webhook/PaymentIntent/Succeeded
+     * @name StripeCreate
+     * @request POST:/Stripe
      */
-    webhookPaymentIntentSucceededCreate: (params: RequestParams = {}) =>
+    stripeCreate: (params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/Stripe/Webhook/PaymentIntent/Succeeded`,
+        path: `/Stripe`,
         method: 'POST',
         ...params,
       }),

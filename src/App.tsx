@@ -5,6 +5,7 @@ import { SignInDto } from './__generated__/api-generated';
 import api from './__generated__/api';
 
 export const App = (): JSX.Element => {
+  //todo token should be httpOnly + add refresh token
   const [cookies] = useCookies(['token']);
   const setToken = (token: SignInDto) => {
     if (token) {

@@ -33,7 +33,7 @@ const Account = (): JSX.Element => {
         <AccountGrid>
           <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountInvoices))}>
             <Description style={iconStyle} sx={{ color: 'primary.main' }} />
-            <Typography variant="h5">{i18n.t('account:invoices')}</Typography>
+            <Typography variant="h5">{i18n.t('account:invoicesTitle')}</Typography>
           </Item>
         </AccountGrid>
         <AccountGrid>
