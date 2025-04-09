@@ -155,7 +155,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:firstname')}
                 id="firstname"
                 value={user?.firstname}
-                inputProps={{ maxLength: 35 }}
+                slotProps={{ htmlInput: { maxLength: 35 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,
@@ -170,7 +170,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:lastname')}
                 id="lastname"
                 value={user?.lastname}
-                inputProps={{ maxLength: 35 }}
+                slotProps={{ htmlInput: { maxLength: 35 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,
@@ -185,7 +185,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:address')}
                 id="address"
                 value={user?.address}
-                inputProps={{ maxLength: 255 }}
+                slotProps={{ htmlInput: { maxLength: 255 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,
@@ -200,7 +200,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:complementaryAddress')}
                 id="complementaryAddress"
                 value={user?.complementaryAddress}
-                inputProps={{ maxLength: 255 }}
+                slotProps={{ htmlInput: { maxLength: 255 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,
@@ -215,7 +215,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:postalCode')}
                 id="postalCode"
                 value={user?.postalCode}
-                inputProps={{ maxLength: 12 }}
+                slotProps={{ htmlInput: { maxLength: 12 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,
@@ -230,7 +230,7 @@ const AccountInformations = (): JSX.Element => {
                 label={i18n.t('account:city')}
                 id="city"
                 value={user?.city}
-                inputProps={{ maxLength: 255 }}
+                slotProps={{ htmlInput: { maxLength: 255 } }}
                 onChange={event => {
                   setUser(params => ({
                     ...params,

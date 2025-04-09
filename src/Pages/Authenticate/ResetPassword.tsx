@@ -91,14 +91,16 @@ const ResetPassword = (): JSX.Element => {
             }
             error={errors.some(e => e == 'passwordError')}
             helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              htmlInput: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
           {errors.some(e => e == 'InvalidToken') && (
