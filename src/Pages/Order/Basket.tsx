@@ -58,7 +58,7 @@ export const Basket = (): JSX.Element => {
                   style={{ borderRadius: 3 }}
                   className="imageCarousel"
                   src={product.images[0]}
-                  alt={`${i18n.t(`${product.productType}`)} ${product.productType} ${i}`}
+                  alt={`${i18n.t(product.productType)} ${product.productType} ${i}`}
                 />
                 <Box ml={3} width={'100%'}>
                   <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
@@ -67,10 +67,12 @@ export const Basket = (): JSX.Element => {
                         {product.title}
                       </Typography>
                     </div>
-                    {/* todo avoid non native interactive elements */}
-                    <div style={{ cursor: 'pointer', fontSize: '16px' }} onClick={() => removeFromBasket(product.id)}>
+                    <button
+                      type="button"
+                      onClick={() => removeFromBasket(product.id)}
+                      style={{ all: 'unset', cursor: 'pointer', fontSize: '16px' }}>
                       <RemoveShoppingCart /> {i18n.t('order:delete')}
-                    </div>
+                    </button>
                   </Box>
                   <Typography component="h6" variant="subtitle1" margin={0} color={'gray'}>
                     {product.subtitle}

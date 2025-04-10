@@ -83,7 +83,7 @@ const SignUp = (): JSX.Element => {
                 error={errors.some(e => e == 'emailError' || e == 'userDuplicate')}
                 helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
                 onChange={event => {
-                  setErrors(errors.filter(err => !err.includes('email')));
+                  setErrors(errors.filter(err => !err.includes('email') && !err.includes('user')));
                   setSignUp(params => ({
                     ...params,
                     email: event.target.value,

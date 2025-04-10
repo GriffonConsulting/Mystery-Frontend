@@ -11,7 +11,7 @@ import { BuildUrl } from '../../Functions/BuildUrl';
 import { Link } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-const Invoices = (): JSX.Element => {
+const AccountInvoices = (): JSX.Element => {
   const [invoices, setInvoices] = React.useState<GetInvoicesDto[]>([]);
   const theme = useTheme();
   const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -65,4 +65,4 @@ const Invoices = (): JSX.Element => {
   );
 };
 
-export default Invoices;
+export default AccountInvoices;

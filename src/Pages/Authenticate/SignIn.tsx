@@ -81,16 +81,19 @@ const SignIn = (): JSX.Element => {
             name="email"
             autoComplete="email"
             autoFocus
-            error={errors.some(e => e == 'emailError')}
+            error={errors.some(e => e == 'emailError') || errors.some(e => e == 'userNotFound')}
             helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
             onChange={event => {
-              setErrors(errors.filter(err => !err.includes('email')));
+              setErrors(errors.filter(err => !err.includes('email') && !err.includes('user')));
               setSignIn(params => ({
                 ...params,
                 email: event.target.value,
               }));
             }}
           />
+          {errors.some(e => e == 'userNotFound') && (
+            <FormHelperText error>{i18n.t('authenticate:userNotFound')}</FormHelperText>
+          )}
           <TextField
             margin="normal"
             required
@@ -100,11 +103,7 @@ const SignIn = (): JSX.Element => {
             type="password"
             id="password"
             autoComplete="current-password"
-            error={
-              errors.some(e => e == 'passwordError') ||
-              errors.some(e => e == 'passwordValidationError') ||
-              errors.some(e => e == 'userNotFound')
-            }
+            error={errors.some(e => e == 'passwordError') || errors.some(e => e == 'passwordValidationError')}
             helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
@@ -116,9 +115,6 @@ const SignIn = (): JSX.Element => {
           />
           {errors.some(e => e == 'passwordValidationError') && (
             <FormHelperText error>{i18n.t('authenticate:passwordValidationError')}</FormHelperText>
-          )}
-          {errors.some(e => e == 'userNotFound') && (
-            <FormHelperText error>{i18n.t('authenticate:userNotFound')}</FormHelperText>
           )}
           <Button
             type="button"
