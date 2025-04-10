@@ -139,7 +139,7 @@ const SignIn = (): JSX.Element => {
           <Grid container>
             <Grid size="grow">
               <Link
-                to={`/authenticate/forgotpassword?email=${signInQuery.email}`}
+                to={`${BuildUrl(EnumAppRoutes.ForgotPassword)}?email=${signInQuery.email}`}
                 style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>
