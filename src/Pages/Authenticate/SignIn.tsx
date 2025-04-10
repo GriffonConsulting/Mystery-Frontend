@@ -6,26 +6,25 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
-import api from '../../__generated__/api';
 import i18n from '../../i18n';
-import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FormHelperText, useTheme } from '@mui/material';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { AccountCircle } from '@mui/icons-material';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { useAuth } from '../../Hooks/useAuth';
 
 const SignIn = (): JSX.Element => {
-  const [signIn, setSignIn] = useState<SignInQuery>({} as SignInQuery);
+  const [signInQuery, setSignInQuery] = useState<SignInQuery>({} as SignInQuery);
   const [errors, setErrors] = useState<string[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [, setCookies] = useCookies(['token']);
   const navigate = useNavigate();
   const location = useLocation();
+  const { signIn } = useAuth();
   const theme = useTheme();
 
   const signInSchema = object({
@@ -43,10 +42,8 @@ const SignIn = (): JSX.Element => {
     }
     setIsFetching(true);
 
-    api.authenticate
-      .signIn(signIn)
-      .then((result: AxiosResponse) => {
-        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
+    await signIn(signInQuery)
+      .then(() => {
         navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.Account));
       })
       .catch((axiosError: AxiosError) => {
@@ -85,7 +82,7 @@ const SignIn = (): JSX.Element => {
             helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('email') && !err.includes('user')));
-              setSignIn(params => ({
+              setSignInQuery(params => ({
                 ...params,
                 email: event.target.value,
               }));
@@ -107,7 +104,7 @@ const SignIn = (): JSX.Element => {
             helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
-              setSignIn(params => ({
+              setSignInQuery(params => ({
                 ...params,
                 password: event.target.value,
               }));
@@ -128,7 +125,7 @@ const SignIn = (): JSX.Element => {
           <Grid container>
             <Grid size="grow">
               <Link
-                to={`/authenticate/forgotpassword?email=${signIn.email}`}
+                to={`/authenticate/forgotpassword?email=${signInQuery.email}`}
                 style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>

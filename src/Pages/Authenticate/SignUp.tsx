@@ -8,26 +8,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Checkbox, FormControlLabel, FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
 import { useState } from 'react';
-import api from '../../__generated__/api';
 import i18n from '../../i18n';
 import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
-import { useCookies } from 'react-cookie';
-import { AxiosError, AxiosResponse } from 'axios';
+
+import { AxiosError } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { useAuth } from '../../Hooks/useAuth';
 
 const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState<SignUpCommand>({ email: '', marketingEmail: false } as SignUpCommand);
+  const [signUpCommand, setSignUpCommand] = useState<SignUpCommand>({
+    email: '',
+    marketingEmail: false,
+  } as SignUpCommand);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
-  const [, setCookies] = useCookies(['token']);
   const location = useLocation();
+  const { signUp } = useAuth();
 
   const signUpSchema = object({
     email: string().required('emailError').email('emailError'),
@@ -43,10 +46,8 @@ const SignUp = (): JSX.Element => {
       return;
     }
     setIsFetching(true);
-    api.authenticate
-      .signUp(signUp)
-      .then((result: AxiosResponse) => {
-        setCookies('token', result.data.result, { sameSite: true, secure: true, path: '/' });
+    signUp(signUpCommand)
+      .then(() => {
         navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.Account));
       })
       .catch((axiosError: AxiosError) => {
@@ -84,7 +85,7 @@ const SignUp = (): JSX.Element => {
                 helperText={errors.some(e => e == 'emailError') && i18n.t('authenticate:emailError')}
                 onChange={event => {
                   setErrors(errors.filter(err => !err.includes('email') && !err.includes('user')));
-                  setSignUp(params => ({
+                  setSignUpCommand(params => ({
                     ...params,
                     email: event.target.value,
                   }));
@@ -104,7 +105,7 @@ const SignUp = (): JSX.Element => {
                 id="password"
                 autoComplete="new-password"
                 onChange={event =>
-                  setSignUp(params => ({
+                  setSignUpCommand(params => ({
                     ...params,
                     password: event.target.value,
                   }))
@@ -133,9 +134,9 @@ const SignUp = (): JSX.Element => {
                 <Checkbox
                   color="primary"
                   onChange={() =>
-                    setSignUp(params => ({
+                    setSignUpCommand(params => ({
                       ...params,
-                      marketingEmail: !signUp.marketingEmail,
+                      marketingEmail: !signUpCommand.marketingEmail,
                     }))
                   }
                 />
@@ -155,7 +156,7 @@ const SignUp = (): JSX.Element => {
           <Grid container>
             <Grid size="grow">
               <Link
-                to={`/authenticate/forgotpassword?email=${signUp.email}`}
+                to={`/authenticate/forgotpassword?email=${signUpCommand.email}`}
                 style={{ color: theme.palette.primary.main }}>
                 {i18n.t('authenticate:forgotPassword')}
               </Link>

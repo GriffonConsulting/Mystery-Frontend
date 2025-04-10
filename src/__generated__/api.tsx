@@ -10,7 +10,6 @@ const api = new Api({
 });
 
 export function AxiosInterceptor({ children }: { children: any }) {
-  const [cookies, , removeCookies] = useCookies(['token']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +22,6 @@ export function AxiosInterceptor({ children }: { children: any }) {
         var date = new Date();
         var expirationDate = new Date(cookies?.token?.expirationDate);
         if (expirationDate < date) {
-          removeCookies('token', { sameSite: true, secure: true, path: '/' });
           navigate(BuildUrl(EnumAppRoutes.SignIn));
         }
       }

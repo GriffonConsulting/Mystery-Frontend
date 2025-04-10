@@ -1,19 +1,15 @@
 import * as React from 'react';
-import { useCookies } from 'react-cookie';
 import { Container, Grid, Paper, styled, Typography } from '@mui/material';
 import i18n from '../../i18n';
 import { AccountCircle, Casino, Description, NoAccounts } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { useAuth } from '../../Hooks/useAuth';
 
 const Account = (): JSX.Element => {
-  const [, , removeCookies] = useCookies(['token']);
   const navigate = useNavigate();
-
-  const disconnect = async () => {
-    removeCookies('token', { sameSite: true, secure: true, path: '/' });
-  };
+  const { logout } = useAuth();
 
   return (
     <Container style={{ marginTop: 32 }}>
@@ -37,7 +33,7 @@ const Account = (): JSX.Element => {
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={disconnect}>
+          <Item onClick={logout}>
             <NoAccounts style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:disconnect')}</Typography>
           </Item>

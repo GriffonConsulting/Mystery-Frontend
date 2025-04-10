@@ -1,22 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import AppRoutes from './Routes';
-import { useCookies } from 'react-cookie';
-import { SignInDto } from './__generated__/api-generated';
-import api from './__generated__/api';
+import { AuthProvider } from './Contexts/AuthContext';
 
 export const App = (): JSX.Element => {
-  //todo token should be httpOnly + add refresh token
-  const [cookies] = useCookies(['token']);
-  const setToken = (token: SignInDto) => {
-    if (token) {
-      api.setSecurityData(token.token);
-    } else {
-      api.setSecurityData(null);
-    }
-  };
-  useMemo(() => setToken(cookies.token), [cookies]);
-
-  return <AppRoutes />;
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  );
 };
 
 export default App;

@@ -15,7 +15,9 @@ const AccountGames = (): JSX.Element => {
   const [products, setProducts] = useState<GetProductDto[]>();
 
   React.useEffect(() => {
-    api.user.getUserGames().then((result: AxiosResponse) => setProducts(result.data.result.products));
+    api.user
+      .getUserGames({ withCredentials: true })
+      .then((result: AxiosResponse) => setProducts(result.data.result.products));
   }, []);
 
   return (

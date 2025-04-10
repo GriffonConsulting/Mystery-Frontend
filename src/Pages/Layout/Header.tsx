@@ -17,12 +17,14 @@ import { useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { useAuth } from '../../Hooks/useAuth';
 
 function Header(): JSX.Element {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const [cookies] = useCookies(['basket', 'token']);
+  const [cookies] = useCookies(['basket']);
+  const { isConnected } = useAuth();
 
   const toggleDrawer = (newOpen: boolean): void => {
     setOpen(newOpen);
@@ -102,7 +104,7 @@ function Header(): JSX.Element {
               gap: 0.5,
               alignItems: 'center',
             }}>
-            {!cookies.token && (
+            {!isConnected && (
               <>
                 <Link to={BuildUrl(EnumAppRoutes.SignUp)}>
                   <Button color="primary" variant="text" size="small">
@@ -116,7 +118,7 @@ function Header(): JSX.Element {
                 </Link>
               </>
             )}
-            {cookies.token && (
+            {isConnected && (
               <Link to={BuildUrl(EnumAppRoutes.Account)}>
                 <Button color="primary" variant="contained" size="small">
                   {i18n.t('account')}
@@ -193,7 +195,7 @@ function Header(): JSX.Element {
                   {i18n.t('contact')}
                 </MenuItem>
                 <Divider />
-                {!cookies.token && (
+                {!isConnected && (
                   <>
                     <MenuItem>
                       <Link to={BuildUrl(EnumAppRoutes.SignUp)}>
@@ -211,7 +213,7 @@ function Header(): JSX.Element {
                     </MenuItem>
                   </>
                 )}
-                {cookies.token && (
+                {isConnected && (
                   <Link to={BuildUrl(EnumAppRoutes.Account)}>
                     <Button color="primary" variant="contained" size="small">
                       {i18n.t('account')}

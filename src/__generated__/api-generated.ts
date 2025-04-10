@@ -1111,6 +1111,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: 'json',
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name Me
+     * @request GET:/Authenticate/Me
+     * @secure
+     */
+    me: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Authenticate/Me`,
+        method: 'GET',
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Authenticate
+     * @name Logout
+     * @request POST:/Authenticate/Logout
+     * @secure
+     */
+    logout: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/Authenticate/Logout`,
+        method: 'POST',
+        secure: true,
+        ...params,
+      }),
   };
   contact = {
     /**

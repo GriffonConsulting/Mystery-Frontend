@@ -46,7 +46,7 @@ const AccountInformations = (): JSX.Element => {
   });
 
   React.useEffect(() => {
-    api.user.getUser().then((result: AxiosResponse) => {
+    api.user.getUser({ withCredentials: true }).then((result: AxiosResponse) => {
       const user = result.data.result as GetUserDto;
 
       setUser({
@@ -73,7 +73,7 @@ const AccountInformations = (): JSX.Element => {
     setIsFetching(true);
 
     api.user
-      .updateUser(user)
+      .updateUser(user, { withCredentials: true })
       .then((result: AxiosResponse) => {
         setIsUpdateSuccess(true);
       })

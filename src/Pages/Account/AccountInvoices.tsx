@@ -18,7 +18,7 @@ const AccountInvoices = (): JSX.Element => {
 
   useEffect(() => {
     api.invoice
-      .getInvoicesByUserId()
+      .getInvoicesByUserId({ withCredentials: true })
       .then((result: AxiosResponse) => setInvoices(result.data.result as GetInvoicesDto[]))
       .finally(() => setIsFetching(false));
   }, []);
