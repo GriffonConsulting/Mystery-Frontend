@@ -6,7 +6,6 @@ import { useCookies } from 'react-cookie';
 
 const api = new Api({
   baseURL: import.meta.env.VITE_API_URL,
-  securityWorker: accessToken => (accessToken ? { headers: { Authorization: `Bearer ${accessToken}` } } : {}),
 });
 
 export function AxiosInterceptor({ children }: { children: any }) {

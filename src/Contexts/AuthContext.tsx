@@ -15,7 +15,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
-    api.authenticate.me({ withCredentials: true }).then(() => setIsConnected(true));
+    api.authenticate
+      .me({ withCredentials: true })
+      .then(() => setIsConnected(true))
+      .catch(() => setIsConnected(false));
   }, []);
 
   const signIn = async (signIn: SignInQuery) => {
