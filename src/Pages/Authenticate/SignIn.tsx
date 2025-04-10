@@ -8,12 +8,12 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import i18n from '../../i18n';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FormHelperText, useTheme } from '@mui/material';
+import { FormHelperText, IconButton, InputAdornment, useTheme } from '@mui/material';
 import { AxiosError } from 'axios';
 import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
 import { useAuth } from '../../Hooks/useAuth';
@@ -26,6 +26,7 @@ const SignIn = (): JSX.Element => {
   const location = useLocation();
   const { signIn } = useAuth();
   const theme = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
 
   const signInSchema = object({
     email: string().required('emailError').email('emailError'),
@@ -97,11 +98,22 @@ const SignIn = (): JSX.Element => {
             fullWidth
             name="password"
             label={i18n.t('authenticate:password')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
             error={errors.some(e => e == 'passwordError') || errors.some(e => e == 'passwordValidationError')}
             helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
             onChange={event => {
               setErrors(errors.filter(err => !err.includes('password')));
               setSignInQuery(params => ({

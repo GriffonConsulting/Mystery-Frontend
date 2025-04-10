@@ -92,7 +92,7 @@ const ResetPassword = (): JSX.Element => {
             error={errors.some(e => e == 'passwordError')}
             helperText={errors.some(e => e == 'passwordError') && i18n.t('authenticate:passwordError')}
             slotProps={{
-              htmlInput: {
+              input: {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)}>

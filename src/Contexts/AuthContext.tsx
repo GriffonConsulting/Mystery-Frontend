@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import api from '../__generated__/api';
 import { SignInQuery, SignUpCommand } from '../__generated__/api-generated';
 
@@ -33,5 +33,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await api.authenticate.logout({ withCredentials: true }).then(() => setIsConnected(false));
   };
 
-  return <AuthContext.Provider value={{ signIn, signUp, logout, isConnected }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={useMemo(
+        () => ({
+          signIn,
+          signUp,
+          logout,
+          isConnected,
+        }),
+        [signIn, signUp, logout, isConnected],
+      )}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
