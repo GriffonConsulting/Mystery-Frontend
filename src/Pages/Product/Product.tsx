@@ -55,7 +55,7 @@ export const Product = (): JSX.Element => {
         <Link to={BuildUrl(EnumAppRoutes.Products, { productType })} style={{ color: theme.palette.primary.main }}>
           {productType}
         </Link>
-        {product?.title && <Typography color={theme.palette.primary.main}>{product.title}</Typography>}
+        {product?.title && <Typography>{product.title}</Typography>}
       </Breadcrumbs>
 
       {product && (
@@ -83,20 +83,19 @@ export const Product = (): JSX.Element => {
                 flexWrap: 'wrap',
               },
             })}>
-            {product.images
-              ?.slice(0, 3)
-              .map((item, i) => (
-                <img
-                  key={item}
-                  style={{ cursor: 'pointer' }}
-                  width={100}
-                  height={100}
-                  className="imageCarousel"
-                  src={item}
-                  alt={`${productType} ${productType} ${i}`}
-                  onClick={() => setCarouselIndex(i)}
-                />
-              ))}
+            {product.images?.slice(0, 3).map((item, i) => (
+              //todo non-interactive elements
+              <img
+                key={item}
+                style={{ cursor: 'pointer' }}
+                width={100}
+                height={100}
+                className="imageCarousel"
+                src={item}
+                alt={`${productType} ${productType} ${i}`}
+                onClick={() => setCarouselIndex(i)}
+              />
+            ))}
           </Box>
           <Box width={'100%'} maxWidth={300} alignContent={'center'}>
             <Carousel

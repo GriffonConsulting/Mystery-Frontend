@@ -39,7 +39,9 @@ export const Basket = (): JSX.Element => {
 
   return (
     <Container>
-      <h1>{i18n.t('order:basket')}</h1>
+      <Typography mt={1} mb={1} component="h1" variant="h4">
+        {i18n.t('order:basket')}
+      </Typography>
       {products.length !== 0 && (
         <Box display={'flex'} flexDirection={'row'} gap={5}>
           <div>
