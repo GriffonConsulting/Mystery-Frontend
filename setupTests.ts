@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+import api from './src/__generated__/api';
 
 export const mockNavigate = vi.fn();
 export const mockLocation = vi.fn();

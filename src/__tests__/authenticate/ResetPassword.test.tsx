@@ -7,11 +7,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { createTheme } from '@mui/material';
 import i18n from '../../i18n';
 import api from '../../__generated__/api';
+import { AuthProvider } from '../../Contexts/AuthContext';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');
 
 describe('ResetPassword Component', async () => {
+  api.authenticate.me = vi.fn((): any => Promise.resolve());
   beforeEach(() => {
     vi.clearAllMocks();
     window.history.pushState({}, 'Test Page', '/?email=test@example.com&token=testtoken');
@@ -19,13 +21,15 @@ describe('ResetPassword Component', async () => {
 
   const renderResetPassword = () =>
     render(
-      <BrowserRouter>
-        <CookiesProvider>
-          <ThemeProvider theme={theme}>
-            <ResetPassword />
-          </ThemeProvider>
-        </CookiesProvider>
-      </BrowserRouter>,
+      <AuthProvider>
+        <BrowserRouter>
+          <CookiesProvider>
+            <ThemeProvider theme={theme}>
+              <ResetPassword />
+            </ThemeProvider>
+          </CookiesProvider>
+        </BrowserRouter>
+      </AuthProvider>,
     );
 
   it('renders the ResetPassword component', () => {

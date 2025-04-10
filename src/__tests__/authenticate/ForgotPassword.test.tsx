@@ -7,24 +7,28 @@ import i18n from '../../i18n';
 import { CookiesProvider } from 'react-cookie';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
+import { AuthProvider } from '../../Contexts/AuthContext';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');
 
 describe('ForgotPassword Component', () => {
+  api.authenticate.me = vi.fn((): any => Promise.resolve());
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   const renderForgotPassword = () =>
     render(
-      <BrowserRouter>
-        <CookiesProvider>
-          <ThemeProvider theme={theme}>
-            <ForgotPassword />
-          </ThemeProvider>
-        </CookiesProvider>
-      </BrowserRouter>,
+      <AuthProvider>
+        <BrowserRouter>
+          <CookiesProvider>
+            <ThemeProvider theme={theme}>
+              <ForgotPassword />
+            </ThemeProvider>
+          </CookiesProvider>
+        </BrowserRouter>
+      </AuthProvider>,
     );
 
   it('renders the form correctly', () => {

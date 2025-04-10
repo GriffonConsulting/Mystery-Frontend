@@ -14,7 +14,7 @@ import { FormHelperText, useTheme } from '@mui/material';
 import { ForgotPasswordCommand } from '../../__generated__/api-generated';
 import { AxiosError } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
-import { LockReset } from '@mui/icons-material';
+import LockReset from '@mui/icons-material/LockReset';
 import { BuildUrl } from '../../Functions/BuildUrl';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 

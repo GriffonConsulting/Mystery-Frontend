@@ -9,6 +9,7 @@ import api from '../../__generated__/api';
 import { mockNavigate } from '../../../setupTests';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
+import { AuthProvider } from '../../Contexts/AuthContext';
 
 const theme = createTheme();
 
@@ -19,13 +20,15 @@ describe('SignUp Component', () => {
 
   const renderSignUp = () =>
     render(
-      <BrowserRouter>
-        <CookiesProvider>
-          <ThemeProvider theme={theme}>
-            <SignUp />
-          </ThemeProvider>
-        </CookiesProvider>
-      </BrowserRouter>,
+      <AuthProvider>
+        <BrowserRouter>
+          <CookiesProvider>
+            <ThemeProvider theme={theme}>
+              <SignUp />
+            </ThemeProvider>
+          </CookiesProvider>
+        </BrowserRouter>
+      </AuthProvider>,
     );
 
   it('renders SignUp form correctly', () => {
@@ -69,11 +72,14 @@ describe('SignUp Component', () => {
     fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
 
     await waitFor(() => {
-      expect(api.authenticate.signUp).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'Valid@1234',
-        marketingEmail: true,
-      });
+      expect(api.authenticate.signUp).toHaveBeenCalledWith(
+        {
+          email: 'test@example.com',
+          password: 'Valid@1234',
+          marketingEmail: true,
+        },
+        { withCredentials: true },
+      );
       expect(mockNavigate).toHaveBeenCalledWith(BuildUrl(EnumAppRoutes.Account));
     });
   });

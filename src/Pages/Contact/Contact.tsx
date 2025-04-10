@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import api from '../../__generated__/api';
 import i18n from '../../i18n';
-import { ContactSupport } from '@mui/icons-material';
+import ContactSupport from '@mui/icons-material/ContactSupport';
 import { object, string } from 'yup';
 import { ContactCommand } from '../../__generated__/api-generated';
 

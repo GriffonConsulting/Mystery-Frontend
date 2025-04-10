@@ -18,7 +18,7 @@ import { GetUserDto, UpdateUserCommand } from '../../__generated__/api-generated
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AccountCircle } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import { object, string } from 'yup';
 import { BuildUrl } from '../../Functions/BuildUrl';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';

@@ -7,6 +7,7 @@ import i18n from '../../i18n';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import { mockNavigate } from '../../../setupTests';
+import { AuthProvider } from '../../Contexts/AuthContext';
 
 const theme = createTheme();
 
@@ -17,13 +18,11 @@ describe('Account Component', () => {
 
   const renderAccountInformations = () =>
     render(
-      <BrowserRouter>
-        <CookiesProvider>
-          <ThemeProvider theme={theme}>
-            <Account />
-          </ThemeProvider>
-        </CookiesProvider>
-      </BrowserRouter>,
+      <AuthProvider>
+        <BrowserRouter>
+          <Account />
+        </BrowserRouter>
+      </AuthProvider>,
     );
 
   it('renders correctly', () => {

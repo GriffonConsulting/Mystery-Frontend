@@ -11,7 +11,9 @@ import { useState } from 'react';
 import i18n from '../../i18n';
 import { object, string } from 'yup';
 import { SignUpCommand } from '../../__generated__/api-generated';
-import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { AxiosError } from 'axios';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
@@ -41,10 +43,11 @@ const SignUp = (): JSX.Element => {
 
   const handleSubmit = async () => {
     setErrors([]);
-    if (!(await signUpSchema.isValid(signUp))) {
-      await signUpSchema.validate(signUp, { abortEarly: false }).catch(error => setErrors(error.errors));
+    if (!(await signUpSchema.isValid(signUpCommand))) {
+      await signUpSchema.validate(signUpCommand, { abortEarly: false }).catch(error => setErrors(error.errors));
       return;
     }
+    console.log(signUpCommand);
     setIsFetching(true);
     signUp(signUpCommand)
       .then(() => {

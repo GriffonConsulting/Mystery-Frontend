@@ -6,24 +6,29 @@ import { BrowserRouter } from 'react-router-dom';
 import i18n from '../../i18n';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { CookiesProvider } from 'react-cookie';
+import { AuthProvider } from '../../Contexts/AuthContext';
+import { UpdateUserCommand } from '../../__generated__/api-generated';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');
 
 describe('AccountInformations Component', () => {
+  api.authenticate.me = vi.fn((): any => Promise.resolve());
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   const renderAccountInformations = () =>
     render(
-      <BrowserRouter>
-        <CookiesProvider>
-          <ThemeProvider theme={theme}>
-            <AccountInformations />
-          </ThemeProvider>
-        </CookiesProvider>
-      </BrowserRouter>,
+      <AuthProvider>
+        <BrowserRouter>
+          <CookiesProvider>
+            <ThemeProvider theme={theme}>
+              <AccountInformations />
+            </ThemeProvider>
+          </CookiesProvider>
+        </BrowserRouter>
+      </AuthProvider>,
     );
 
   it('renders correctly', async () => {
@@ -48,7 +53,9 @@ describe('AccountInformations Component', () => {
     fireEvent.click(screen.getByRole('button', { name: i18n.t('update') }));
 
     await waitFor(() => {
-      expect(api.user.updateUser).toHaveBeenCalledWith(expect.objectContaining({ newEmail: 'new@example.com' }));
+      expect(api.user.updateUser).toHaveBeenCalledWith(expect.objectContaining({ newEmail: 'new@example.com' }), {
+        withCredentials: true,
+      });
       expect(screen.getByText(`${i18n.t('account:updateSuccess')}`)).toBeInTheDocument();
     });
   });

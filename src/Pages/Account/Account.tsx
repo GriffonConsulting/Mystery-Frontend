@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Container, Grid, Paper, styled, Typography } from '@mui/material';
 import i18n from '../../i18n';
-import { AccountCircle, Casino, Description, NoAccounts } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Casino from '@mui/icons-material/Casino';
+import Description from '@mui/icons-material/Description';
+import NoAccounts from '@mui/icons-material/NoAccounts';
 import { useNavigate } from 'react-router-dom';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';

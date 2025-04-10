@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import i18n from '../../i18n';
 import { ProductType } from '../../__generated__/api-generated';
-import { ShoppingBasket } from '@mui/icons-material';
+import ShoppingBasket from '@mui/icons-material/ShoppingBasket';
 import { useTheme } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';

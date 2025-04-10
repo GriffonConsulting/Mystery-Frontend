@@ -13,7 +13,9 @@ import { AxiosError } from 'axios';
 import { SignInQuery } from '../../__generated__/api-generated';
 import { object, string } from 'yup';
 import { AxiosErrorData } from '../../__generated__/AxiosErrorData';
-import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
 import { useAuth } from '../../Hooks/useAuth';
@@ -37,8 +39,8 @@ const SignIn = (): JSX.Element => {
 
   const handleSubmit = async () => {
     setErrors([]);
-    if (!(await signInSchema.isValid(signIn))) {
-      await signInSchema.validate(signIn, { abortEarly: false }).catch(error => setErrors(error.errors));
+    if (!(await signInSchema.isValid(signInQuery))) {
+      await signInSchema.validate(signInQuery, { abortEarly: false }).catch(error => setErrors(error.errors));
       return;
     }
     setIsFetching(true);

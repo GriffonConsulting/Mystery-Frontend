@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUp = async (signUp: SignUpCommand) => {
-    await api.authenticate.signIn(signUp, { withCredentials: true }).then(() => setIsConnected(true));
+    await api.authenticate.signUp(signUp, { withCredentials: true }).then(() => setIsConnected(true));
   };
 
   const logout = async () => {
