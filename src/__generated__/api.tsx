@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Api } from './api-generated';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+import { useAuth } from '../Hooks/useAuth';
 
 const api = new Api({
   baseURL: import.meta.env.VITE_API_URL,
@@ -10,6 +10,7 @@ const api = new Api({
 
 export function AxiosInterceptor({ children }: { children: any }) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const resInterceptor = (response: any) => {
@@ -18,11 +19,7 @@ export function AxiosInterceptor({ children }: { children: any }) {
 
     const errInterceptor = (error: any) => {
       if (error.response.status === 401) {
-        var date = new Date();
-        var expirationDate = new Date(cookies?.token?.expirationDate);
-        if (expirationDate < date) {
-          navigate(BuildUrl(EnumAppRoutes.SignIn));
-        }
+        logout();
       }
 
       return Promise.reject(error);

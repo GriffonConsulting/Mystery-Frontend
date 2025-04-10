@@ -18,5 +18,6 @@
   "resetPasswordTitle": "Réinitialiser votre mot de passe",
   "invalidToken": "Le lien a expiré. Veuillez recommencer la procédure.",
   "passwordValidationError": "Le mot de passe n'est pas bon.",
-  "userNotFound": "Ce compte n'existe pas"
+  "userNotFound": "Ce compte n'existe pas",
+  "userDuplicate": "Cet email existe déjà."
 }
