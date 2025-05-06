@@ -6,7 +6,7 @@ type AuthContextType = {
   isConnected: boolean;
   signIn: (signIn: SignInQuery) => Promise<void>;
   signUp: (signUp: SignUpCommand) => Promise<void>;
-  logout: () => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,8 +29,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await api.authenticate.signUp(signUp, { withCredentials: true }).then(() => setIsConnected(true));
   };
 
-  const logout = async () => {
-    await api.authenticate.logout({ withCredentials: true }).then(() => setIsConnected(false));
+  const signOut = async () => {
+    await api.authenticate.signOut({ withCredentials: true }).then(() => setIsConnected(false));
   };
 
   return (
@@ -39,10 +39,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         () => ({
           signIn,
           signUp,
-          logout,
+          signOut,
           isConnected,
         }),
-        [signIn, signUp, logout, isConnected],
+        [signIn, signUp, signOut, isConnected],
       )}>
       {children}
     </AuthContext.Provider>

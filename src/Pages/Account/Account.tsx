@@ -12,7 +12,7 @@ import { useAuth } from '../../Hooks/useAuth';
 
 const Account = (): JSX.Element => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { signOut } = useAuth();
 
   return (
     <Container style={{ marginTop: 32 }}>
@@ -36,7 +36,7 @@ const Account = (): JSX.Element => {
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={logout}>
+          <Item onClick={signOut}>
             <NoAccounts style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:disconnect')}</Typography>
           </Item>

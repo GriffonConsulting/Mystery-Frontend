@@ -1132,13 +1132,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Authenticate
-     * @name Logout
-     * @request POST:/Authenticate/Logout
+     * @name SignOut
+     * @request POST:/Authenticate/SignOut
      * @secure
      */
-    logout: (params: RequestParams = {}) =>
+    signOut: (params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/Authenticate/Logout`,
+        path: `/Authenticate/SignOut`,
         method: 'POST',
         secure: true,
         ...params,
