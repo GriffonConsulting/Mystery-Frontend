@@ -12,7 +12,7 @@ Ce projet est un site e-commerce dédié à la vente d'enquêtes. Le site permet
     Design responsive et immersif adapté à l’univers du jeu d’enquête
 
 🛠️ Technologies utilisées
-    Frontend : React
+    Frontend : React / Typescript
     Backend : C# 
     Base de données : PostgreSQL
     Paiement : Stripe
