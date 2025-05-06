@@ -8,18 +8,18 @@ Ce projet est un site e-commerce dédié à la vente d'enquêtes. Le site permet
 
 🚀 Fonctionnalités principales
 
-Catalogue de murder parties avec fiches détaillées
-Panier d’achat et paiement sécurisé
-Gestion des utilisateurs (inscription, connexion)
-Design responsive et immersif adapté à l’univers du jeu d’enquête
+Catalogue de murder parties avec fiches détaillées<br />
+Panier d’achat et paiement sécurisé<br />
+Gestion des utilisateurs (inscription, connexion)<br />
+Design responsive et immersif adapté à l’univers du jeu d’enquête<br />
 
 🛠️ Technologies utilisées
 
-Frontend : React / Typescript
-Backend : C# 
-Base de données : PostgreSQL
-Paiement : Stripe
-Authentification : JWT 
+Frontend : React / Typescript<br />
+Backend : C# <br />
+Base de données : PostgreSQL<br />
+Paiement : Stripe<br />
+Authentification : JWT <br />
 
 👤 Auteur
 
