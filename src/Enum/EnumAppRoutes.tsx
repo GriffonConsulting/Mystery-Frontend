@@ -11,6 +11,7 @@ export enum EnumAppRoutes {
   AccountInformations = 'account/informations',
   AccountInvoices = 'account/invoices',
   AccountGames = 'account/games',
+  AccountGame = 'account/:productId/',
   Basket = 'order/basket',
   Checkout = 'order/checkout',
   CheckoutSuccess = 'order/checkout/success',

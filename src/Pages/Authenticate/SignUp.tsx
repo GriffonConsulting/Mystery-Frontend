@@ -47,7 +47,6 @@ const SignUp = (): JSX.Element => {
       await signUpSchema.validate(signUpCommand, { abortEarly: false }).catch(error => setErrors(error.errors));
       return;
     }
-    console.log(signUpCommand);
     setIsFetching(true);
     signUp(signUpCommand)
       .then(() => {

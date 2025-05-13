@@ -33,12 +33,14 @@ const AccountInvoices = (): JSX.Element => {
       field: 'createdOn',
       headerName: i18n.t('account:date'),
       width: 150,
-      valueFormatter: ({ value }) =>
-        new Intl.DateTimeFormat('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        }).format(value),
+      valueFormatter: value =>
+        value
+          ? new Intl.DateTimeFormat('fr-FR', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            }).format(new Date(value))
+          : '',
     },
     {
       field: 'receiptUrl',
