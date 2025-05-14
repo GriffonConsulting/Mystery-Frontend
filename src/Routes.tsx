@@ -24,6 +24,7 @@ const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPasswor
 const AccountInvoices = React.lazy(() => import('./Pages/Account/AccountInvoices'));
 const AccountGames = React.lazy(() => import('./Pages/Account/AccountGames'));
 const Faq = React.lazy(() => import('./Pages/Faq/Faq'));
+const TOS = React.lazy(() => import('./Pages/Policies/TOS'));
 
 export const AppRoutes = (): JSX.Element => {
   return (
@@ -43,6 +44,7 @@ export const AppRoutes = (): JSX.Element => {
                 <Route path={EnumAppRoutes.Basket} element={<Basket />} />
                 <Route path={EnumAppRoutes.Contact} element={<Contact />} />
                 <Route path={EnumAppRoutes.Faq} element={<Faq />} />
+                <Route path={EnumAppRoutes.TOS} element={<TOS />} />
                 <Route
                   path={EnumAppRoutes.Account}
                   element={

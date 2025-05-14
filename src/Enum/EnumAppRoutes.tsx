@@ -15,5 +15,6 @@ export enum EnumAppRoutes {
   Basket = 'order/basket',
   Checkout = 'order/checkout',
   CheckoutSuccess = 'order/checkout/success',
+  TOS = 'policies/terms-of-service',
   Faq = 'faq',
 }

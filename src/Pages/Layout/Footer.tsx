@@ -4,6 +4,8 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import i18n from '../../i18n';
+import { BuildUrl } from '../../Functions/BuildUrl';
+import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 
 function Copyright(): JSX.Element {
   return (
@@ -38,7 +40,7 @@ export default function Footer(): JSX.Element {
           <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
             &nbsp;•&nbsp;
           </Typography>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary" href={BuildUrl(EnumAppRoutes.TOS)}>
             {i18n.t('tos')}
           </Link>
           <Copyright />
