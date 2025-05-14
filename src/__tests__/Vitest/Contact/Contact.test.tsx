@@ -3,10 +3,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CookiesProvider } from 'react-cookie';
-import Contact from '../../Pages/Contact/Contact';
-import i18n from '../../i18n';
-import api from '../../__generated__/api';
-import { AuthProvider } from '../../Contexts/AuthContext';
+import Contact from '../../../Pages/Contact/Contact';
+import i18n from '../../../i18n';
+import api from '../../../__generated__/api';
+import { AuthProvider } from '../../../Contexts/AuthContext';
 
 const theme = createTheme();
 

@@ -1,13 +1,13 @@
 // Invoices.test.tsx
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import AccountInvoices from '../../Pages/Account/AccountInvoices';
+import AccountInvoices from '../../../Pages/Account/AccountInvoices';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@testing-library/jest-dom';
 import { CookiesProvider } from 'react-cookie';
-import i18n from '../../i18n';
-import api from '../../__generated__/api';
+import i18n from '../../../i18n';
+import api from '../../../__generated__/api';
 
 const mockInvoices = [
   {

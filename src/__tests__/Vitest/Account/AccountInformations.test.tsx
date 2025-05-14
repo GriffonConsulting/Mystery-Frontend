@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import AccountInformations from '../../Pages/Account/AccountInformations';
-import api from '../../__generated__/api';
+import AccountInformations from '../../../Pages/Account/AccountInformations';
+import api from '../../../__generated__/api';
 import { BrowserRouter } from 'react-router-dom';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { CookiesProvider } from 'react-cookie';
-import { AuthProvider } from '../../Contexts/AuthContext';
-import { UpdateUserCommand } from '../../__generated__/api-generated';
+import { AuthProvider } from '../../../Contexts/AuthContext';
+import { UpdateUserCommand } from '../../../__generated__/api-generated';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');

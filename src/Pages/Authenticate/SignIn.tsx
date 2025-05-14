@@ -128,6 +128,7 @@ const SignIn = (): JSX.Element => {
             <FormHelperText error>{i18n.t('authenticate:passwordValidationError')}</FormHelperText>
           )}
           <Button
+            data-testid="sign-in-button"
             type="button"
             fullWidth
             disabled={isFetching}

@@ -3,60 +3,60 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CookiesProvider } from 'react-cookie';
-import SignUp from '../../Pages/Authenticate/SignUp';
-import i18n from '../../i18n';
-import api from '../../__generated__/api';
-import { mockNavigate } from '../../../setupTests';
-import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
-import { BuildUrl } from '../../Functions/BuildUrl';
-import { AuthProvider } from '../../Contexts/AuthContext';
+import SignIn from '../../../Pages/Authenticate/SignIn';
+import i18n from '../../../i18n';
+import api from '../../../__generated__/api';
+import { mockNavigate } from '../../../../setupTests';
+import { EnumAppRoutes } from '../../../Enum/EnumAppRoutes';
+import { BuildUrl } from '../../../Functions/BuildUrl';
+import { AuthProvider } from '../../../Contexts/AuthContext';
 
 const theme = createTheme();
 
-describe('SignUp Component', () => {
+describe('SignIn Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  const renderSignUp = () =>
+  const renderSignIn = () =>
     render(
       <AuthProvider>
         <BrowserRouter>
           <CookiesProvider>
             <ThemeProvider theme={theme}>
-              <SignUp />
+              <SignIn />
             </ThemeProvider>
           </CookiesProvider>
         </BrowserRouter>
       </AuthProvider>,
     );
 
-  it('renders SignUp form correctly', () => {
-    renderSignUp();
+  it('renders SignIn form correctly', () => {
+    renderSignIn();
     expect(screen.getByLabelText(`${i18n.t('authenticate:email')} *`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${i18n.t('authenticate:password')} *`)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: i18n.t('authenticate:signUp') })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: i18n.t('authenticate:signIn') })).toBeInTheDocument();
   });
 
   it('displays error when email is invalid', async () => {
-    renderSignUp();
+    renderSignIn();
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:email')} *`), {
       target: { value: 'invalid-email' },
     });
-    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
+    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signIn') }));
     await waitFor(() => expect(screen.getByText(i18n.t('authenticate:emailError'))).toBeInTheDocument());
   });
 
   it('displays error when password does not meet requirements', async () => {
-    renderSignUp();
+    renderSignIn();
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:password')} *`), { target: { value: 'short' } });
-    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
+    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signIn') }));
     await waitFor(() => expect(screen.getByText(i18n.t('authenticate:passwordError'))).toBeInTheDocument());
   });
 
-  it('calls API and navigates on successful signup', async () => {
-    api.authenticate.signUp = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
-    renderSignUp();
+  it('calls API and navigates on successful signIn', async () => {
+    api.authenticate.signIn = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
+    renderSignIn();
 
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:email')} *`), {
       target: { value: 'test@example.com' },
@@ -64,19 +64,13 @@ describe('SignUp Component', () => {
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:password')} *`), {
       target: { value: 'Valid@1234' },
     });
-
-    const checkbox = screen.getByRole('checkbox');
-    expect(checkbox).not.toBeChecked();
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
+    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signIn') }));
 
     await waitFor(() => {
-      expect(api.authenticate.signUp).toHaveBeenCalledWith(
+      expect(api.authenticate.signIn).toHaveBeenCalledWith(
         {
           email: 'test@example.com',
           password: 'Valid@1234',
-          marketingEmail: true,
         },
         { withCredentials: true },
       );
@@ -85,8 +79,8 @@ describe('SignUp Component', () => {
   });
 
   it('disable the button when fetching', async () => {
-    api.authenticate.signUp = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
-    renderSignUp();
+    api.authenticate.signIn = vi.fn((): any => Promise.resolve({ data: { result: 'fake-token' } }));
+    renderSignIn();
 
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:email')} *`), {
       target: { value: 'test@example.com' },
@@ -94,10 +88,10 @@ describe('SignUp Component', () => {
     fireEvent.change(screen.getByLabelText(`${i18n.t('authenticate:password')} *`), {
       target: { value: 'Valid@1234' },
     });
-    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signUp') }));
+    fireEvent.click(screen.getByRole('button', { name: i18n.t('authenticate:signIn') }));
 
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: i18n.t('authenticate:signUp') })).toBeDisabled();
+      expect(screen.getByRole('button', { name: i18n.t('authenticate:signIn') })).toBeDisabled();
     });
   });
 });

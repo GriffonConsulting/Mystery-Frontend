@@ -2,10 +2,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { CookiesProvider, Cookies } from 'react-cookie';
 import { describe, expect, it, vi } from 'vitest';
-import api from '../../__generated__/api';
-import { Difficulty, GetProductDto, ProductType } from '../../__generated__/api-generated';
-import Products from '../../Pages/Product/Products';
-import i18n from '../../i18n';
+import api from '../../../__generated__/api';
+import { Difficulty, GetProductDto, ProductType } from '../../../__generated__/api-generated';
+import Products from '../../../Pages/Product/Products';
+import i18n from '../../../i18n';
 
 const mockProducts: GetProductDto[] = [
   {

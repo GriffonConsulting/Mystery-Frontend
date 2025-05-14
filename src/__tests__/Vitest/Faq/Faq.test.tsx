@@ -1,14 +1,14 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { GetFaqDto } from '../../__generated__/api-generated';
+import { GetFaqDto } from '../../../__generated__/api-generated';
 import { ThemeProvider } from '@emotion/react';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter } from 'react-router-dom';
 import { createTheme } from '@mui/material';
-import Faq from '../../Pages/Faq/Faq';
-import i18n from '../../i18n';
-import api from '../../__generated__/api';
+import Faq from '../../../Pages/Faq/Faq';
+import i18n from '../../../i18n';
+import api from '../../../__generated__/api';
 
 const mockFaq: GetFaqDto[] = [
   { question: 'What is your name?', answer: 'My name is toto.' },

@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { describe, expect, it } from 'vitest';
-import NotFound from '../../Pages/NotFound/NotFound';
+import NotFound from '../../../Pages/NotFound/NotFound';
 import { CookiesProvider } from 'react-cookie';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 
 const theme = createTheme();
 

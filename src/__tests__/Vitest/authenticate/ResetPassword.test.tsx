@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import ResetPassword from '../../Pages/Authenticate/ResetPassword'; // Assurez-vous que le chemin est correct
+import ResetPassword from '../../../Pages/Authenticate/ResetPassword'; // Assurez-vous que le chemin est correct
 import { ThemeProvider } from '@emotion/react';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter } from 'react-router-dom';
 import { createTheme } from '@mui/material';
-import i18n from '../../i18n';
-import api from '../../__generated__/api';
-import { AuthProvider } from '../../Contexts/AuthContext';
+import i18n from '../../../i18n';
+import api from '../../../__generated__/api';
+import { AuthProvider } from '../../../Contexts/AuthContext';
 
 const theme = createTheme();
 vi.mock('../../__generated__/api');

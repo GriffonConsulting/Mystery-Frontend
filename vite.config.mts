@@ -10,12 +10,7 @@ export default defineConfig({
     'process.env': {},
   },
   test: {
-    // browser: {
-    //   provider: 'playwright',
-    //   enabled: true,
-    //   // at least one instance is required
-    //   instances: [{ browser: 'chromium' }],
-    // },
+    dir: './src/__tests__/Vitest',
     globals: true,
     environment: 'jsdom',
     setupFiles: ['setupTests.ts'],
