@@ -6,7 +6,6 @@ import authenticate from './fr/authenticate.json';
 import product from './fr/product.json';
 import countries from './fr/countries.json';
 import order from './fr/order.json';
-import moment from 'moment';
 
 const resources = {
   fr: {
@@ -27,7 +26,6 @@ i18next
       interpolation: {
         format: function (value, format) {
           if (format === 'uppercase') return value.toUpperCase();
-          if (value instanceof Date) return moment(value).format(format);
           return value;
         },
         // React already does escaping
