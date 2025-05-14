@@ -80,7 +80,7 @@ describe('SignUp Component', () => {
         },
         { withCredentials: true },
       );
-      expect(mockNavigate).toHaveBeenCalledWith(BuildUrl(EnumAppRoutes.Account));
+      expect(mockNavigate).toHaveBeenCalledWith(BuildUrl(EnumAppRoutes.HomePage));
     });
   });
 

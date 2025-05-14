@@ -10,12 +10,12 @@ export default defineConfig({
     'process.env': {},
   },
   test: {
-    browser: {
-      provider: 'playwright',
-      enabled: true,
-      // at least one instance is required
-      instances: [{ browser: 'chromium' }],
-    },
+    // browser: {
+    //   provider: 'playwright',
+    //   enabled: true,
+    //   // at least one instance is required
+    //   instances: [{ browser: 'chromium' }],
+    // },
     globals: true,
     environment: 'jsdom',
     setupFiles: ['setupTests.ts'],

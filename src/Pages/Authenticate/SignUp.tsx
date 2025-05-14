@@ -50,7 +50,7 @@ const SignUp = (): JSX.Element => {
     setIsFetching(true);
     signUp(signUpCommand)
       .then(() => {
-        navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.Account));
+        navigate(location?.state?.from ? location?.state?.from : BuildUrl(EnumAppRoutes.HomePage));
       })
       .catch((axiosError: AxiosError) => {
         const errors = axiosError?.response?.data as AxiosErrorData;
