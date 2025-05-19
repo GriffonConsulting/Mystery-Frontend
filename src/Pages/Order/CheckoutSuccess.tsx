@@ -17,7 +17,7 @@ const CheckoutSuccess = () => {
       <h1>{i18n.t('order:orderSuccess')}</h1>
       <p>{i18n.t('order:thankYou')}</p>
       <p>{i18n.t('order:seeGames')}</p>
-      <Link to={BuildUrl(EnumAppRoutes.AccountGames)} style={{ color: theme.palette.primary.main }}>
+      <Link to={BuildUrl(EnumAppRoutes.AccountProducts)} style={{ color: theme.palette.primary.main }}>
         {i18n.t('order:games')}
       </Link>
     </Container>

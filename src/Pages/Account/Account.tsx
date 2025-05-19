@@ -24,7 +24,7 @@ const Account = (): JSX.Element => {
           </Item>
         </AccountGrid>
         <AccountGrid>
-          <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountGames))}>
+          <Item onClick={() => navigate(BuildUrl(EnumAppRoutes.AccountProducts))}>
             <Casino style={iconStyle} sx={{ color: 'primary.main' }} />
             <Typography variant="h5">{i18n.t('account:games')}</Typography>
           </Item>

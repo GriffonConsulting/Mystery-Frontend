@@ -6,7 +6,6 @@ import RequiredAuth from './RequiredAuth';
 import Loader from './components/Loader';
 import { EnumAppRoutes } from './Enum/EnumAppRoutes';
 import { BuildUrl } from './Functions/BuildUrl';
-import AccountGame from './Pages/Account/AccountGame';
 
 const SignIn = React.lazy(() => import('./Pages/Authenticate/SignIn'));
 const SignUp = React.lazy(() => import('./Pages/Authenticate/SignUp'));
@@ -22,7 +21,8 @@ const AccountInformations = React.lazy(() => import('./Pages/Account/AccountInfo
 const ForgotPassword = React.lazy(() => import('./Pages/Authenticate/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./Pages/Authenticate/ResetPassword'));
 const AccountInvoices = React.lazy(() => import('./Pages/Account/AccountInvoices'));
-const AccountGames = React.lazy(() => import('./Pages/Account/AccountGames'));
+const AccountUserProduct = React.lazy(() => import('./Pages/Account/AccountUserProduct'));
+const AccountUserProducts = React.lazy(() => import('./Pages/Account/AccountUserProducts'));
 const Faq = React.lazy(() => import('./Pages/Faq/Faq'));
 const TOS = React.lazy(() => import('./Pages/Policies/TOS'));
 
@@ -70,18 +70,18 @@ export const AppRoutes = (): JSX.Element => {
                   }
                 />
                 <Route
-                  path={EnumAppRoutes.AccountGame}
+                  path={EnumAppRoutes.AccountProduct}
                   element={
                     <RequiredAuth>
-                      <AccountGames />
+                      <AccountUserProduct />
                     </RequiredAuth>
                   }
                 />
                 <Route
-                  path={EnumAppRoutes.AccountGames}
+                  path={EnumAppRoutes.AccountProducts}
                   element={
                     <RequiredAuth>
-                      <AccountGame />
+                      <AccountUserProducts />
                     </RequiredAuth>
                   }
                 />

@@ -10,6 +10,219 @@
  * ---------------------------------------------------------------
  */
 
+/** @format string */
+export enum TypeAttributes {
+  VisibilityMask = "VisibilityMask",
+  NotPublic = "NotPublic",
+  Public = "Public",
+  NestedPublic = "NestedPublic",
+  NestedPrivate = "NestedPrivate",
+  NestedFamily = "NestedFamily",
+  NestedAssembly = "NestedAssembly",
+  NestedFamANDAssem = "NestedFamANDAssem",
+  NestedFamORAssem = "NestedFamORAssem",
+  LayoutMask = "LayoutMask",
+  AutoLayout = "AutoLayout",
+  SequentialLayout = "SequentialLayout",
+  ExplicitLayout = "ExplicitLayout",
+  ClassSemanticsMask = "ClassSemanticsMask",
+  Class = "Class",
+  Interface = "Interface",
+  Abstract = "Abstract",
+  Sealed = "Sealed",
+  SpecialName = "SpecialName",
+  Import = "Import",
+  Serializable = "Serializable",
+  WindowsRuntime = "WindowsRuntime",
+  StringFormatMask = "StringFormatMask",
+  AnsiClass = "AnsiClass",
+  UnicodeClass = "UnicodeClass",
+  AutoClass = "AutoClass",
+  CustomFormatClass = "CustomFormatClass",
+  CustomFormatMask = "CustomFormatMask",
+  BeforeFieldInit = "BeforeFieldInit",
+  RTSpecialName = "RTSpecialName",
+  HasSecurity = "HasSecurity",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum SecurityRuleSet {
+  None = "None",
+  Level1 = "Level1",
+  Level2 = "Level2",
+}
+
+/** @format string */
+export enum PropertyAttributes {
+  None = "None",
+  SpecialName = "SpecialName",
+  RTSpecialName = "RTSpecialName",
+  HasDefault = "HasDefault",
+  Reserved2 = "Reserved2",
+  Reserved3 = "Reserved3",
+  Reserved4 = "Reserved4",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum ProductType {
+  MurderParty = "MurderParty",
+}
+
+/** @format string */
+export enum ParameterAttributes {
+  None = "None",
+  In = "In",
+  Out = "Out",
+  Lcid = "Lcid",
+  Retval = "Retval",
+  Optional = "Optional",
+  HasDefault = "HasDefault",
+  HasFieldMarshal = "HasFieldMarshal",
+  Reserved3 = "Reserved3",
+  Reserved4 = "Reserved4",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum MethodImplAttributes {
+  CodeTypeMask = "CodeTypeMask",
+  IL = "IL",
+  Native = "Native",
+  OPTIL = "OPTIL",
+  Runtime = "Runtime",
+  ManagedMask = "ManagedMask",
+  Unmanaged = "Unmanaged",
+  Managed = "Managed",
+  ForwardRef = "ForwardRef",
+  PreserveSig = "PreserveSig",
+  InternalCall = "InternalCall",
+  Synchronized = "Synchronized",
+  NoInlining = "NoInlining",
+  AggressiveInlining = "AggressiveInlining",
+  NoOptimization = "NoOptimization",
+  AggressiveOptimization = "AggressiveOptimization",
+  MaxMethodImplVal = "MaxMethodImplVal",
+}
+
+/** @format string */
+export enum MethodAttributes {
+  MemberAccessMask = "MemberAccessMask",
+  PrivateScope = "PrivateScope",
+  Private = "Private",
+  FamANDAssem = "FamANDAssem",
+  Assembly = "Assembly",
+  Family = "Family",
+  FamORAssem = "FamORAssem",
+  Public = "Public",
+  Static = "Static",
+  Final = "Final",
+  Virtual = "Virtual",
+  HideBySig = "HideBySig",
+  CheckAccessOnOverride = "CheckAccessOnOverride",
+  VtableLayoutMask = "VtableLayoutMask",
+  ReuseSlot = "ReuseSlot",
+  NewSlot = "NewSlot",
+  Abstract = "Abstract",
+  SpecialName = "SpecialName",
+  PinvokeImpl = "PinvokeImpl",
+  UnmanagedExport = "UnmanagedExport",
+  RTSpecialName = "RTSpecialName",
+  HasSecurity = "HasSecurity",
+  RequireSecObject = "RequireSecObject",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum MemberTypes {
+  Constructor = "Constructor",
+  Event = "Event",
+  Field = "Field",
+  Method = "Method",
+  Property = "Property",
+  TypeInfo = "TypeInfo",
+  Custom = "Custom",
+  NestedType = "NestedType",
+  All = "All",
+}
+
+/** @format string */
+export enum LayoutKind {
+  Sequential = "Sequential",
+  Explicit = "Explicit",
+  Auto = "Auto",
+}
+
+/** @format string */
+export enum HealthStatus {
+  Unhealthy = "Unhealthy",
+  Degraded = "Degraded",
+  Healthy = "Healthy",
+}
+
+/** @format string */
+export enum GenericParameterAttributes {
+  None = "None",
+  VarianceMask = "VarianceMask",
+  Covariant = "Covariant",
+  Contravariant = "Contravariant",
+  SpecialConstraintMask = "SpecialConstraintMask",
+  ReferenceTypeConstraint = "ReferenceTypeConstraint",
+  NotNullableValueTypeConstraint = "NotNullableValueTypeConstraint",
+  DefaultConstructorConstraint = "DefaultConstructorConstraint",
+  AllowByRefLike = "AllowByRefLike",
+}
+
+/** @format string */
+export enum FieldAttributes {
+  FieldAccessMask = "FieldAccessMask",
+  PrivateScope = "PrivateScope",
+  Private = "Private",
+  FamANDAssem = "FamANDAssem",
+  Assembly = "Assembly",
+  Family = "Family",
+  FamORAssem = "FamORAssem",
+  Public = "Public",
+  Static = "Static",
+  InitOnly = "InitOnly",
+  Literal = "Literal",
+  NotSerialized = "NotSerialized",
+  SpecialName = "SpecialName",
+  PinvokeImpl = "PinvokeImpl",
+  RTSpecialName = "RTSpecialName",
+  HasFieldMarshal = "HasFieldMarshal",
+  HasDefault = "HasDefault",
+  HasFieldRVA = "HasFieldRVA",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum EventAttributes {
+  None = "None",
+  SpecialName = "SpecialName",
+  RTSpecialName = "RTSpecialName",
+  ReservedMask = "ReservedMask",
+}
+
+/** @format string */
+export enum Difficulty {
+  VeryEasy = "VeryEasy",
+  Easy = "Easy",
+  Medium = "Medium",
+  Hard = "Hard",
+  VeryHard = "VeryHard",
+}
+
+/** @format string */
+export enum CallingConventions {
+  Standard = "Standard",
+  VarArgs = "VarArgs",
+  Any = "Any",
+  HasThis = "HasThis",
+  ExplicitThis = "ExplicitThis",
+}
+
 export interface Assembly {
   definedTypes?: TypeInfo[];
   exportedTypes?: Type[];
@@ -33,15 +246,6 @@ export interface Assembly {
   /** @format int64 */
   hostContext?: number;
   securityRuleSet?: SecurityRuleSet;
-}
-
-/** @format string */
-export enum CallingConventions {
-  Standard = 'Standard',
-  VarArgs = 'VarArgs',
-  Any = 'Any',
-  HasThis = 'HasThis',
-  ExplicitThis = 'ExplicitThis',
 }
 
 export interface CheckoutCommand {
@@ -124,23 +328,6 @@ export interface CustomAttributeTypedArgument {
   value?: any;
 }
 
-/** @format string */
-export enum Difficulty {
-  VeryEasy = 'VeryEasy',
-  Easy = 'Easy',
-  Medium = 'Medium',
-  Hard = 'Hard',
-  VeryHard = 'VeryHard',
-}
-
-/** @format string */
-export enum EventAttributes {
-  None = 'None',
-  SpecialName = 'SpecialName',
-  RTSpecialName = 'RTSpecialName',
-  ReservedMask = 'ReservedMask',
-}
-
 export interface EventInfo {
   name?: string;
   declaringType?: Type;
@@ -170,29 +357,6 @@ export interface Exception {
   /** @format int32 */
   hResult?: number;
   stackTrace?: string | null;
-}
-
-/** @format string */
-export enum FieldAttributes {
-  FieldAccessMask = 'FieldAccessMask',
-  PrivateScope = 'PrivateScope',
-  Private = 'Private',
-  FamANDAssem = 'FamANDAssem',
-  Assembly = 'Assembly',
-  Family = 'Family',
-  FamORAssem = 'FamORAssem',
-  Public = 'Public',
-  Static = 'Static',
-  InitOnly = 'InitOnly',
-  Literal = 'Literal',
-  NotSerialized = 'NotSerialized',
-  SpecialName = 'SpecialName',
-  PinvokeImpl = 'PinvokeImpl',
-  RTSpecialName = 'RTSpecialName',
-  HasFieldMarshal = 'HasFieldMarshal',
-  HasDefault = 'HasDefault',
-  HasFieldRVA = 'HasFieldRVA',
-  ReservedMask = 'ReservedMask',
 }
 
 export interface FieldInfo {
@@ -229,19 +393,6 @@ export interface FieldInfo {
 export interface ForgotPasswordCommand {
   /** @format email */
   email: string;
-}
-
-/** @format string */
-export enum GenericParameterAttributes {
-  None = 'None',
-  VarianceMask = 'VarianceMask',
-  Covariant = 'Covariant',
-  Contravariant = 'Contravariant',
-  SpecialConstraintMask = 'SpecialConstraintMask',
-  ReferenceTypeConstraint = 'ReferenceTypeConstraint',
-  NotNullableValueTypeConstraint = 'NotNullableValueTypeConstraint',
-  DefaultConstructorConstraint = 'DefaultConstructorConstraint',
-  AllowByRefLike = 'AllowByRefLike',
 }
 
 export interface GetFaqDto {
@@ -320,13 +471,23 @@ export interface GetUserDtoRequestResult {
   result: GetUserDto;
 }
 
-export interface GetUserGamesDto {
+export interface GetUserProductDto {
+  productType?: ProductType;
+  productUserConfiguration: Record<string, JToken>;
+}
+
+export interface GetUserProductDtoRequestResult {
+  message?: string;
+  result: GetUserProductDto;
+}
+
+export interface GetUserProductsDto {
   products: GetProductDto[];
 }
 
-export interface GetUserGamesDtoRequestResult {
+export interface GetUserProductsDtoRequestResult {
   message?: string;
-  result: GetUserGamesDto;
+  result: GetUserProductsDto;
 }
 
 export interface HealthReport {
@@ -346,23 +507,11 @@ export interface HealthReportEntry {
   tags?: string[];
 }
 
-/** @format string */
-export enum HealthStatus {
-  Unhealthy = 'Unhealthy',
-  Degraded = 'Degraded',
-  Healthy = 'Healthy',
-}
-
 export type ICustomAttributeProvider = object;
 
 export type IntPtr = object;
 
-/** @format string */
-export enum LayoutKind {
-  Sequential = 'Sequential',
-  Explicit = 'Explicit',
-  Auto = 'Auto',
-}
+export type JToken = JToken[];
 
 export interface MemberInfo {
   memberType?: MemberTypes;
@@ -374,47 +523,6 @@ export interface MemberInfo {
   isCollectible?: boolean;
   /** @format int32 */
   metadataToken?: number;
-}
-
-/** @format string */
-export enum MemberTypes {
-  Constructor = 'Constructor',
-  Event = 'Event',
-  Field = 'Field',
-  Method = 'Method',
-  Property = 'Property',
-  TypeInfo = 'TypeInfo',
-  Custom = 'Custom',
-  NestedType = 'NestedType',
-  All = 'All',
-}
-
-/** @format string */
-export enum MethodAttributes {
-  MemberAccessMask = 'MemberAccessMask',
-  PrivateScope = 'PrivateScope',
-  Private = 'Private',
-  FamANDAssem = 'FamANDAssem',
-  Assembly = 'Assembly',
-  Family = 'Family',
-  FamORAssem = 'FamORAssem',
-  Public = 'Public',
-  Static = 'Static',
-  Final = 'Final',
-  Virtual = 'Virtual',
-  HideBySig = 'HideBySig',
-  CheckAccessOnOverride = 'CheckAccessOnOverride',
-  VtableLayoutMask = 'VtableLayoutMask',
-  ReuseSlot = 'ReuseSlot',
-  NewSlot = 'NewSlot',
-  Abstract = 'Abstract',
-  SpecialName = 'SpecialName',
-  PinvokeImpl = 'PinvokeImpl',
-  UnmanagedExport = 'UnmanagedExport',
-  RTSpecialName = 'RTSpecialName',
-  HasSecurity = 'HasSecurity',
-  RequireSecObject = 'RequireSecObject',
-  ReservedMask = 'ReservedMask',
 }
 
 export interface MethodBase {
@@ -451,27 +559,6 @@ export interface MethodBase {
   isSecurityCritical?: boolean;
   isSecuritySafeCritical?: boolean;
   isSecurityTransparent?: boolean;
-}
-
-/** @format string */
-export enum MethodImplAttributes {
-  CodeTypeMask = 'CodeTypeMask',
-  IL = 'IL',
-  Native = 'Native',
-  OPTIL = 'OPTIL',
-  Runtime = 'Runtime',
-  ManagedMask = 'ManagedMask',
-  Unmanaged = 'Unmanaged',
-  Managed = 'Managed',
-  ForwardRef = 'ForwardRef',
-  PreserveSig = 'PreserveSig',
-  InternalCall = 'InternalCall',
-  Synchronized = 'Synchronized',
-  NoInlining = 'NoInlining',
-  AggressiveInlining = 'AggressiveInlining',
-  NoOptimization = 'NoOptimization',
-  AggressiveOptimization = 'AggressiveOptimization',
-  MaxMethodImplVal = 'MaxMethodImplVal',
 }
 
 export interface MethodInfo {
@@ -533,21 +620,6 @@ export interface ModuleHandle {
   mdStreamVersion?: number;
 }
 
-/** @format string */
-export enum ParameterAttributes {
-  None = 'None',
-  In = 'In',
-  Out = 'Out',
-  Lcid = 'Lcid',
-  Retval = 'Retval',
-  Optional = 'Optional',
-  HasDefault = 'HasDefault',
-  HasFieldMarshal = 'HasFieldMarshal',
-  Reserved3 = 'Reserved3',
-  Reserved4 = 'Reserved4',
-  ReservedMask = 'ReservedMask',
-}
-
 export interface ParameterInfo {
   attributes?: ParameterAttributes;
   member?: MemberInfo;
@@ -566,23 +638,6 @@ export interface ParameterInfo {
   customAttributes?: CustomAttributeData[];
   /** @format int32 */
   metadataToken?: number;
-}
-
-/** @format string */
-export enum ProductType {
-  MurderParty = 'MurderParty',
-}
-
-/** @format string */
-export enum PropertyAttributes {
-  None = 'None',
-  SpecialName = 'SpecialName',
-  RTSpecialName = 'RTSpecialName',
-  HasDefault = 'HasDefault',
-  Reserved2 = 'Reserved2',
-  Reserved3 = 'Reserved3',
-  Reserved4 = 'Reserved4',
-  ReservedMask = 'ReservedMask',
 }
 
 export interface PropertyInfo {
@@ -625,13 +680,6 @@ export interface RuntimeMethodHandle {
 
 export interface RuntimeTypeHandle {
   value?: IntPtr;
-}
-
-/** @format string */
-export enum SecurityRuleSet {
-  None = 'None',
-  Level1 = 'Level1',
-  Level2 = 'Level2',
 }
 
 export interface SignInDto {
@@ -740,42 +788,6 @@ export interface Type {
   isSerializable?: boolean;
   containsGenericParameters?: boolean;
   isVisible?: boolean;
-}
-
-/** @format string */
-export enum TypeAttributes {
-  VisibilityMask = 'VisibilityMask',
-  NotPublic = 'NotPublic',
-  Public = 'Public',
-  NestedPublic = 'NestedPublic',
-  NestedPrivate = 'NestedPrivate',
-  NestedFamily = 'NestedFamily',
-  NestedAssembly = 'NestedAssembly',
-  NestedFamANDAssem = 'NestedFamANDAssem',
-  NestedFamORAssem = 'NestedFamORAssem',
-  LayoutMask = 'LayoutMask',
-  AutoLayout = 'AutoLayout',
-  SequentialLayout = 'SequentialLayout',
-  ExplicitLayout = 'ExplicitLayout',
-  ClassSemanticsMask = 'ClassSemanticsMask',
-  Class = 'Class',
-  Interface = 'Interface',
-  Abstract = 'Abstract',
-  Sealed = 'Sealed',
-  SpecialName = 'SpecialName',
-  Import = 'Import',
-  Serializable = 'Serializable',
-  WindowsRuntime = 'WindowsRuntime',
-  StringFormatMask = 'StringFormatMask',
-  AnsiClass = 'AnsiClass',
-  UnicodeClass = 'UnicodeClass',
-  AutoClass = 'AutoClass',
-  CustomFormatClass = 'CustomFormatClass',
-  CustomFormatMask = 'CustomFormatMask',
-  BeforeFieldInit = 'BeforeFieldInit',
-  RTSpecialName = 'RTSpecialName',
-  HasSecurity = 'HasSecurity',
-  ReservedMask = 'ReservedMask',
 }
 
 export interface TypeInfo {
@@ -888,12 +900,19 @@ export interface UpdateUserCommand {
   marketingEmail?: boolean;
 }
 
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
-import axios from 'axios';
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  HeadersDefaults,
+  ResponseType,
+} from "axios";
+import axios from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -908,9 +927,13 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, 'data' | 'cancelToken'> {
+export interface ApiConfig<SecurityDataType = unknown>
+  extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
     securityData: SecurityDataType | null,
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
@@ -919,21 +942,29 @@ export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequest
 }
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded',
-  Text = 'text/plain',
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
+  Text = "text/plain",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
   public instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
+  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' });
+  constructor({
+    securityWorker,
+    secure,
+    format,
+    ...axiosConfig
+  }: ApiConfig<SecurityDataType> = {}) {
+    this.instance = axios.create({
+      ...axiosConfig,
+      baseURL: axiosConfig.baseURL || "",
+    });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -943,7 +974,10 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  protected mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
+  protected mergeRequestParams(
+    params1: AxiosRequestConfig,
+    params2?: AxiosRequestConfig,
+  ): AxiosRequestConfig {
     const method = params1.method || (params2 && params2.method);
 
     return {
@@ -951,7 +985,11 @@ export class HttpClient<SecurityDataType = unknown> {
       ...params1,
       ...(params2 || {}),
       headers: {
-        ...((method && this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) || {}),
+        ...((method &&
+          this.instance.defaults.headers[
+            method.toLowerCase() as keyof HeadersDefaults
+          ]) ||
+          {}),
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
@@ -959,7 +997,7 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected stringifyFormItem(formItem: unknown) {
-    if (typeof formItem === 'object' && formItem !== null) {
+    if (typeof formItem === "object" && formItem !== null) {
       return JSON.stringify(formItem);
     } else {
       return `${formItem}`;
@@ -972,11 +1010,15 @@ export class HttpClient<SecurityDataType = unknown> {
     }
     return Object.keys(input || {}).reduce((formData, key) => {
       const property = input[key];
-      const propertyContent: any[] = property instanceof Array ? property : [property];
+      const propertyContent: any[] =
+        property instanceof Array ? property : [property];
 
       for (const formItem of propertyContent) {
         const isFileType = formItem instanceof Blob || formItem instanceof File;
-        formData.append(key, isFileType ? formItem : this.stringifyFormItem(formItem));
+        formData.append(
+          key,
+          isFileType ? formItem : this.stringifyFormItem(formItem),
+        );
       }
 
       return formData;
@@ -993,18 +1035,28 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<AxiosResponse<T>> => {
     const secureParams =
-      ((typeof secure === 'boolean' ? secure : this.secure) &&
+      ((typeof secure === "boolean" ? secure : this.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || undefined;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
+    if (
+      type === ContentType.FormData &&
+      body &&
+      body !== null &&
+      typeof body === "object"
+    ) {
       body = this.createFormData(body as Record<string, unknown>);
     }
 
-    if (type === ContentType.Text && body && body !== null && typeof body !== 'string') {
+    if (
+      type === ContentType.Text &&
+      body &&
+      body !== null &&
+      typeof body !== "string"
+    ) {
       body = JSON.stringify(body);
     }
 
@@ -1012,7 +1064,7 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type ? { 'Content-Type': type } : {}),
+        ...(type ? { "Content-Type": type } : {}),
       },
       params: query,
       responseType: responseFormat,
@@ -1026,7 +1078,9 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title MurderParty.Api
  * @version 1.0
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown,
+> extends HttpClient<SecurityDataType> {
   authenticate = {
     /**
      * No description
@@ -1038,10 +1092,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     signUp: (data: SignUpCommand, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignUp`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1055,7 +1109,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     confirmEmail: (data: ConfirmEmailCommand, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/Authenticate/ConfirmEmail`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -1071,10 +1125,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     signIn: (data: SignInQuery, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, SignInDtoRequestResult>({
         path: `/Authenticate/SignIn`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1088,10 +1142,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     forgotPassword: (data: ForgotPasswordCommand, params: RequestParams = {}) =>
       this.request<SignInDtoRequestResult, any>({
         path: `/Authenticate/ForgotPassword`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1105,10 +1159,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     resetPassword: (data: ResetPasswordCommand, params: RequestParams = {}) =>
       this.request<RequestResult, any>({
         path: `/Authenticate/ResetPassword`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1123,7 +1177,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     me: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/Authenticate/Me`,
-        method: 'GET',
+        method: "GET",
         secure: true,
         ...params,
       }),
@@ -1139,7 +1193,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     signOut: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/Authenticate/SignOut`,
-        method: 'POST',
+        method: "POST",
         secure: true,
         ...params,
       }),
@@ -1155,10 +1209,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     contact: (data: ContactCommand, params: RequestParams = {}) =>
       this.request<RequestResult, RequestResult>({
         path: `/Contact`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
   };
@@ -1173,8 +1227,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getFaq: (lang: string, params: RequestParams = {}) =>
       this.request<GetFaqDtoRequestResult, any>({
         path: `/Faq/${lang}`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };
@@ -1189,8 +1243,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     healthCheck: (params: RequestParams = {}) =>
       this.request<HealthReport, HealthReport>({
         path: `/HealthCheck`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };
@@ -1206,9 +1260,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getInvoicesByUserId: (params: RequestParams = {}) =>
       this.request<GetInvoicesDtoArrayRequestResult, any>({
         path: `/Invoice/ByUserId`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
   };
@@ -1223,8 +1277,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getProduct: (productCode: string, params: RequestParams = {}) =>
       this.request<GetProductDtoRequestResult, any>({
         path: `/Product/${productCode}`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -1238,8 +1292,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getProducts: (productType: ProductType, params: RequestParams = {}) =>
       this.request<GetProductDtoArrayRequestResult, any>({
         path: `/Product/${productType}/All`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -1253,10 +1307,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getProductsByIds: (data: string[], params: RequestParams = {}) =>
       this.request<GetProductDtoArrayRequestResult, any>({
         path: `/Product/ByIds`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
   };
@@ -1272,11 +1326,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     checkout: (data: CheckoutCommand, params: RequestParams = {}) =>
       this.request<CheckoutOutDtoRequestResult, any>({
         path: `/Stripe/Checkout`,
-        method: 'POST',
+        method: "POST",
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1284,13 +1338,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Stripe
-     * @name StripeCreate
-     * @request POST:/Stripe
+     * @name Webhook
+     * @request POST:/Stripe/Webhook
      */
-    stripeCreate: (params: RequestParams = {}) =>
+    webhook: (params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/Stripe`,
-        method: 'POST',
+        path: `/Stripe/Webhook`,
+        method: "POST",
         ...params,
       }),
   };
@@ -1306,9 +1360,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getUser: (params: RequestParams = {}) =>
       this.request<GetUserDtoRequestResult, any>({
         path: `/User`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1323,11 +1377,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     updateUser: (data: UpdateUserCommand, params: RequestParams = {}) =>
       this.request<RequestResult, any>({
         path: `/User`,
-        method: 'PUT',
+        method: "PUT",
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1335,16 +1389,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags User
-     * @name GetUserGames
-     * @request GET:/User/games
+     * @name GetUserProducts
+     * @request GET:/User/products
      * @secure
      */
-    getUserGames: (params: RequestParams = {}) =>
-      this.request<GetUserGamesDtoRequestResult, any>({
-        path: `/User/games`,
-        method: 'GET',
+    getUserProducts: (params: RequestParams = {}) =>
+      this.request<GetUserProductsDtoRequestResult, any>({
+        path: `/User/products`,
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
+     * @name GetUserProduct
+     * @request GET:/User/product/{userProductId}
+     * @secure
+     */
+    getUserProduct: (userProductId: string, params: RequestParams = {}) =>
+      this.request<GetUserProductDtoRequestResult, any>({
+        path: `/User/product/${userProductId}`,
+        method: "GET",
+        secure: true,
+        format: "json",
         ...params,
       }),
   };

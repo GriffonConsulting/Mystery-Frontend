@@ -10,13 +10,13 @@ import api from '../../__generated__/api';
 import { GetProductDto } from '../../__generated__/api-generated';
 import { useState } from 'react';
 
-const AccountGames = (): JSX.Element => {
+const AccountUserProducts = (): JSX.Element => {
   const theme = useTheme();
   const [products, setProducts] = useState<GetProductDto[]>();
 
   React.useEffect(() => {
     api.user
-      .getUserGames({ withCredentials: true })
+      .getUserProducts({ withCredentials: true })
       .then((result: AxiosResponse) => setProducts(result.data.result.products));
   }, []);
 
@@ -51,7 +51,7 @@ const AccountGames = (): JSX.Element => {
               display={'flex'}>
               <Box p={2} flex={1} maxWidth={300}>
                 {p.images && (
-                  <Link to={BuildUrl(EnumAppRoutes.AccountGame, { userProductId: p.id })}>
+                  <Link to={BuildUrl(EnumAppRoutes.AccountProduct, { userProductId: p.id })}>
                     <img
                       width={'100%'}
                       className="imageCarousel"
@@ -91,4 +91,4 @@ const AccountGames = (): JSX.Element => {
   );
 };
 
-export default AccountGames;
+export default AccountUserProducts;
