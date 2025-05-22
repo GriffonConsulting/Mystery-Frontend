@@ -474,6 +474,18 @@ export interface GetUserDtoRequestResult {
 export interface GetUserProductDto {
   productType?: ProductType;
   productUserConfiguration: Record<string, JToken>;
+  productCode: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  /** @format int32 */
+  nbPlayerMin?: number;
+  /** @format int32 */
+  nbPlayerMax?: number;
+  /** @format double */
+  price?: number;
+  duration: string;
+  difficulty?: Difficulty;
 }
 
 export interface GetUserProductDtoRequestResult {
