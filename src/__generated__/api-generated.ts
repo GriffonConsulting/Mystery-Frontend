@@ -405,6 +405,15 @@ export interface GetFaqDtoRequestResult {
   result: GetFaqDto;
 }
 
+export interface GetInvoiceDto {
+  invoiceUrl: string;
+}
+
+export interface GetInvoiceDtoRequestResult {
+  message?: string;
+  result: GetInvoiceDto;
+}
+
 export interface GetInvoicesDto {
   /** @format uuid */
   id: string;
@@ -412,7 +421,6 @@ export interface GetInvoicesDto {
   amount: number;
   /** @format date-time */
   createdOn: string;
-  receiptUrl: string;
 }
 
 export interface GetInvoicesDtoArrayRequestResult {
@@ -1272,6 +1280,23 @@ export class Api<
     getInvoicesByUserId: (params: RequestParams = {}) =>
       this.request<GetInvoicesDtoArrayRequestResult, any>({
         path: `/Invoice/ByUserId`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Invoice
+     * @name GetInvoicesByOrderId
+     * @request GET:/Invoice/ByOrderId/{orderId}
+     * @secure
+     */
+    getInvoicesByOrderId: (orderId: string, params: RequestParams = {}) =>
+      this.request<GetInvoiceDtoRequestResult, any>({
+        path: `/Invoice/ByOrderId/${orderId}`,
         method: "GET",
         secure: true,
         format: "json",

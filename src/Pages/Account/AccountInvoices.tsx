@@ -3,8 +3,8 @@ import Container from '@mui/material/Container';
 import { useEffect, useState } from 'react';
 import api from '../../__generated__/api';
 import { GetInvoicesDto } from '../../__generated__/api-generated';
-import { AxiosResponse } from 'axios';
-import { Breadcrumbs, Typography, useTheme } from '@mui/material';
+import { AxiosError, AxiosResponse } from 'axios';
+import { Breadcrumbs, Button, Typography, useTheme } from '@mui/material';
 import i18n from '../../i18n';
 import { EnumAppRoutes } from '../../Enum/EnumAppRoutes';
 import { BuildUrl } from '../../Functions/BuildUrl';
@@ -22,6 +22,13 @@ const AccountInvoices = (): JSX.Element => {
       .then((result: AxiosResponse) => setInvoices(result.data.result as GetInvoicesDto[]))
       .finally(() => setIsFetching(false));
   }, []);
+
+  const getInvoice = async (orderId: string) => {
+    api.invoice
+      .getInvoicesByOrderId(orderId, { withCredentials: true })
+      .then(result => window.open(result.data.result.invoiceUrl, '_blank')?.focus());
+  };
+
   const columns: GridColDef<(typeof invoices)[number]>[] = [
     {
       field: 'amount',
@@ -46,7 +53,7 @@ const AccountInvoices = (): JSX.Element => {
       field: 'receiptUrl',
       headerName: i18n.t('account:invoice'),
       width: 150,
-      renderCell: params => <a href={`${params.row.receiptUrl}`}>Facture</a>,
+      renderCell: params => <Button onClick={() => getInvoice(params.row.id)}>{i18n.t('account:invoice')}</Button>,
     },
   ];
 
